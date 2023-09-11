@@ -1,0 +1,59 @@
+hr{
+    width: 300px;
+    height: 3px;
+    background-color: #176B87;
+    border: none;
+}
+.login{
+    height: 100vh;
+    width: 100%;
+    background-color: #1E1E1E;
+}
+
+
+
+.container .input .titulo{
+    color: #ffffff;
+}
+form .container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+form .container .input{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap : 14px;
+    margin-top: 8%;
+
+}
+form .container .input input{
+    width: 300px;
+    height: 50px;
+    background-color: #2F2F2F;
+    border-radius: 20px;
+    border: none;
+    
+}
+input {
+    color: rgb(226, 226, 226);
+    text-align: center;
+    
+}
+form .container .input button{
+    background-color: #176B87;
+    width: 300px;
+    height: 50px;
+    border-radius: 20px;
+    cursor: pointer;
+    border:none;
+}
+
+form .container .input input::placeholder {
+    color: #cec0c0;
+    align-items: center;
+    text-align: center;
+}
