@@ -1,0 +1,32 @@
+*{
+    list-style: none;
+    text-decoration: none;
+}
+
+.sidebar{
+    width: 20%;
+    background: #3e3e3e;
+    height: 100vh;
+    position: fixed;
+}
+.sidebar .logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+}
+.sidebar .logo .logoName{
+    font-size: 2rem;
+}
+.sidebar .itens{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.sidebar .itens .link{
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 1.2rem;
+}

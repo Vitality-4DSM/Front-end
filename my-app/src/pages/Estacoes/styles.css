@@ -1,0 +1,54 @@
+.estacao-main{
+    display: flex;
+}
+.right-side{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgb(39, 47, 199);
+}
+button{
+    background-color: #64CCC5;
+    width: 16rem;
+    height: 2rem;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: 0.5s;
+}
+.right-side .estacao {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.right-side .cadastro-estacao{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.right-side .estacao .card{
+    margin: 1rem;
+    background-color: #176B87;
+    width: 15rem;
+    height: 20rem;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.right-side .estacao .card img{
+    width: 15rem;
+    height: 20rem;
+    border-radius: 20px ;
+    filter: blur(1.5px);
+}
+
+.card:hover {
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+}
+

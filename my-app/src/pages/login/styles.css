@@ -52,8 +52,17 @@ form .container .input button{
     border:none;
 }
 
+form .container .input button p{
+    color: #fff;
+}
+
+form .container .input button:hover{
+    background-color: #0d3f50;
+    transition: 200ms ease-in-out;
+}
 form .container .input input::placeholder {
     color: #cec0c0;
     align-items: center;
     text-align: center;
 }
+
