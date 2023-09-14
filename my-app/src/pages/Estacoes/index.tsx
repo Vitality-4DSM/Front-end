@@ -15,12 +15,12 @@ const Estacoes = () => {
                     <button className='cadastrar'> Cadastrar Estação</button>
                 </div>
                     <div className='estacao'>
-                        <div className='card'><img src={gigante} alt='card photos' /></div>
-                        <div className='card'><img src={gigante} alt='card photos' /></div>
-                        <div className='card'><img src={gigante} alt='card photos' /></div>
-                        <div className='card'><img src={gigante} alt='card photos' /></div>
-                        <div className='card'><img src={gigante} alt='card photos' /></div>
-                        <div className='card'><img src={gigante} alt='card photos' /></div>
+                        <div className='card'><img src={gigante} alt='card photos' /> <p>Descricao:</p></div>
+                        <div className='card'><img src={gigante} alt='card photos' /><p>Descricao:</p></div>
+                        <div className='card'><img src={gigante} alt='card photos' /><p>Descricao:</p></div>
+                        <div className='card'><img src={gigante} alt='card photos' /><p>Descricao:</p></div>
+                        <div className='card'><img src={gigante} alt='card photos' /><p>Descricao:</p></div>
+                        <div className='card'><img src={gigante} alt='card photos' /><p>Descricao:</p></div>
                     </div>
                 </div>
 
