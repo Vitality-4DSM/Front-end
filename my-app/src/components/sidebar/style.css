@@ -1,32 +1,94 @@
-*{
-    list-style: none;
-    text-decoration: none;
+.sidebar {
+    height: 100%;
+    background-color: #333;
+    color: white;
+    position: fixed;
+    left: -205px;
+    transition: left 0.3s ease-in-out;
 }
 
-.sidebar{
-    width: 20%;
-    background: #3e3e3e;
-    height: 100vh;
+.sidebar.open {
+    height: 100%;
+    background-color: #333;
+    color: white;
     position: fixed;
+    top: 0;
+    left: 0;
+    transition: left 0.3s ease-in-out;
 }
-.sidebar .logo{
+
+.toggle-button {
+    background-color: #333;
+    height: 50px;
+    width: 50px;
+    color: white;
+    border-radius: 36%;
+    border: none;
+    padding: 5px;
+    position: relative;
+    left: -61px;
+    cursor: pointer;
+}
+
+.sidebar .logo {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem 0;
+    height: 80px;
+    cursor: pointer;
 }
-.sidebar .logo .logoName{
-    font-size: 2rem;
+
+.sidebar .logo .logo-img {
+    width: 30px;
+    height: 30px;
 }
-.sidebar .itens{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
+
+.sidebar .logo h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
 }
-.sidebar .itens .link{
+
+.sidebar .logo span {
+    color: #176B87;
+}
+
+.sidebar .links {
+    padding: 20px 0;
+}
+
+.sidebar .links nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar .links nav li a {
     color: #fff;
     display: flex;
     align-items: center;
-    padding: 1.2rem;
+    padding: 16px;
+    cursor: pointer;
+}
+
+.sidebar .links nav li a.active {
+    background: #176B87;
+    width: 100%;
+}
+
+.sidebar .links nav li a:hover {
+    background: #176B87;
+    transition: 200ms ease-in-out;
+}
+
+.sidebar .links nav li .icon {
+    font-size: 20px;
+    color: #fff;
+}
+
+.sidebar .links nav li span {
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 10px;
 }
