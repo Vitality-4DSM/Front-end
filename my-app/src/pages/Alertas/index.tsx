@@ -1,0 +1,41 @@
+import React, { useState } from 'react'
+import Sidebar from '../../components/sidebar'
+import DehazeIcon from '@mui/icons-material/Dehaze';
+import ClearIcon from '@mui/icons-material/Clear';
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import './style.css'
+
+const Alertas: React.FC = () => {
+    const [showSidebar, setShowSidebar] = useState(true); /* seta o estado da sidebar */
+
+    const toggleSidebar = () => {
+        setShowSidebar(!showSidebar); /* logica do botão abrir e fechar a sidebar */
+    };
+
+    return (
+        <div className={`flex ${showSidebar ? 'shifted' : ''}`}>
+            <Sidebar isOpen={showSidebar} />
+            <div className='info-container'>
+                <div className="info-title">
+                    <button className="toggle-button" onClick={toggleSidebar}>
+                        {showSidebar ? <ClearIcon /> : <DehazeIcon />}
+                    </button>
+                    <span>Alertas</span>
+                </div>
+                <div className='Alertas-container'>
+                    <details className='details'>
+                        <summary className='summary'>
+                            Nome da Estação
+                        </summary>
+                        <p>luquinhas da masssa</p>
+                    </details>
+                </div>
+
+
+            </div>
+        </div>
+
+    )
+}
+
+export default Alertas

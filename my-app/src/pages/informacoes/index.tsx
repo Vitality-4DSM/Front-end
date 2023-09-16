@@ -5,16 +5,15 @@ import ClearIcon from '@mui/icons-material/Clear';
 import './style.css'
 
 const Info: React.FC = () => {
-    const [showSidebar, setShowSidebar] = useState(false);
+    const [showSidebar, setShowSidebar] = useState(true); /* seta o estado da sidebar */
 
     const toggleSidebar = () => {
-        setShowSidebar(!showSidebar);
+        setShowSidebar(!showSidebar); /* logica do botão abrir e fechar a sidebar */
     };
 
     return (
         <div className={`flex ${showSidebar ? 'shifted' : ''}`}>
             <Sidebar isOpen={showSidebar} />
-
             <div className='info-container'>
                 <div className="info-title">
                     <button className="toggle-button" onClick={toggleSidebar}>

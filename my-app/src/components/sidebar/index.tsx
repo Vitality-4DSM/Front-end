@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import Person4Icon from '@mui/icons-material/Person4';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import SevereColdIcon from '@mui/icons-material/SevereCold';
+import PollIcon from '@mui/icons-material/Poll';
 import FeedIcon from '@mui/icons-material/Feed';
+import MemoryIcon from '@mui/icons-material/Memory';
+import AnnouncementIcon from '@mui/icons-material/Announcement';
 import Stars from '../../assets/Stars.png'
 import './style.css'
+
+// https://mui.com/material-ui/material-icons/
+
 
 interface SidebarProps {
     isOpen: boolean;
 }
+
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
     return (
@@ -28,13 +33,13 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                     </li>
                     <li>
                         <NavLink to='/dashboards'>
-                            <DashboardIcon className='icon' />
+                            <PollIcon className='icon' />
                             <span>Dashboards</span>
                         </NavLink>
                     </li>
                     <li>
                         <NavLink to='/estacoes'>
-                            <SevereColdIcon className='icon' />
+                            <MemoryIcon className='icon' />
                             <span>Estações</span>
                         </NavLink>
                     </li>
@@ -42,6 +47,12 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                         <NavLink to='/informacoes'>
                             <FeedIcon className='icon' />
                             <span>Guia de Informações</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/alertas'>
+                            <AnnouncementIcon className='icon' />
+                            <span>Alertas</span>
                         </NavLink>
                     </li>
                 </nav>
