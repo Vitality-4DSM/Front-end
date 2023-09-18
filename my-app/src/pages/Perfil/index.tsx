@@ -8,14 +8,9 @@ import './styles.css'
 
 const Perfil: React.FC = () => {
     const [showSidebar, setShowSidebar] = useState(true); /* seta o estado da sidebar */
-    const [disableFalse, setDisableFalse] = useState(true);
-
     const toggleSidebar = () => {
         setShowSidebar(!showSidebar); /* logica do botão abrir e fechar a sidebar */
     };
-    const setDisab = () => {
-        setDisableFalse(!disableFalse);
-    }
 
 
     return (
@@ -30,14 +25,10 @@ const Perfil: React.FC = () => {
                 </div>
                 <div className='box-container'>
                     <div className='Perfil'>
+                    
                         <img src={user} alt="user" />
-                        <input placeholder='nome ' disabled={disableFalse} />
-                        <input placeholder='email' disabled={disableFalse} />
-
-                        <button className='btn-edit' onClick={setDisab}>Editar</button>
-
-                        {/* <span>Ryan Alves  </span>
-                        <span>RyanzinhaTipsterPro@gmail.com </span> */}
+                        <span>Ryan Alves  </span>
+                        <span>RyanzinhaTipsterPro@gmail.com </span>
                     </div>
                 </div>
             </div>
