@@ -3,7 +3,7 @@
     background: #212121;
     flex: 6;
 }
-
+     
 .info-container .info-title {
     padding: 20px 20px 20px 40px;
 }
@@ -11,11 +11,6 @@
 .info-container .info-title span {
     color: #fff;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-.info-container .Alertas-container {
-    padding: 0 40px;
-    height: 100vh;
 }
 
 .line {
