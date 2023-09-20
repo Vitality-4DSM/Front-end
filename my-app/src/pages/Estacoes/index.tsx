@@ -33,27 +33,36 @@ const Estacoes: React.FC = () => {
                     <span>Estações em atividade</span>
                 </div>
                 <div className='estacoes-header'>
-                { estacoes && estacoes.map((item) => {
-              
-                    return (
+                {estacoes.length === 0 ? (
+                    <div className='estacoes-container'>
+                        <details className='details'>
+                                <summary className='summary'>
+                                    Nao tem estacoes
+                                </summary>
+                            </details>
+                    </div>
+                ) : (
+                    estacoes.map((item) => (
                         <div className='box-container' key={item.id}>
-                            <div className='estacao' key={item.id}>
-                                <div className='card'>
-                                    <div className='card-content'>
-                                        <h2 className='card-title'>{item.identificador}</h2>
+                        <div className='estacao' key={item.id}>
+                            <div className='card'>
+                                <div className='card-content'>
+                                    <h2 className='card-title'>{item.identificador}</h2>
 
-                                        <p className='card-txt'>
-                                            {item.status} MUITO TEX
-                                        </p>
-                                        <div className='card-btn-wraper'>
-                                            <a href='#' className='card-btn'>Editar Estação</a>
-                                        </div>
+                                    <p className='card-txt'>
+                                        {item.status} MUITO TEX
+                                    </p>
+                                    <div className='card-btn-wraper'>
+                                        <a href='#' className='card-btn'>Editar Estação</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    );
-                })}
+                    </div>
+                    ))
+                )} 
+                
+
                 </div>
                 
             </div>

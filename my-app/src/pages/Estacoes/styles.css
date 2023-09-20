@@ -6,6 +6,20 @@
     flex: 6;
     
 }
+.estacoes-header .details summary{
+    width: 100vh;
+    background: #343434;
+    padding: 0.77rem;
+    font-size: 1.25rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+.estacoes-header .details{
+    width: 100%;
+    background: #343434;
+    padding: 10px;
+
+}
 
 span {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
