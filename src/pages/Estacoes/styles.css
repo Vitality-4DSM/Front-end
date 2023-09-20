@@ -6,19 +6,42 @@
     flex: 6;
     
 }
-.estacoes-header .details summary{
-    width: 100vh;
-    background: #343434;
-    padding: 0.77rem;
-    font-size: 1.25rem;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+.estacoes-container .estacoes-title .cadastro-botão{
+  padding: 0 0 0 3rem;
+}
+.estacoes-container .estacoes-title .cadastro-botão .btn-cadastro{
+  background-color: #448d88;
+  padding: 13px 60px;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
 
+.estacoes-container .estacoes-title .cadastro-botão .btn-cadastro:hover{
+  background: #64CCC5;
+}
+
+.estacao-box .summary{
+  font-size: 1.25rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #fff;
+  cursor: pointer;
+}
+.estacao-box .details{
+  width: 100%;
+  background: #343434;
+  padding: 0.77rem;
+}
+
+.estacao-box .details p {
+  font-size: 1rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .estacoes-header .details{
     width: 100%;
     background: #343434;
     padding: 10px;
-
 }
 
 span {
@@ -26,8 +49,7 @@ span {
 }
 
 .estacoes-container .estacoes-header {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  padding: 0.75rem;
   justify-content: center;
   align-items: center;
 }
@@ -40,13 +62,12 @@ span {
     color: #fff;
 }
 
+
 .estacoes-container .box-container {
     padding: 0 30px;
-    
-
 }
 
-.estacoes-container .box-container .estacao {
+.estacoes-container .estacoes-header {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-content: center;
@@ -63,7 +84,7 @@ span {
     height: 20rem;
     border-radius: 20px;
     cursor: pointer;
-    transition: all .2s;
+    transition: all .1s;
     overflow: hidden;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
@@ -162,6 +183,7 @@ span {
     font-weight: 600;
     border-radius: .5rem;
     transition: all .2s;
+    border: none;
   }
 
 

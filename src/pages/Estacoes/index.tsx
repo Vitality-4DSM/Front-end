@@ -3,9 +3,14 @@ import './styles.css'
 import Sidebar from '../../components/sidebar'
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import ClearIcon from '@mui/icons-material/Clear';
-import gigante from '../../assets/Gigante.jpg'
 import { getEstacoes } from '../../utils/axios.routes';
+import Modal from '../../components/modal';
+import ModalEditar from '../../components/modalEditar';
+
 const Estacoes: React.FC = () => {
+    
+    const [modalOpen, setOpenModal] = useState(false);
+    const [modalOpenEditar, setOpenModalEditar] = useState(false);
     const [showSidebar, setShowSidebar] = useState(true);
     const [estacoes, setEstacoes] = useState<any[]>([]);
     const toggleSidebar = () => {
@@ -22,51 +27,64 @@ const Estacoes: React.FC = () => {
         fetchEstacoes();
     }, []);
 
-    return (
-        <div className={`flex ${showSidebar ? 'shifted' : ''}`}>
-            <Sidebar isOpen={showSidebar} />
-            <div className='estacoes-container'>
-                <div className="estacoes-title">
-                    <button className="toggle-button" onClick={toggleSidebar}>
-                        {showSidebar ? <ClearIcon /> : <DehazeIcon />}
-                    </button>
-                    <span>Estações em atividade</span>
-                </div>
-                <div className='estacoes-header'>
-                {estacoes.length === 0 ? (
-                    <div className='estacoes-container'>
-                        <details className='details'>
-                                <summary className='summary'>
-                                    Nao tem estacoes
-                                </summary>
-                            </details>
-                    </div>
-                ) : (
-                    estacoes.map((item) => (
-                        <div className='box-container' key={item.id}>
-                        <div className='estacao' key={item.id}>
-                            <div className='card'>
-                                <div className='card-content'>
-                                    <h2 className='card-title'>{item.identificador}</h2>
 
-                                    <p className='card-txt'>
-                                        {item.status} MUITO TEX
-                                    </p>
-                                    <div className='card-btn-wraper'>
-                                        <a href='#' className='card-btn'>Editar Estação</a>
-                                    </div>
-                                </div>
-                            </div>
+    return (
+        <>
+            {modalOpen && <Modal setOpenModal={setOpenModal} />}
+            {modalOpenEditar && <ModalEditar setOpenModalEditar={setOpenModalEditar} />}
+            <div className={`flex ${showSidebar ? 'shifted' : ''}`}>
+                <Sidebar isOpen={showSidebar} />
+                <div className='estacoes-container'>
+                    <div className="estacoes-title">
+                        <button className="toggle-button" onClick={toggleSidebar}>
+                            {showSidebar ? <ClearIcon /> : <DehazeIcon />}
+                        </button>
+                        <span>Estações em atividade</span>
+                        <div className='cadastro-botão'>
+                            <button type='submit'
+                                className='btn-cadastro'
+                                onClick={() => { setOpenModal(true) }}
+                            >Cadastrar</button>
                         </div>
                     </div>
-                    ))
-                )} 
-                
+
+                    <div className='estacoes-header'>
+                        {estacoes.length === 0 ? (
+                            <div className='estacao-box'>
+                                <details className='details'>
+                                    <summary className='summary'>
+                                        Não tem estações cadastradas
+                                    </summary>
+                                </details>
+                            </div>
+                        ) : (
+                            estacoes.map((item) => (
+                                <div className='box-container' key={item.id}>
+                                    <div className='estacao' key={item.id}>
+                                        <div className='card'>
+                                            <div className='card-content'>
+                                                <h2 className='card-title'>{item.identificador}</h2>
+
+                                                <p className='card-txt'>
+                                                    {item.status} MUITO TEX
+                                                </p>
+                                                <div className='card-btn-wraper'>
+                                                    <button type='submit' className='card-btn'  onClick={() => { setOpenModalEditar(true) }}>Editar Estação</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        )}
+
+
+                    </div>
 
                 </div>
-                
+
             </div>
-        </div>
+        </>
 
     )
 
