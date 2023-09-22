@@ -48,8 +48,10 @@ const Info: React.FC = () => {
                             <details className='details'>
                                 <summary className='summary'>
                                     Não tem estações cadastradas
+                                    <br/><br/><br/><br/><br/>
                                 </summary>
                             </details>
+                            
                         </div>
                     ) : (tipoparametros.map((item) => (
 

@@ -29,7 +29,7 @@
   }
 
 .info-container .info-title .cadastro-botão .btn-cadastro {
-    background-color: #448d88;
+    background-color: #448d88 repeat;
     padding: 13px 60px;
     border-radius: 10px;
     border: none;
