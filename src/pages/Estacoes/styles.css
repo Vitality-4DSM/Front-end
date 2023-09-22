@@ -8,6 +8,7 @@
 }
 .estacoes-container .estacoes-title .cadastro-botão{
   padding: 0 0 0 3rem;
+  
 }
 .estacoes-container .estacoes-title .cadastro-botão .btn-cadastro{
   background-color: #448d88;
@@ -16,10 +17,12 @@
   border: none;
   color: #fff;
   cursor: pointer;
+  
 }
 
 .estacoes-container .estacoes-title .cadastro-botão .btn-cadastro:hover{
   background: #64CCC5;
+  
 }
 
 .estacao-box .summary{
@@ -29,6 +32,7 @@
   cursor: pointer;
 }
 .estacao-box .details{
+  
   width: 100%;
   background: #343434;
   padding: 0.77rem;
@@ -39,6 +43,7 @@
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 .estacoes-header .details{
+  
     width: 100%;
     background: #343434;
     padding: 10px;
@@ -49,6 +54,7 @@ span {
 }
 
 .estacoes-container .estacoes-header {
+  
   padding: 0.75rem;
   justify-content: center;
   align-items: center;
@@ -65,6 +71,7 @@ span {
 
 .estacoes-container .box-container {
     padding: 0 30px;
+    
 }
 
 .estacoes-container .estacoes-header {
@@ -72,6 +79,7 @@ span {
   grid-template-columns: repeat(3, 1fr);
   justify-content: center;
   align-items: center;
+  padding: 0 40px;
   
 }
 

@@ -45,7 +45,7 @@ const Alertas: React.FC = () => {
                     <div className='Alertas-container'>
                         <details className='details'>
                                 <summary className='summary'>
-                                    Nao tem alertas
+                                    Não tem alertas
                                 </summary>
                             </details>
                     </div>
