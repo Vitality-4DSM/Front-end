@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { postEstacoes } from '../../utils/axios.routes'
+import { delEstacoes, postEstacoes, putEstacoes } from '../../utils/axios.routes'
 import "./style.css";
 
 interface ModalProps {
   setOpenModal: (value: boolean) => void;
+  modalstyle: boolean;
+  selectedStationId: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ setOpenModal }) => {
+const Modal: React.FC<ModalProps> = ({ setOpenModal, modalstyle, selectedStationId }) => {
   const [stationName, setStationName] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
@@ -32,14 +34,33 @@ const Modal: React.FC<ModalProps> = ({ setOpenModal }) => {
       status: estado,
     };
     await postEstacoes(data);
-    // if (response) {
-    //   alert("Estação cadastrada com sucesso!");
-    //   setOpenModal(false);
-    // } else {
-    //   alert("Erro ao cadastrar estação!");
-    // }
     window.location.reload();
   }
+
+  const handleFormSubmitEdit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = {
+      id: selectedStationId,
+      identificador: stationName,
+      latitude: latitude,
+      longitude: longitude,
+      instalacao: instalacao,
+      status: estado,
+    };
+    await putEstacoes(data);
+    window.location.reload();
+  }
+
+  const handleFormSubmitDelete = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = {
+      id: selectedStationId,
+    };
+    await delEstacoes(data);
+    // window.location.reload();
+  }
+
+
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -126,13 +147,24 @@ const Modal: React.FC<ModalProps> = ({ setOpenModal }) => {
             </div>
           </div>
         </div>
-
         <div className="footer">
-          <button onClick={handleFormSubmit}>Cadastrar</button>
+          {!modalstyle ? (
+            <button className="delete" onClick={handleFormSubmitDelete}>Deletar</button>
+          ) : null}
+
+          {modalstyle ?
+            ( <>
+              <div></div>
+              <button onClick={handleFormSubmit}>Cadastrar</button>
+              </>
+            ) : (
+
+              <button onClick={handleFormSubmitEdit}>Editar</button>)}
+
         </div>
       </div>
     </div>
-  );
+  )
 };
 
 export default Modal;

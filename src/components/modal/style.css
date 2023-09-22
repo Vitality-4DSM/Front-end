@@ -98,8 +98,8 @@
   .modalContainer .footer {
     flex: 20%;
     display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: space-between;
+    align-items: row;
   }
   
   .modalContainer .footer button {
@@ -114,6 +114,20 @@
     cursor: pointer;
   }
   
+  .modalContainer .footer .delete {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color: #da0012;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+
+
   #cancelBtn {
     background-color: crimson;
   }

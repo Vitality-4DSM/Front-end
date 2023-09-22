@@ -7,7 +7,7 @@ import './style.css'
 import { getAlertas } from '../../utils/axios.routes';
 
 const Alertas: React.FC = () => {
-    const [alertas, setAlertas] = useState<any[]>([]);
+    const [alerta, setAlerta] = useState<any[]>([]);
     const [showSidebar, setShowSidebar] = useState(true); /* seta o estado da sidebar */
 
     const toggleSidebar = () => {
@@ -18,7 +18,7 @@ const Alertas: React.FC = () => {
         const fetchEstacoes = async () => {
             try {
                 const response = await getAlertas();
-                setAlertas(response);
+                setAlerta(response);
             } catch (error) {
             }
         }
@@ -33,9 +33,15 @@ const Alertas: React.FC = () => {
                         {showSidebar ? <ClearIcon /> : <DehazeIcon />}
                     </button>
                     <span>Alertas</span>
+                    <div className='cadastro-botão'>
+                            <button type='submit'
+                                className='btn-cadastro'
+                                // onClick={() => { setOpenModal(true) }}
+                            >Cadastrar</button>
+                        </div>
                 </div>
                
-                {alertas.length === 0 ? (
+                {alerta.length === 0 ? (
                     <div className='Alertas-container'>
                         <details className='details'>
                                 <summary className='summary'>
@@ -44,13 +50,13 @@ const Alertas: React.FC = () => {
                             </details>
                     </div>
                 ) : (
-                    alertas.map((alerta) => (
-                        <div className='Alertas-container' key={alerta.id_alerta}>
+                    alerta.map((item) => (
+                        <div className='Alertas-container' key={item.id_alerta}>
                             <details className='details'>
                                 <summary className='summary'>
-                                    {alerta.id_alerta}
+                                    {item.id_alerta}
                                 </summary>
-                                <p>{alerta.valor}, {alerta.sinal}</p>
+                                <p>{item.valor}, {item.sinal}</p>
                             </details>
                         </div>
                     ))
