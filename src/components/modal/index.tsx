@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { postEstacoes } from '../../utils/axios.routes'
 import "./style.css";
 
 interface ModalProps {
@@ -6,11 +7,45 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ setOpenModal }) => {
+  const [stationName, setStationName] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [instalacao, setInstalacao] = useState("");
+  const [estado, setEstado] = useState("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === "stationName") setStationName(value);
+    else if (name === "latitude") setLatitude(value);
+    else if (name === "longitude") setLongitude(value);
+    else if (name === "instalacao") setInstalacao(value);
+    else if (name === "estado") setEstado(value);
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = {
+      identificador: stationName,
+      latitude: latitude,
+      longitude: longitude,
+      instalacao: instalacao,
+      status: estado,
+    };
+    await postEstacoes(data);
+    // if (response) {
+    //   alert("Estação cadastrada com sucesso!");
+    //   setOpenModal(false);
+    // } else {
+    //   alert("Erro ao cadastrar estação!");
+    // }
+    window.location.reload();
+  }
   return (
     <div className="modalBackground">
       <div className="modalContainer">
         <div className="titleCloseBtn">
-          <button className="x"
+          <button
+            className="x"
             onClick={() => {
               setOpenModal(false);
             }}
@@ -23,14 +58,29 @@ const Modal: React.FC<ModalProps> = ({ setOpenModal }) => {
         </div>
         <div className="body">
           <div className="input-container-1">
-            <input className="input-modal" placeholder="Nome da Estação" />
+            <input className="input-modal" onChange={handleInputChange}
+              name="stationName" placeholder="Nome da Estação" />
           </div>
           <div className="flex-input">
             <div className="input-container-2">
-              <input className="input-modal" placeholder="Latitude" />
+              <input className="input-modal" onChange={handleInputChange}
+                name="latitude" placeholder="Latitude" />
             </div>
             <div className="input-container-3">
-              <input className="input-modal" placeholder="Longitude" />
+              <input className="input-modal" onChange={handleInputChange}
+                name="longitude" placeholder="Longitude" />
+            </div>
+          </div>
+          <div className="flex-input">
+            <div className="input-container-2">
+              <input className="input-modal" onChange={handleInputChange}
+                name="instalacao" placeholder="Data de Instalação" />
+            </div>
+            <div className="input-container-3">
+              <input
+                className="input-modal" onChange={handleInputChange}
+                name="estado" placeholder="Estado de Atividade"
+              />
             </div>
           </div>
           <hr className="HrModal" />
@@ -38,36 +88,51 @@ const Modal: React.FC<ModalProps> = ({ setOpenModal }) => {
             <h1>Parâmetro de Estação</h1>
           </div>
           <div className="body-2">
-          <div>
-          <div className="input-container-4">
-            <input className="input-modal" placeholder="Nome da Estação" type="radio"/>
-            <span>Pluviômetro</span>
+            <div>
+              <div className="input-container-4">
+                <input
+                  className="input-modal"
+                  placeholder="Nome da Estação"
+                  type="radio"
+                />
+                <span>Pluviômetro</span>
+              </div>
+              <div className="input-container-4">
+                <input
+                  className="input-modal"
+                  placeholder="Nome da Estação"
+                  type="radio"
+                />
+                <span>Termostato</span>
+              </div>
+            </div>
+            <div>
+              <div className="input-container-4">
+                <input
+                  className="input-modal"
+                  placeholder="Nome da Estação"
+                  type="radio"
+                />
+                <span>Anemômetros</span>
+              </div>
+              <div className="input-container-4">
+                <input
+                  className="input-modal"
+                  placeholder="Nome da Estação"
+                  type="radio"
+                />
+                <span>Pressâo Atmosférica</span>
+              </div>
+            </div>
           </div>
-          <div className="input-container-4">
-            <input className="input-modal" placeholder="Nome da Estação" type="radio"/>
-            <span>Termostato</span>
-          </div>
-          </div>
-          <div>
-          <div className="input-container-4">
-            <input className="input-modal" placeholder="Nome da Estação" type="radio"/>
-            <span>Anemômetros</span>
-          </div>
-          <div className="input-container-4">
-            <input className="input-modal" placeholder="Nome da Estação" type="radio"/>
-            <span>Pressâo Atmosférica</span>
-          </div>
-          </div>
-          </div>
-
         </div>
 
         <div className="footer">
-          <button>Cadastrar</button>
+          <button onClick={handleFormSubmit}>Cadastrar</button>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Modal;

@@ -1,11 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
+import { putEstacoes } from '../../utils/axios.routes'
 import "./style.css";
+import { log } from "console";
 
 interface ModalProps {
   setOpenModalEditar: (value: boolean) => void;
+  selectedStationId: string; // Adiciona a propriedade selectedStationId
 }
 
-const ModalEditar: React.FC<ModalProps> = ({ setOpenModalEditar }) => {
+const ModalEditar: React.FC<ModalProps> = ({ setOpenModalEditar, selectedStationId }) => {
+  const [stationName, setStationName] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [instalacao, setInstalacao] = useState("");
+  const [estado, setEstado] = useState("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    if (name === "stationName") setStationName(value);
+    else if (name === "latitude") setLatitude(value);
+    else if (name === "longitude") setLongitude(value);
+    else if (name === "instalacao") setInstalacao(value);
+    else if (name === "estado") setEstado(value);
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = {
+      id: selectedStationId,
+      identificador: stationName,
+      latitude: latitude,
+      longitude: longitude,
+      instalacao: instalacao,
+      status: estado,
+    };
+    await putEstacoes(data);
+    // if (response) {
+    //   alert("Estação cadastrada com sucesso!");
+    //   setOpenModal(false);
+    // } else {
+    //   alert("Erro ao cadastrar estação!");
+    // }
+    window.location.reload();
+  }
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -23,14 +60,29 @@ const ModalEditar: React.FC<ModalProps> = ({ setOpenModalEditar }) => {
         </div>
         <div className="body">
           <div className="input-container-1">
-            <input className="input-modal" placeholder="Editar Nome da Estação" />
+            <input className="input-modal" onChange={handleInputChange}
+              name="stationName" placeholder="Nome da Estação" />
           </div>
           <div className="flex-input">
             <div className="input-container-2">
-              <input className="input-modal" placeholder="Editar Latitude" />
+              <input className="input-modal" onChange={handleInputChange}
+                name="latitude" placeholder="Latitude" />
             </div>
             <div className="input-container-3">
-              <input className="input-modal" placeholder="Editar Longitude" />
+              <input className="input-modal" onChange={handleInputChange}
+                name="longitude" placeholder="Longitude" />
+            </div>
+          </div>
+          <div className="flex-input">
+            <div className="input-container-2">
+              <input className="input-modal" onChange={handleInputChange}
+                name="instalacao" placeholder="Data de Instalação" />
+            </div>
+            <div className="input-container-3">
+              <input
+                className="input-modal" onChange={handleInputChange}
+                name="estado" placeholder="Estado de Atividade"
+              />
             </div>
           </div>
           <hr className="HrModal" />
@@ -63,7 +115,7 @@ const ModalEditar: React.FC<ModalProps> = ({ setOpenModalEditar }) => {
         </div>
 
         <div className="footer">
-          <button>Editar</button>
+        <button onClick={handleFormSubmit}>Editar</button>
         </div>
       </div>
     </div>

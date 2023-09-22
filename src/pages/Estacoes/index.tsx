@@ -8,8 +8,8 @@ import Modal from '../../components/modal';
 import ModalEditar from '../../components/modalEditar';
 
 const Estacoes: React.FC = () => {
-    
     const [modalOpen, setOpenModal] = useState(false);
+    const [selectedStationId, setSelectedStationId] = useState("");
     const [modalOpenEditar, setOpenModalEditar] = useState(false);
     const [showSidebar, setShowSidebar] = useState(true);
     const [estacoes, setEstacoes] = useState<any[]>([]);
@@ -31,7 +31,7 @@ const Estacoes: React.FC = () => {
     return (
         <>
             {modalOpen && <Modal setOpenModal={setOpenModal} />}
-            {modalOpenEditar && <ModalEditar setOpenModalEditar={setOpenModalEditar} />}
+            {modalOpenEditar && <ModalEditar setOpenModalEditar={setOpenModalEditar} selectedStationId={selectedStationId} />}
             <div className={`flex ${showSidebar ? 'shifted' : ''}`}>
                 <Sidebar isOpen={showSidebar} />
                 <div className='estacoes-container'>
@@ -59,17 +59,19 @@ const Estacoes: React.FC = () => {
                             </div>
                         ) : (
                             estacoes.map((item) => (
-                                <div className='box-container' key={item.id}>
-                                    <div className='estacao' key={item.id}>
+                                <div className='box-container' key={item.id_estacao}>
+                                    <div className='estacao'>
                                         <div className='card'>
                                             <div className='card-content'>
                                                 <h2 className='card-title'>{item.identificador}</h2>
 
                                                 <p className='card-txt'>
-                                                    {item.status} MUITO TEX
+                                                    <h1>{item.status}</h1>
+                                                    <span>Latitude: {item.latitude}</span><br></br>
+                                                    <span>Longitude: {item.longitude}</span>
                                                 </p>
                                                 <div className='card-btn-wraper'>
-                                                    <button type='submit' className='card-btn'  onClick={() => { setOpenModalEditar(true) }}>Editar Estação</button>
+                                                    <button type='submit' className='card-btn'  onClick={() => { setOpenModalEditar(true); setSelectedStationId(item.id_estacao); }}>Editar Estação</button>
                                                 </div>
                                             </div>
                                         </div>

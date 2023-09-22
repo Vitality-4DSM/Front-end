@@ -37,3 +37,21 @@ export const getAlertas = async () => {
         return error;
     }
 }
+
+export const postEstacoes = async (data: any) => {
+    try {
+        const response = await api.post('/station', data);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+}
+
+export const putEstacoes = async (data: any) => {
+    try {
+        const response = await api.put('/station', data);
+        return response.data;
+    } catch (error) {
+        return error;
+    }
+}
