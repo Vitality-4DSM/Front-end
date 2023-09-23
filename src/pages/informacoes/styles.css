@@ -2,6 +2,7 @@
     /*padding: 1.5rem 1.5rem 1.5rem 14rem;*/
     background: #212121;
     flex: 6;
+    
 }
 
 .info-container .info-title {
@@ -11,12 +12,15 @@
 .info-container .info-title span {
     font-size: 1.4rem;
     color: #fff;
+    
 }
 
 .info-container .box-container {
     padding: 0 40px;
-    height: 10vh;
+    background: #212121 repeat; 
 }
+
+
 
 .info-container .box-container .box-item {
     display: flex;
@@ -69,3 +73,4 @@ p {
 .line {
     margin: 9px 0;
 }
+

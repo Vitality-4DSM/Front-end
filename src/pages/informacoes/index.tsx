@@ -50,6 +50,7 @@ const Info: React.FC = () => {
                                     Não existem tipos de parametros cadastrados
                                 </summary>
                             </details>
+                            
                         </div>
                     ) : (tipoparametros.map((item) => (
 
