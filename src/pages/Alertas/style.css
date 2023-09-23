@@ -22,6 +22,8 @@
 .Alertas-container {
     padding: 0.75rem;
     border-radius: 10px;
+    padding: 0 40px;
+    height: 10vh;
 }
 
 .info-container .info-title .cadastro-botão{
@@ -29,12 +31,14 @@
   }
 
 .info-container .info-title .cadastro-botão .btn-cadastro {
-    background-color: #448d88;
-    padding: 13px 60px;
-    border-radius: 10px;
-    border: none;
-    color: #fff;
-    cursor: pointer;
+background-color: #448d88;
+  padding: 13px 60px;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size:23px;
 }
 
 .info-container .info-title .cadastro-botão .btn-cadastro:hover {

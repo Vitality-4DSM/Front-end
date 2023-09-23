@@ -47,7 +47,7 @@ const Info: React.FC = () => {
                         <div className='estacao-box'>
                             <details className='details'>
                                 <summary className='summary'>
-                                    Não tem estações cadastradas
+                                    Não existem tipos de parametros cadastrados
                                 </summary>
                             </details>
                         </div>

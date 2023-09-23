@@ -43,6 +43,7 @@
     border: none;
     font-size: 25px;
     cursor: pointer;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
   .modalContainer .body {
     padding: 1rem 0;
@@ -69,6 +70,13 @@
   border-radius: 10px;
   border: none;
 }
+
+ input::placeholder {
+  color: #2F2F2F;
+
+}
+
+
 .modalContainer .body .flex-input{
   display: flex;
   flex-direction: row;
@@ -130,4 +138,10 @@
 
   #cancelBtn {
     background-color: crimson;
+  }
+
+  h1 {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 1.47rem;
+    margin-bottom: 7px;
   }

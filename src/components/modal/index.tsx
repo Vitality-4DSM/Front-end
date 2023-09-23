@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import { delEstacoes, postEstacoes, putEstacoes } from '../../utils/axios.routes'
+import {
+  deleteEstacoes,
+  postEstacoes,
+  putEstacoes,
+} from "../../utils/axios.routes";
 import "./style.css";
 
 interface ModalProps {
@@ -8,7 +12,11 @@ interface ModalProps {
   selectedStationId: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ setOpenModal, modalstyle, selectedStationId }) => {
+const Modal: React.FC<ModalProps> = ({
+  setOpenModal,
+  modalstyle,
+  selectedStationId,
+}) => {
   const [stationName, setStationName] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
@@ -35,7 +43,7 @@ const Modal: React.FC<ModalProps> = ({ setOpenModal, modalstyle, selectedStation
     };
     await postEstacoes(data);
     window.location.reload();
-  }
+  };
 
   const handleFormSubmitEdit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,19 +55,17 @@ const Modal: React.FC<ModalProps> = ({ setOpenModal, modalstyle, selectedStation
       instalacao: instalacao,
       status: estado,
     };
-    await putEstacoes(data);
-    window.location.reload();
-  }
+    const response = await putEstacoes(data);
+    console.log(response);
+    // window.location.reload();
+  };
 
   const handleFormSubmitDelete = async (e: React.FormEvent) => {
     e.preventDefault();
-    const data = {
-      id: selectedStationId,
-    };
-    await delEstacoes(data);
-    // window.location.reload();
-  }
-
+    const response = await deleteEstacoes(selectedStationId);
+    // console.log(response);
+    window.location.reload();
+  };
 
   return (
     <div className="modalBackground">
@@ -79,28 +85,46 @@ const Modal: React.FC<ModalProps> = ({ setOpenModal, modalstyle, selectedStation
         </div>
         <div className="body">
           <div className="input-container-1">
-            <input className="input-modal" onChange={handleInputChange}
-              name="stationName" placeholder="Nome da Estação" />
+            <input
+              className="input-modal"
+              onChange={handleInputChange}
+              name="stationName"
+              placeholder="Nome da Estação"
+            />
           </div>
           <div className="flex-input">
             <div className="input-container-2">
-              <input className="input-modal" onChange={handleInputChange}
-                name="latitude" placeholder="Latitude" />
-            </div>
-            <div className="input-container-3">
-              <input className="input-modal" onChange={handleInputChange}
-                name="longitude" placeholder="Longitude" />
-            </div>
-          </div>
-          <div className="flex-input">
-            <div className="input-container-2">
-              <input className="input-modal" onChange={handleInputChange}
-                name="instalacao" placeholder="Data de Instalação" />
+              <input
+                className="input-modal"
+                onChange={handleInputChange}
+                name="latitude"
+                placeholder="Latitude"
+              />
             </div>
             <div className="input-container-3">
               <input
-                className="input-modal" onChange={handleInputChange}
-                name="estado" placeholder="Estado de Atividade"
+                className="input-modal"
+                onChange={handleInputChange}
+                name="longitude"
+                placeholder="Longitude"
+              />
+            </div>
+          </div>
+          <div className="flex-input">
+            <div className="input-container-2">
+              <input
+                className="input-modal"
+                onChange={handleInputChange}
+                name="instalacao"
+                placeholder="Data de Instalação"
+              />
+            </div>
+            <div className="input-container-3">
+              <input
+                className="input-modal"
+                onChange={handleInputChange}
+                name="estado"
+                placeholder="Estado de Atividade"
               />
             </div>
           </div>
@@ -149,22 +173,23 @@ const Modal: React.FC<ModalProps> = ({ setOpenModal, modalstyle, selectedStation
         </div>
         <div className="footer">
           {!modalstyle ? (
-            <button className="delete" onClick={handleFormSubmitDelete}>Deletar</button>
+            <button className="delete" onClick={handleFormSubmitDelete}>
+              Deletar
+            </button>
           ) : null}
 
-          {modalstyle ?
-            ( <>
+          {modalstyle ? (
+            <>
               <div></div>
               <button onClick={handleFormSubmit}>Cadastrar</button>
-              </>
-            ) : (
-
-              <button onClick={handleFormSubmitEdit}>Editar</button>)}
-
+            </>
+          ) : (
+            <button onClick={handleFormSubmitEdit}>Editar</button>
+          )}
         </div>
       </div>
     </div>
-  )
+  );
 };
 
 export default Modal;
