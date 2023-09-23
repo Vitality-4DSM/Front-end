@@ -16,3 +16,27 @@
     height: 150px;
     margin: 0 auto;
 }
+
+.perfil-container {
+    /*padding: 1.5rem 1.5rem 1.5rem 14rem;*/
+    background: #212121;
+    /* max-height: 100vh; */
+    flex: 6;
+    
+}
+
+.perfil-container .perfil-title {
+    padding: 20px 20px 20px 40px;
+}
+
+.perfil-container .perfil-title span {
+    font-size: 1.4rem;
+    color: #fff;
+    
+}
+
+.perfil-container .box-container {
+    padding: 0 40px;
+    background: #212121; 
+}
+

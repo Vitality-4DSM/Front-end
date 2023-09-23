@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import Sidebar from '../../components/sidebar'
+import React, { useEffect, useState } from 'react';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import ClearIcon from '@mui/icons-material/Clear';
-import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import './style.css'
+import './style.css';
 import { getAlertas } from '../../utils/axios.routes';
+import Sidebar from '../../components/sidebar';
 
 const Alertas: React.FC = () => {
     const [alerta, setAlerta] = useState<any[]>([]);
@@ -27,8 +26,8 @@ const Alertas: React.FC = () => {
     return (
         <div className={`flex ${showSidebar ? 'shifted' : ''}`}>
             <Sidebar isOpen={showSidebar} />
-            <div className='info-container'>
-                <div className="info-title">
+            <div className='alert-container'>
+                <div className="alert-title">
                     <button className="toggle-button" onClick={toggleSidebar}>
                         {showSidebar ? <ClearIcon /> : <DehazeIcon />}
                     </button>

@@ -1,8 +1,8 @@
 .info-container {
     /*padding: 1.5rem 1.5rem 1.5rem 14rem;*/
-    background: #212121;
+    background: #212121 repeat;
     flex: 6;
-    
+    min-height: 100vh;
 }
 
 .info-container .info-title {
@@ -17,7 +17,7 @@
 
 .info-container .box-container {
     padding: 0 40px;
-    background: #212121 repeat; 
+    background: #212121; 
 }
 
 
@@ -40,7 +40,9 @@
     border: none;
     color: #fff;
     cursor: pointer;
-}
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size:23px;
+  }
 
 .info-container .info-title .cadastro-botão .btn-cadastro:hover {
     background: #64CCC5;

@@ -1,9 +1,9 @@
 .estacoes-container {
     /*padding: 1.5rem 1.5rem 1.5rem 14rem;*/
-    background: #212121;
     flex-direction: column ;
-    height: 100vh;
+    background: #212121 repeat;
     flex: 6;
+    min-height: 100vh;
     
 }
 .estacoes-container .estacoes-title .cadastro-botão{
@@ -11,7 +11,7 @@
   
 }
 .estacoes-container .estacoes-title .cadastro-botão .btn-cadastro{
-  background-color: #448d88 repeat;
+  background-color: #448d88;
   padding: 13px 60px;
   border-radius: 10px;
   border: none;

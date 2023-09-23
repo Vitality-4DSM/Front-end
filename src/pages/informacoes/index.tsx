@@ -44,7 +44,7 @@ const Info: React.FC = () => {
 
                 <div className='box-container' >
                     {tipoparametros.length === 0 ? (
-                        <div className='estacao-box'>
+                        <div className='info-box'>
                             <details className='details'>
                                 <summary className='summary'>
                                     Não existem tipos de parametros cadastrados

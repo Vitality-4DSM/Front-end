@@ -4,9 +4,7 @@ const api: AxiosInstance = axios.create({
   baseURL: 'http://localhost:3001',
   headers: {
     'Content-Type': 'application/json'
-  },
-  timeout: 1000,
-  maxRedirects: 10
+    }
 });
 
 // export const addAuthToken = (token: string) => {

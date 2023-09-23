@@ -13,8 +13,8 @@ const Perfil: React.FC = () => {
     return (
         <div className={`flex ${showSidebar ? 'shifted' : ''}`}>
             <Sidebar isOpen={showSidebar} />
-            <div className='info-container'>
-                <div className="info-title">
+            <div className='perfil-container'>
+                <div className="perfil-title">
                     <button className="toggle-button" onClick={toggleSidebar}>
                         {showSidebar ? <ClearIcon /> : <DehazeIcon />}
                     </button>

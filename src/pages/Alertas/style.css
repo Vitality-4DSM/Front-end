@@ -1,16 +1,16 @@
-.info-container {
+.alert-container {
     /*padding: 1.5rem 1.5rem 1.5rem 14rem;*/
-    background: #212121;
+    background: #212121 repeat;
     flex: 6;
-    height: 100vh;
+    min-height: 100vh;
 }
      
-.info-container .info-title {
+.alert-container .alert-title {
     padding: 20px 20px 20px 40px;
     
 }
 
-.info-container .info-title span {
+.alert-container .alert-title span {
     color: #fff;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -28,12 +28,12 @@
     height: 10vh;
 }
 
-.info-container .info-title .cadastro-botão{
+.alert-container .alert-title .cadastro-botão{
     padding: 0 0 0 3rem;
   }
 
-.info-container .info-title .cadastro-botão .btn-cadastro {
-background-color: #448d88 repeat;
+.alert-container .alert-title .cadastro-botão .btn-cadastro {
+background-color: #448d88;
   padding: 13px 60px;
   border-radius: 10px;
   border: none;
@@ -43,9 +43,19 @@ background-color: #448d88 repeat;
   font-size:23px;
 }
 
-.info-container .info-title .cadastro-botão .btn-cadastro:hover {
+.alert-container .alert-title .cadastro-botão .btn-cadastro:hover {
     background: #64CCC5;
 }
+
+.alert-container .alert-title {
+    padding: 20px 20px 20px 40px;
+}
+
+.alert-container .alert-title span {
+    font-size: 1.4rem;
+    color: #fff;
+}
+
 
 .summary {
     font-size: 1.25rem;
