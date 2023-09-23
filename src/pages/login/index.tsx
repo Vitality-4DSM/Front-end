@@ -30,7 +30,17 @@ const Login = () => {
     } catch (error) {
       console.error("Erro ao fazer login:", error);
     }
+
+    
   };
+  const handlePublic = async (e: React.FormEvent) => {
+      e.preventDefault();
+      try{
+        navigate("/estacoes");
+      }catch(error){
+        console.error("Erro ao entrar no perfil publico", error);
+      }
+    }
 
   return (
     <div className="login">
@@ -57,6 +67,9 @@ const Login = () => {
               <p>Entrar</p>
             </button>
             <hr />
+            <button onClick={handlePublic} className="botaoPublico">
+              <p>Entrar sem logar</p>
+            </button>
           </div>
         </div>
       </form>

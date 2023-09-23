@@ -10,8 +10,6 @@ hr{
     background-color: #1E1E1E;
 }
 
-
-
 .container .input .titulo{
     color: #ffffff;
 }
@@ -43,7 +41,7 @@ input {
     text-align: center;
     
 }
-form .container .input button{
+form .container .input .botaoLogin{
     background-color: #176B87;
     width: 300px;
     height: 50px;
@@ -52,7 +50,7 @@ form .container .input button{
     border:none;
 }
 
-form .container .input button p{
+form .container .input .botaoLogin{
     color: #fff;
 }
 
@@ -66,3 +64,39 @@ form .container .input input::placeholder {
     text-align: center;
 }
 
+form .container .input .botaoPublico{
+    background-color: #176B87;
+    width: 150px;
+    height: 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    border:none;
+}
+
+form .container .input .botaoPublico{
+    color: #fff;
+}
+
+form .container .input .botaoPublico {
+    background-color: #176B87;
+    width: 150px;
+    height: 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    /* font-size: 1.2rem; */
+    font-family: 'Your-Desired-Font-Here', 'Arial', sans-serif; /* Replace 'Your-Desired-Font-Here' with your preferred font */
+}
+
+form .container .input .botaoLogin {
+    background-color: #176B87;
+    width: 300px;
+    height: 50px;
+    border-radius: 20px;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    font-size: 1.47rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Replace 'Your-Desired-Font-Here' with your preferred font */
+}

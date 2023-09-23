@@ -56,8 +56,9 @@ const Estacoes: React.FC = () => {
             </div>
           </div>
 
-          <div className="estacoes-header">
+          
             {estacoes.length === 0 ? (
+              <div className="sem-estacoes">
               <div className="estacao-box">
                 <details className="details">
                   <summary className="summary">
@@ -65,8 +66,10 @@ const Estacoes: React.FC = () => {
                   </summary>
                 </details>
               </div>
+              </div>
             ) : (
               estacoes.map((item) => (
+                <div className="estacoes-header">
                 <div className="box-container" key={item.id_estacao}>
                   <div className="estacao">
                     <div className="card">
@@ -96,10 +99,11 @@ const Estacoes: React.FC = () => {
                     </div>
                   </div>
                 </div>
+                </div>
               ))
             )}
           </div>
-        </div>
+        
       </div>
     </>
   );

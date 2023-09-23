@@ -56,7 +56,7 @@ const Info: React.FC = () => {
 
                         <div className='box-item'>
                             <div className='image'>
-
+                                
                             </div>
                             <div className='box-info'>
                                 <h2>O que é {item.nome}</h2>
