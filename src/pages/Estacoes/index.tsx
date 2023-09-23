@@ -20,7 +20,7 @@ const Estacoes: React.FC = () => {
       try {
         const response = await getEstacoes();
         setEstacoes(response);
-      } catch (error) {}
+      } catch (error) { }
     };
     fetchEstacoes();
   }, []);
@@ -56,9 +56,9 @@ const Estacoes: React.FC = () => {
             </div>
           </div>
 
-          
-            {estacoes.length === 0 ? (
-              <div className="sem-estacoes">
+
+          {estacoes.length === 0 ? (
+            <div className="sem-estacoes">
               <div className="estacao-box">
                 <details className="details">
                   <summary className="summary">
@@ -66,44 +66,41 @@ const Estacoes: React.FC = () => {
                   </summary>
                 </details>
               </div>
-              </div>
-            ) : (
-              estacoes.map((item) => (
-                <div className="estacoes-header">
-                <div className="box-container" key={item.id_estacao}>
-                  <div className="estacao">
-                    <div className="card">
-                      <div className="card-content">
-                        <h2 className="card-title">{item.identificador}</h2>
+            </div>
+          ) : (estacoes ? 
+          (<div className="estacoes-header"> {estacoes.map((item) => (
+              <div className="box-container" key={item.id_estacao}>
+                <div className="estacao">
+                  <div className="card">
+                    <div className="card-content">
+                      <h2 className="card-title">{item.identificador}</h2>
 
-                        <p className="card-txt">
-                          <h1>{item.status}</h1>
-                          <span>Latitude: {item.latitude}</span>
-                          <br></br>
-                          <span>Longitude: {item.longitude}</span>
-                        </p>
-                        <div className="card-btn-wraper">
-                          <button
-                            type="submit"
-                            className="card-btn"
-                            onClick={() => {
-                              setOpenModal(true);
-                              setModalStyle(false);
-                              setSelectedStationId(item.id_estacao);
-                            }}
-                          >
-                            Editar Estação
-                          </button>
-                        </div>
+                      <p className="card-txt">
+                        <h1>{item.status}</h1>
+                        <span>Latitude: {item.latitude}</span>
+                        <br></br>
+                        <span>Longitude: {item.longitude}</span>
+                      </p>
+                      <div className="card-btn-wraper">
+                        <button
+                          type="submit"
+                          className="card-btn"
+                          onClick={() => {
+                            setOpenModal(true);
+                            setModalStyle(false);
+                            setSelectedStationId(item.id_estacao);
+                          }}
+                        >
+                          Editar Estação
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-                </div>
-              ))
-            )}
-          </div>
-        
+              </div>
+            ))}
+          </div>) : null)}
+        </div>
       </div>
     </>
   );
