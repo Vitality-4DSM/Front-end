@@ -9,7 +9,7 @@ import Modal from "../../components/modal";
 const Estacoes: React.FC = () => {
   const [modalOpen, setOpenModal] = useState(false);
   const [modalstyle, setModalStyle] = useState(false);
-  const [selectedStationId, setSelectedStationId] = useState("");
+  const [selectStationId, setSelectStationId] = useState("");
   const [showSidebar, setShowSidebar] = useState(true);
   const [estacoes, setEstacoes] = useState<any[]>([]);
   const toggleSidebar = () => {
@@ -31,7 +31,7 @@ const Estacoes: React.FC = () => {
         <Modal
           setOpenModal={setOpenModal}
           modalstyle={modalstyle}
-          selectedStationId={selectedStationId}
+          selectStationId={selectStationId}
         />
       ) : null}
       <div className={`flex ${showSidebar ? "shifted" : ""}`}>
@@ -88,7 +88,7 @@ const Estacoes: React.FC = () => {
                           onClick={() => {
                             setOpenModal(true);
                             setModalStyle(false);
-                            setSelectedStationId(item.id_estacao);
+                            setSelectStationId(item.id_estacao);
                           }}
                         >
                           Editar Estação

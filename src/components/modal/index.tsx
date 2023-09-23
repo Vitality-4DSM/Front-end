@@ -1,27 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   deleteEstacoes,
+  getTipoParametros,
   postEstacoes,
   putEstacoes,
+  postParameter,
 } from "../../utils/axios.routes";
 import "./style.css";
 
 interface ModalProps {
   setOpenModal: (value: boolean) => void;
   modalstyle: boolean;
-  selectedStationId: string;
+  selectStationId: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
   setOpenModal,
   modalstyle,
-  selectedStationId,
+  selectStationId,
 }) => {
   const [stationName, setStationName] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [instalacao, setInstalacao] = useState("");
   const [estado, setEstado] = useState("");
+  const [tipoParametros, setTipoParametros] = useState<any[]>([]);
+  const [fk_estacao, setFk_estacao] = useState<string[]>([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -30,6 +34,9 @@ const Modal: React.FC<ModalProps> = ({
     else if (name === "longitude") setLongitude(value);
     else if (name === "instalacao") setInstalacao(value);
     else if (name === "estado") setEstado(value);
+    else if (name === "tipoParametros") {
+      console.log(value);
+      setFk_estacao([...fk_estacao, value]);}
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -41,14 +48,22 @@ const Modal: React.FC<ModalProps> = ({
       instalacao: instalacao,
       status: estado,
     };
-    await postEstacoes(data);
-    window.location.reload();
+    const estacao = await postEstacoes(data);
+    const response ={ 
+      fk_estacao: estacao.id_estacao,
+      fk_tipo_parametro: fk_estacao
+    }
+    // console.log(response);
+    const resp =await postParameter(response);
+    console.log(resp);
+    // console.log(fk_estacao);
+    // window.location.reload();
   };
 
   const handleFormSubmitEdit = async (e: React.FormEvent) => {
     e.preventDefault();
     const data = {
-      id: selectedStationId,
+      id: selectStationId,
       identificador: stationName,
       latitude: latitude,
       longitude: longitude,
@@ -62,10 +77,20 @@ const Modal: React.FC<ModalProps> = ({
 
   const handleFormSubmitDelete = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await deleteEstacoes(selectedStationId);
+    const response = await deleteEstacoes(selectStationId);
     // console.log(response);
     window.location.reload();
   };
+
+  useEffect(() => {
+    const fetchEstacoes = async () => {
+      try {
+        const response = await getTipoParametros();
+        setTipoParametros(response);
+      } catch (error) {}
+    };
+    fetchEstacoes();
+  }, []);
 
   return (
     <div className="modalBackground">
@@ -133,42 +158,22 @@ const Modal: React.FC<ModalProps> = ({
             <h1>Parâmetro de Estação</h1>
           </div>
           <div className="body-2">
-            <div>
-              <div className="input-container-4">
-                <input
-                  className="input-modal"
-                  placeholder="Nome da Estação"
-                  type="radio"
-                />
-                <span>Pluviômetro</span>
+            {tipoParametros.map((item) => (
+              <div>
+                <div className="input-container-4" key={item.id_tipo_parametro}>
+                  <input
+                    className="input-modal"
+                    placeholder="Nome da Estação"
+                    value={item.id_tipo_parametro}
+                    onChange={handleInputChange}
+                    name="tipoParametros"
+                    type="checkbox"
+                  />
+
+                  <span>{item.nome} {item.id_tipo_parametro}</span>
+                </div>
               </div>
-              <div className="input-container-4">
-                <input
-                  className="input-modal"
-                  placeholder="Nome da Estação"
-                  type="radio"
-                />
-                <span>Termostato</span>
-              </div>
-            </div>
-            <div>
-              <div className="input-container-4">
-                <input
-                  className="input-modal"
-                  placeholder="Nome da Estação"
-                  type="radio"
-                />
-                <span>Anemômetros</span>
-              </div>
-              <div className="input-container-4">
-                <input
-                  className="input-modal"
-                  placeholder="Nome da Estação"
-                  type="radio"
-                />
-                <span>Pressâo Atmosférica</span>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
         <div className="footer">

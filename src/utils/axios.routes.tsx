@@ -79,11 +79,24 @@ export const getUser = async () => {
   }
 };
 
-export const teste = async () => {
-  console.log("testando");
-};
-
 export const GetUsers = async () => {
   const response = await api.get("/user/");
   return response.data;
 };
+
+
+// transforme fk_tipo_parametro em inteiro
+export const postParameter = async (data: any) => {
+  try {
+    const { fk_tipo_parametro , fk_estacao } = data;
+    for (let i = 0; i < fk_tipo_parametro.length; i++) {
+      const response = await api.post("/parameter", { fk_estacao: parseInt(fk_estacao),
+        fk_tipo_parametro: parseInt(fk_tipo_parametro[i]),
+      });
+    }
+    // const response = await api.post("/parameter", data);
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
