@@ -51,10 +51,23 @@
     display: flex;
     flex-direction: column;
   }
+
+/*   backup caso de merda
   .modalContainer .body-2{
     display: flex;
     justify-content: space-between;
+  } */
+
+  .modalContainer .body-2 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Cria 4 colunas */
+    gap: 1px; /* Espaço entre os elementos */
+    max-height: 59px; /* Altura máxima de 40px */
+    overflow-y: auto; /*Adiciona rolagem vertical se necessário */
   }
+  
+
+
   .modalContainer .body-2 .input-container-4{
     display: flex;
     gap: 10px;

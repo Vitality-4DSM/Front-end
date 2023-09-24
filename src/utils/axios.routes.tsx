@@ -38,6 +38,39 @@ export const deleteEstacoes = async (id: any) => {
   }
 };
 
+
+/////////////////////////////////////////////////////////////
+
+// parametros
+export const postTypeParameter = async (data: any) => {
+  try {
+    const response = await api.post("/typeparameter", data);
+    return response.data;
+  }
+  catch (error) {
+    return error;
+  }
+}
+
+export const putTypeParameter = async (data: any) => {
+  try {
+    const response = await api.put("/typeparameter", data);
+    return response.data;
+  }
+  catch (error) {
+    return error;
+  }
+}
+
+export const deleteTypeParameter = async (id: any) => {
+  try {
+    const response = await api.delete("/typeparameter/" + id);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
 /////////////////////////////////////////////////////////////
 
 export const login = async (data:any) => {

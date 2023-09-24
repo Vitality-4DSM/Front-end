@@ -8,7 +8,7 @@ import Modal from "../../components/modal";
 
 const Estacoes: React.FC = () => {
   const [modalOpen, setOpenModal] = useState(false);
-  const [modalstyle, setModalStyle] = useState(false);
+  const [modalstyle, setModalStyle] = useState("");
   const [selectStationId, setSelectStationId] = useState("");
   const [showSidebar, setShowSidebar] = useState(true);
   const [estacoes, setEstacoes] = useState<any[]>([]);
@@ -48,7 +48,7 @@ const Estacoes: React.FC = () => {
                 className="btn-cadastro"
                 onClick={() => {
                   setOpenModal(true);
-                  setModalStyle(true);
+                  setModalStyle("cadastrar-estacao");
                 }}
               >
                 Cadastrar
@@ -87,7 +87,7 @@ const Estacoes: React.FC = () => {
                           className="card-btn"
                           onClick={() => {
                             setOpenModal(true);
-                            setModalStyle(false);
+                            setModalStyle("editar-estacao");
                             setSelectStationId(item.id_estacao);
                           }}
                         >
