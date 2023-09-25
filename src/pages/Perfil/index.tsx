@@ -22,7 +22,6 @@ const Perfil: React.FC = () => {
                 </div>
                 <div className='box-container'>
                     <div className='Perfil'>
-
                         <img src={user} alt="user" />
                         <span>Ryan Alves  </span>
                         <span>RyanzinhaTipsterPro@gmail.com </span>

@@ -83,7 +83,14 @@ export const login = async (data:any) => {
 }
 
 
-
+export const postAlertas = async (data: any) => {
+  try {
+    const response = await api.post("/alert", data);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+}
 
 export const getAlertas = async () => {
   try {

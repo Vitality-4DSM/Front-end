@@ -12,9 +12,11 @@ const Estacoes: React.FC = () => {
   const [selectStationId, setSelectStationId] = useState("");
   const [showSidebar, setShowSidebar] = useState(true);
   const [estacoes, setEstacoes] = useState<any[]>([]);
+
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
+  
   useEffect(() => {
     const fetchEstacoes = async () => {
       try {

@@ -8,6 +8,7 @@ import {
   postTypeParameter,
   putTypeParameter,
   deleteTypeParameter,
+  postAlertas,
 } from "../../utils/axios.routes";
 import "./style.css";
 
@@ -34,6 +35,10 @@ const Modal: React.FC<ModalProps> = ({
   const [unidade, setUnidade] = useState("");
   const [fator, setFator] = useState("");
   const [offset, setOffset] = useState("");
+  const [sinal, setSinal] = useState("");
+  const [id_parametro, setId_parametro] = useState("");
+  const [valor, setValor] = useState("");
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -43,13 +48,16 @@ const Modal: React.FC<ModalProps> = ({
     else if (name === "instalacao") setInstalacao(value);
     else if (name === "estado") setEstado(value);
     else if (name === "tipoParametros") {
-      console.log(value);
       setFk_estacao([...fk_estacao, value]);
     } else if (name === "nome") setNome(value);
     else if (name === "descricao") setDescricao(value);
     else if (name === "unidade") setUnidade(value);
     else if (name === "fator") setFator(value);
     else if (name === "offset") setOffset(value);
+    else if (name === "sinal") setSinal(value);
+    else if (name === "id_parametro") setId_parametro(value);
+    else if (name === "valor") setValor(value);
+
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -111,6 +119,17 @@ const Modal: React.FC<ModalProps> = ({
     await putTypeParameter(data);
     // window.location.reload();
   };
+
+  const handleFormSubmitAlerta = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = {
+      valor: valor,
+      sinal: sinal,
+      id_parametro: id_parametro,
+    };
+    await postAlertas(data);
+    window.location.reload();
+  }
 
   const handleFormSubmitDelete = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -274,7 +293,43 @@ const Modal: React.FC<ModalProps> = ({
               <hr className="HrModal" />
             </div>
           </>
-        ) : null}
+        ) : modalstyle == "cadastrar-alerta" ? (
+          <>
+            <div className="title">
+              <h1>Cadastro de Alertas</h1>
+            </div>
+            <div className="body">
+              <div className="input-container-1">
+                <input
+                  className="input-modal"
+                  onChange={handleInputChange}
+                  name="valor"
+                  placeholder="Valor do Alerta"
+                />
+              </div>
+              <div className="flex-input">
+                <div className="input-container-2">
+                  <input
+                    className="input-modal"
+                    onChange={handleInputChange}
+                    name="sinal"
+                    placeholder="Sinal do Alerta"
+                  />
+                </div>
+                <div className="input-container-3">
+                  <input
+                    className="input-modal"
+                    onChange={handleInputChange}
+                    name="id_parametro"
+                    placeholder="ID do Parametro"
+                  />
+                </div>
+
+              </div>
+              <hr className="HrModal" />
+            </div>
+            </>)
+            : null}
 
         <div className="footer">
           {modalstyle == "editar-estacao" ? (
@@ -301,7 +356,10 @@ const Modal: React.FC<ModalProps> = ({
             </>
           ) : modalstyle === "editar-info" ? (
             <button onClick={pegarformParametrosEdit}>Editar</button>
-          ) : null}
+          ) : modalstyle === "cadastrar-alerta" ? (<>
+            <div></div>
+            <button onClick ={handleFormSubmit}>Cadastrar</button>
+            </>): null}
         </div>
       </div>
     </div>
