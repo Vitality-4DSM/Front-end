@@ -6,6 +6,7 @@ import user from '../../assets/user.png'
 import './styles.css'
 
 const Perfil: React.FC = () => {
+    
     const [showSidebar, setShowSidebar] = useState(true); /* seta o estado da sidebar */
     const toggleSidebar = () => {
         setShowSidebar(!showSidebar); /* logica do botão abrir e fechar a sidebar */

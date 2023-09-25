@@ -125,7 +125,7 @@ const Modal: React.FC<ModalProps> = ({
     const data = {
       valor: valor,
       sinal: sinal,
-      id_parametro: id_parametro,
+      fk_parametro: id_parametro,
     };
     await postAlertas(data);
     window.location.reload();
@@ -166,7 +166,7 @@ const Modal: React.FC<ModalProps> = ({
             x
           </button>
         </div>
-        {modalstyle == "cadastrar-estacao" || modalstyle == "editar-estacao" ? (
+        {modalstyle === "cadastrar-estacao" || modalstyle === "editar-estacao" ? (
           <>
             <div className="title">
               <h1>Cadastro de Estação</h1>
@@ -242,7 +242,7 @@ const Modal: React.FC<ModalProps> = ({
               </div>
             </div>
           </>
-        ) : modalstyle == "cadastrar-info" || modalstyle == "editar-info" ? (
+        ) : modalstyle === "cadastrar-info" || modalstyle === "editar-info" ? (
           <>
             <div className="title">
               <h1>Cadastro de Tipos de Parametros</h1>
@@ -293,7 +293,7 @@ const Modal: React.FC<ModalProps> = ({
               <hr className="HrModal" />
             </div>
           </>
-        ) : modalstyle == "cadastrar-alerta" ? (
+        ) : modalstyle === "cadastrar-alerta" ? (
           <>
             <div className="title">
               <h1>Cadastro de Alertas</h1>
@@ -332,7 +332,7 @@ const Modal: React.FC<ModalProps> = ({
             : null}
 
         <div className="footer">
-          {modalstyle == "editar-estacao" ? (
+          {modalstyle === "editar-estacao" ? (
             <button className="delete" onClick={handleFormSubmitDelete}>
               Deletar
             </button>
@@ -342,7 +342,7 @@ const Modal: React.FC<ModalProps> = ({
             </button>
           ) : null}
 
-          {modalstyle == "cadastrar-estacao" ? (
+          {modalstyle === "cadastrar-estacao" ? (
             <>
               <div></div>
               <button onClick={handleFormSubmit}>Cadastrar</button>
@@ -358,7 +358,7 @@ const Modal: React.FC<ModalProps> = ({
             <button onClick={pegarformParametrosEdit}>Editar</button>
           ) : modalstyle === "cadastrar-alerta" ? (<>
             <div></div>
-            <button onClick ={handleFormSubmit}>Cadastrar</button>
+            <button onClick ={handleFormSubmitAlerta}>Cadastrar</button>
             </>): null}
         </div>
       </div>
