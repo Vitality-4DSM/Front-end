@@ -4,7 +4,6 @@ import DehazeIcon from '@mui/icons-material/Dehaze';
 import ClearIcon from '@mui/icons-material/Clear';
 import user from '../../assets/user.png'
 import './styles.css'
-import useLogin from '../../hooks';
 
 const Perfil: React.FC = () => {
     
@@ -12,7 +11,6 @@ const Perfil: React.FC = () => {
     const toggleSidebar = () => {
         setShowSidebar(!showSidebar); /* logica do botão abrir e fechar a sidebar */
     };
-    const { token } = useLogin();
     
     return (
         <div className={`flex ${showSidebar ? 'shifted' : ''}`}>

@@ -5,9 +5,13 @@ import PollIcon from '@mui/icons-material/Poll';
 import FeedIcon from '@mui/icons-material/Feed';
 import MemoryIcon from '@mui/icons-material/Memory';
 import AnnouncementIcon from '@mui/icons-material/Announcement';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+
 import Stars from '../../assets/Stars.png'
 import './style.css'
 import useLogin from '../../hooks';
+
 
 
 // https://mui.com/material-ui/material-icons/
@@ -29,7 +33,7 @@ const SidebarPublico: React.FC<SidebarProps> = ({ isOpen }) => {
                 <nav>
                     <li>
                         <NavLink to='/'>
-                            <PollIcon className='icon' />
+                            <LoginIcon className='icon' />
                             <span>Login</span>
                         </NavLink>
                     </li>
@@ -105,10 +109,11 @@ const SidebarLogado: React.FC<SidebarProps> = ({ isOpen }) => {
                         </NavLink>
                     </li>
                     <li>
-                        <button className='logout' onClick={() => logout()} >
-                            <AnnouncementIcon className='icon' />
+                        <NavLink to='/estacoes' className="button-like-link" onClick={() => logout()}>
+                            <LogoutIcon className='icon' />
                             <span>Logout</span>
-                        </button>
+                        </NavLink>
+
                     </li>
 
                 </nav>

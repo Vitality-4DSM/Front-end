@@ -328,8 +328,8 @@ const Modal: React.FC<ModalProps> = ({
               </div>
               <hr className="HrModal" />
             </div>
-            </>)
-            : null}
+          </>)
+          : null}
 
         <div className="footer">
           {modalstyle === "editar-estacao" ? (
@@ -358,8 +358,8 @@ const Modal: React.FC<ModalProps> = ({
             <button onClick={pegarformParametrosEdit}>Editar</button>
           ) : modalstyle === "cadastrar-alerta" ? (<>
             <div></div>
-            <button onClick ={handleFormSubmitAlerta}>Cadastrar</button>
-            </>): null}
+            <button onClick={handleFormSubmitAlerta}>Cadastrar</button>
+          </>) : null}
         </div>
       </div>
     </div>
