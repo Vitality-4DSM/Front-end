@@ -5,6 +5,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import "./styles.css";
 import { getTipoParametros } from "../../utils/axios.routes";
 import Modal from "../../components/modal";
+import useLogin from "../../hooks";
 
 const Info: React.FC = () => {
   const [tipoparametros, setTipoParametros] = useState<any[]>([]);
@@ -12,6 +13,8 @@ const Info: React.FC = () => {
   const [modalOpen, setOpenModal] = useState(false);
   const [modalstyle, setModalStyle] = useState("");
   const [selectStationId, setSelectStationId] = useState("");
+
+  const { token } = useLogin();
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar); /* logica do botão abrir e fechar a sidebar */
@@ -46,18 +49,20 @@ const Info: React.FC = () => {
               {showSidebar ? <ClearIcon /> : <DehazeIcon />}
             </button>
             <span>Informações Didáticas</span>
-            <div className="cadastro-botão">
-              <button
-                type="submit"
-                className="btn-cadastro"
-                onClick={() => {
-                  setOpenModal(true);
-                  setModalStyle("cadastrar-info");
-                }}
-              >
-                Cadastrar
-              </button>
-            </div>
+            {token &&
+              <div className="cadastro-botão">
+                <button
+                  type="submit"
+                  className="btn-cadastro"
+                  onClick={() => {
+                    setOpenModal(true);
+                    setModalStyle("cadastrar-info");
+                  }}
+                >
+                  Cadastrar
+                </button>
+              </div>
+            }
           </div>
 
           <div className="box-container">
@@ -69,23 +74,31 @@ const Info: React.FC = () => {
                   </summary>
                 </details>
               </div>
-            ) : (
+            ) : (token ? (
               tipoparametros.map((item) => (
                 <div className="box-item" key={item.id_tipo_parametro}>
                   <div onClick={() => {
                     setOpenModal(true)
                     setModalStyle("editar-info")
                     setSelectStationId(item.id_tipo_parametro)
-                    }} 
-                    className="image"/>
+                  }}
+                    className="image" />
                   <div className="box-info">
                     <h2>O que é {item.nome}</h2>
                     <hr className="line"></hr>
                     <p>{item.descricao}</p>
                   </div>
                 </div>
-              ))
-            )}
+              ))) : (tipoparametros.map((item) => (
+                <div className="box-item" key={item.id_tipo_parametro}>
+                  <div className="image" />
+                  <div className="box-info">
+                    <h2>O que é {item.nome}</h2>
+                    <hr className="line"></hr>
+                    <p>{item.descricao}</p>
+                  </div>
+                </div>))
+            ))}
           </div>
         </div>
       </div>

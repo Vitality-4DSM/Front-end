@@ -1,4 +1,5 @@
 export interface LoginParams {
     token: string;
-    writeToken: Function;
+    writeToken: (token: string) => void;
+    logout: () => void;
 }

@@ -5,6 +5,7 @@ import DehazeIcon from "@mui/icons-material/Dehaze";
 import ClearIcon from "@mui/icons-material/Clear";
 import { getEstacoes } from "../../utils/axios.routes";
 import Modal from "../../components/modal";
+import useLogin from "../../hooks";
 
 const Estacoes: React.FC = () => {
   const [modalOpen, setOpenModal] = useState(false);
@@ -13,10 +14,12 @@ const Estacoes: React.FC = () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const [estacoes, setEstacoes] = useState<any[]>([]);
 
+  const { token } = useLogin();
+
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
-  
+
   useEffect(() => {
     const fetchEstacoes = async () => {
       try {
@@ -44,18 +47,20 @@ const Estacoes: React.FC = () => {
               {showSidebar ? <ClearIcon /> : <DehazeIcon />}
             </button>
             <span>Estações em atividade</span>
-            <div className="cadastro-botão">
-              <button
-                type="submit"
-                className="btn-cadastro"
-                onClick={() => {
-                  setOpenModal(true);
-                  setModalStyle("cadastrar-estacao");
-                }}
-              >
-                Cadastrar
-              </button>
-            </div>
+            {token &&
+              <div className="cadastro-botão">
+                <button
+                  type="submit"
+                  className="btn-cadastro"
+                  onClick={() => {
+                    setOpenModal(true);
+                    setModalStyle("cadastrar-estacao");
+                  }}
+                >
+                  Cadastrar
+                </button>
+              </div>
+            }
           </div>
 
 
@@ -69,8 +74,8 @@ const Estacoes: React.FC = () => {
                 </details>
               </div>
             </div>
-          ) : (estacoes ? 
-          (<div className="estacoes-header"> {estacoes.map((item) => (
+          ) : (estacoes ?
+            (<div className="estacoes-header"> {estacoes.map((item) => (
               <div className="box-container" key={item.id_estacao}>
                 <div className="estacao">
                   <div className="card">
@@ -83,6 +88,7 @@ const Estacoes: React.FC = () => {
                         <br></br>
                         <span>Longitude: {item.longitude}</span>
                       </p>
+                      {token &&
                       <div className="card-btn-wraper">
                         <button
                           type="submit"
@@ -96,12 +102,13 @@ const Estacoes: React.FC = () => {
                           Editar Estação
                         </button>
                       </div>
+                      }
                     </div>
                   </div>
                 </div>
               </div>
             ))}
-          </div>) : null)}
+            </div>) : null)}
         </div>
       </div>
     </>

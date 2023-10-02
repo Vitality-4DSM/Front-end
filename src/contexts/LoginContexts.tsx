@@ -22,8 +22,12 @@ export function Provider({ children }: any) { // Cria o provedor de login
         }
     };
 
+    const logout = () => { // Função para fazer logout
+        localStorage.removeItem("@token"); // Remove o token do armazenamento local do navegador
+        setToken(""); // Seta o token para vazio
+    }
     return (
-        <LoginContext.Provider value={{ token , writeToken}} >
+        <LoginContext.Provider value={{ token , writeToken, logout}} >
             {children}
         </LoginContext.Provider>
     )

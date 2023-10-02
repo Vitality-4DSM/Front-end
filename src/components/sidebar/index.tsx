@@ -7,6 +7,8 @@ import MemoryIcon from '@mui/icons-material/Memory';
 import AnnouncementIcon from '@mui/icons-material/Announcement';
 import Stars from '../../assets/Stars.png'
 import './style.css'
+import useLogin from '../../hooks';
+
 
 // https://mui.com/material-ui/material-icons/
 
@@ -16,7 +18,54 @@ interface SidebarProps {
 }
 
 
-const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
+const SidebarPublico: React.FC<SidebarProps> = ({ isOpen }) => {
+    return (
+        <div className={`sidebar ${isOpen ? 'open' : ''}`}>
+            <div className="logo">
+                <img src={Stars} alt='Stars' className='logo-img' />
+                <h1><span>Vi</span>tality</h1>
+            </div>
+            <div className="links">
+                <nav>
+                    <li>
+                        <NavLink to='/'>
+                            <PollIcon className='icon' />
+                            <span>Login</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/dashboards'>
+                            <PollIcon className='icon' />
+                            <span>Dashboards</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/estacoes'>
+                            <MemoryIcon className='icon' />
+                            <span>Estações</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/informacoes'>
+                            <FeedIcon className='icon' />
+                            <span>Guia de Informações</span>
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to='/alertas'>
+                            <AnnouncementIcon className='icon' />
+                            <span>Alertas</span>
+                        </NavLink>
+                    </li>
+
+                </nav>
+            </div>
+        </div>
+    )
+}
+
+const SidebarLogado: React.FC<SidebarProps> = ({ isOpen }) => {
+    const { logout } = useLogin();
     return (
         <div className={`sidebar ${isOpen ? 'open' : ''}`}>
             <div className="logo">
@@ -55,10 +104,24 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen }) => {
                             <span>Alertas</span>
                         </NavLink>
                     </li>
+                    <li>
+                        <button className='logout' onClick={() => logout()} >
+                            <AnnouncementIcon className='icon' />
+                            <span>Logout</span>
+                        </button>
+                    </li>
+
                 </nav>
             </div>
         </div>
     )
 }
 
-export default Sidebar
+const Sidebar: React.FC<SidebarProps> = (props: SidebarProps) => {
+    const { token } = useLogin();
+    return (
+        token ? <SidebarLogado {...props} /> : <SidebarPublico {...props} />
+    )
+}
+
+export default Sidebar;

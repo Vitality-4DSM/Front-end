@@ -5,14 +5,16 @@ import "./style.css";
 import { getAlertas } from "../../utils/axios.routes";
 import Sidebar from "../../components/sidebar";
 import Modal from "../../components/modal";
+import useLogin from "../../hooks";
 
 const Alertas: React.FC = () => {
   const [modalOpen, setOpenModal] = useState(false);
   const [modalstyle, setModalStyle] = useState("");
   const [selectStationId, setSelectStationId] = useState("");
   const [alerta, setAlerta] = useState<any[]>([]);
-  const [showSidebar, setShowSidebar] =
-    useState(true); /* seta o estado da sidebar */
+  const [showSidebar, setShowSidebar] = useState(true); /* seta o estado da sidebar */
+
+  const { token } = useLogin();
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar); /* logica do botão abrir e fechar a sidebar */
@@ -23,7 +25,7 @@ const Alertas: React.FC = () => {
       try {
         const response = await getAlertas();
         setAlerta(response);
-      } catch (error) {}
+      } catch (error) { }
     };
     fetchEstacoes();
   }, []);
@@ -44,18 +46,20 @@ const Alertas: React.FC = () => {
               {showSidebar ? <ClearIcon /> : <DehazeIcon />}
             </button>
             <span>Alertas</span>
-            <div className="cadastro-botão">
-              <button
-                type="submit"
-                className="btn-cadastro"
-                onClick={() => {
-                  setOpenModal(true);
-                  setModalStyle("cadastrar-alerta");
-                }}
-              >
-                Cadastrar
-              </button>
-            </div>
+            {token &&
+              <div className="cadastro-botão">
+                <button
+                  type="submit"
+                  className="btn-cadastro"
+                  onClick={() => {
+                    setOpenModal(true);
+                    setModalStyle("cadastrar-alerta");
+                  }}
+                >
+                  Cadastrar
+                </button>
+              </div>
+            }
           </div>
 
           {alerta.length === 0 ? (
