@@ -115,7 +115,7 @@ const Info: React.FC = () => {
                   <div className="cardzin-content">
                     <h2 className="name"> Ryanzin</h2>
                     <p className="description"> aaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-
+                    <button className="cardzin-button"> Ver mais</button>
                   </div>
                 </div>
               </div>
