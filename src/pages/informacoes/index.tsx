@@ -64,11 +64,8 @@ const Info: React.FC = () => {
               </div>
             }
           </div>
-          
-          <div className="slide-container"  
 
-
-          <div className="box-container">
+          {/* <div className="box-container">
             {tipoparametros.length === 0 ? (
               <div className="info-box">
                 <details className="details">
@@ -102,9 +99,35 @@ const Info: React.FC = () => {
                   </div>
                 </div>))
             ))}
+          </div> */}
+                    <div className="slide-container-cardzin">
+            <div className="slide-content-cardzin">
+              <div className="cardzin-wrapper">
+                <div className="cardzin">
+                  <div className="image-content">
+                    <span className="overlay"> </span>
+
+                    <div className="cardzin-image">
+                      <img src="https://www.pixel4k.com/wp-content/uploads/2018/10/beautiful-purple-weather-landscape-of-lake-matheson_1540142561.jpg" alt="" className="cardzin-img"/>
+                    </div>
+                  </div>
+
+                  <div className="cardzin-content">
+                    <h2 className="name"> Ryanzin</h2>
+                    <p className="description"> aaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
+      
+
+
+
     </>
   );
 };

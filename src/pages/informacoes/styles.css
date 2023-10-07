@@ -75,3 +75,34 @@
 .line {
     margin: 9px 0;
 }
+
+
+
+
+.slide-content-cardzin{
+    margin: 0 40px;
+}
+
+
+.cardzin {
+    border-radius: 25px;
+    background-color: #fff;
+}
+
+.cardzin-image {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background-color: #fff;
+    padding:3px;
+
+}
+
+.cardzin-image .cardzin-img {
+    height: 100%;
+    width: 100%; 
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #448d88
+}
