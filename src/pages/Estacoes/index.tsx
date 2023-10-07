@@ -32,6 +32,7 @@ const Estacoes: React.FC = () => {
 
   return (
     <>
+    
       {modalOpen ? (
         <Modal
           setOpenModal={setOpenModal}

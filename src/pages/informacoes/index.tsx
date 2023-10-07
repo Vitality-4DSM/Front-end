@@ -64,6 +64,9 @@ const Info: React.FC = () => {
               </div>
             }
           </div>
+          
+          <div className="slide-container"  
+
 
           <div className="box-container">
             {tipoparametros.length === 0 ? (
