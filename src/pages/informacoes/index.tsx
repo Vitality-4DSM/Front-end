@@ -65,7 +65,7 @@ const Info: React.FC = () => {
             }
           </div>
 
-          {/* <div className="box-container">
+          <div className="box-container">
             {tipoparametros.length === 0 ? (
               <div className="info-box">
                 <details className="details">
@@ -99,12 +99,12 @@ const Info: React.FC = () => {
                   </div>
                 </div>))
             ))}
-          </div> */}
-                    <div className="slide-container-cardzin">
+          </div>
+          {/* <div className="slide-container-cardzin">
             <div className="slide-content-cardzin">
               <div className="cardzin-wrapper">
                 <div className="cardzin">
-                  <div className="image-content">
+                  <div className="image-content-cardzin">
                     <span className="overlay"> </span>
 
                     <div className="cardzin-image">
@@ -120,7 +120,7 @@ const Info: React.FC = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 

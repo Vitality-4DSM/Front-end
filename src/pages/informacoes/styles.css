@@ -77,7 +77,7 @@
 }
 
 
-.image-content-cardzin, .cardzin-content{
+.image-content-cardzin .cardzin-content{
     padding:10px 14px;
     flex-direction: column;
     align-items: center;
@@ -93,8 +93,16 @@
 
 
 .cardzin {
+    width: 320px;
     border-radius: 25px;
     background-color: #fff;
+}
+
+
+.image-content-cardzin{
+    row-gap: 5px;
+    position: relative;
+   
 }
 
 .cardzin-image {
@@ -104,7 +112,23 @@
     border-radius: 50%;
     background-color: #fff;
     padding:3px;
+    align-items: center;
 
+}
+
+
+.image-content-cardzin .cardzin-image img{
+    align-items: center;
+
+}
+
+.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 25px 25px 0 25px;
 }
 
 .cardzin-image .cardzin-img {
@@ -113,4 +137,32 @@
     object-fit: cover;
     border-radius: 50%;
     border: 4px solid #448d88
+}
+
+.name{
+   font-size: 18px;
+   font-weight: 500;
+   color: #333; 
+}
+
+.description {
+    font-size: 14px;
+    color:#707070;
+    text-align: center;
+}
+
+.cardzin-button {
+    border: none;
+    font-size: 16px;
+    color: #fff;
+    padding: 8px 16px;
+    background-color: #4070f4;
+    border-radius: 6px;
+    margin:14px;
+    cursor:pointer;
+    transition: all 0.3s ease;
+}
+
+.cardzin-button:hover {
+    background: #265DF2;
 }
