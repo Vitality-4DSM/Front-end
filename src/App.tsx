@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 import { Provider } from './contexts/LoginContexts';
 import useLogin from './hooks';
+import Dashboard from './pages/Dashboards'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function RotaLogado() {
       <Route path="/informacoes" element={<Info />} />
       <Route path="/perfil" element={<Perfil />} />
       <Route path="/alertas" element={<Alertas />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   )
 }
@@ -44,6 +46,7 @@ function RotaPublico() {
       <Route path="/estacoes" element={<Estacoes />} />
       <Route path="/informacoes" element={<Info />} />
       <Route path="/alertas" element={<Alertas />} />
+      <Route path="/dashboard" element={<Dashboard />} />
     </Routes>
   )
 }

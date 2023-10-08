@@ -38,7 +38,7 @@ const SidebarPublico: React.FC<SidebarProps> = ({ isOpen }) => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to='/dashboards'>
+                        <NavLink to='/Dashboard'>
                             <PollIcon className='icon' />
                             <span>Dashboards</span>
                         </NavLink>
