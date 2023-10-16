@@ -37,30 +37,30 @@ const SidebarPublico: React.FC<SidebarProps> = ({ isOpen }) => {
                             <span>Login</span>
                         </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <NavLink to='/dashboards'>
                             <PollIcon className='icon' />
                             <span>Dashboards</span>
                         </NavLink>
-                    </li>
+                    </li> */}
                     <li>
                         <NavLink to='/estacoes'>
                             <MemoryIcon className='icon' />
                             <span>Estações</span>
                         </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <NavLink to='/informacoes'>
                             <FeedIcon className='icon' />
                             <span>Guia de Informações</span>
                         </NavLink>
-                    </li>
-                    <li>
+                    </li> */}
+                    {/* <li>
                         <NavLink to='/alertas'>
                             <AnnouncementIcon className='icon' />
                             <span>Alertas</span>
                         </NavLink>
-                    </li>
+                    </li> */}
 
                 </nav>
             </div>
@@ -78,36 +78,36 @@ const SidebarLogado: React.FC<SidebarProps> = ({ isOpen }) => {
             </div>
             <div className="links">
                 <nav>
-                    <li>
+                    {/* <li>
                         <NavLink to='/perfil'>
                             <Person4Icon className='icon' />
                             <span>Meu Perfil</span>
                         </NavLink>
-                    </li>
-                    <li>
+                    </li> */}
+                    {/* <li>
                         <NavLink to='/dashboards'>
                             <PollIcon className='icon' />
                             <span>Dashboards</span>
                         </NavLink>
-                    </li>
+                    </li> */}
                     <li>
                         <NavLink to='/estacoes'>
                             <MemoryIcon className='icon' />
                             <span>Estações</span>
                         </NavLink>
                     </li>
-                    <li>
+                    {/* <li>
                         <NavLink to='/informacoes'>
                             <FeedIcon className='icon' />
                             <span>Guia de Informações</span>
                         </NavLink>
-                    </li>
-                    <li>
+                    </li> */}
+                    {/* <li>
                         <NavLink to='/alertas'>
                             <AnnouncementIcon className='icon' />
                             <span>Alertas</span>
                         </NavLink>
-                    </li>
+                    </li> */}
                     <li>
                         <NavLink to='/estacoes' className="button-like-link" onClick={() => logout()}>
                             <LogoutIcon className='icon' />

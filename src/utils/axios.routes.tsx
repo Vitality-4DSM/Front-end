@@ -52,6 +52,15 @@ export const postTypeParameter = async (data: any) => {
   }
 }
 
+export const getTipoParametros = async () => {
+  try {
+    const response = await api.get("/typeparameter");
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const putTypeParameter = async (data: any) => {
   try {
     const response = await api.put("/typeparameter", data);
@@ -101,15 +110,6 @@ export const getAlertas = async () => {
   }
 };
 
-export const getTipoParametros = async () => {
-  try {
-    const response = await api.get("/typeparameter");
-    return response.data;
-  } catch (error) {
-    return error;
-  }
-};
-
 export const getUser = async () => {
   try {
     const response = await api.get("/user");
@@ -134,9 +134,17 @@ export const postParameter = async (data: any) => {
         fk_tipo_parametro: parseInt(fk_tipo_parametro[i]),
       });
     }
-    // const response = await api.post("/parameter", data);
     return data;
   } catch (error) {
     return error;
   }
 }
+
+export const getParameter = async (id: any) => {
+  try {
+    const response = await api.get("/parameter/fkparameter", id );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

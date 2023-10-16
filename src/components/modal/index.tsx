@@ -9,6 +9,7 @@ import {
   putTypeParameter,
   deleteTypeParameter,
   postAlertas,
+  getParameter,
 } from "../../utils/axios.routes";
 import "./style.css";
 
@@ -38,7 +39,7 @@ const Modal: React.FC<ModalProps> = ({
   const [sinal, setSinal] = useState("");
   const [id_parametro, setId_parametro] = useState("");
   const [valor, setValor] = useState("");
-
+  const [fktipoparameto, setFktipoparametro] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -143,6 +144,22 @@ const Modal: React.FC<ModalProps> = ({
     window.location.reload();
     return alert(response)
   }
+  function Selecionado(id: string) {
+    const Parametro = async () => {
+      try {
+        const response = await getParameter(id);
+        setFktipoparametro(response);
+      } catch (error) { }
+      console.log(fktipoparameto)
+    }
+    Parametro();
+    if (fktipoparameto) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   useEffect(() => {
     const fetchEstacoes = async () => {
       try {
@@ -234,6 +251,7 @@ const Modal: React.FC<ModalProps> = ({
                         onChange={handleInputChange}
                         name="tipoParametros"
                         type="checkbox"
+                        // checked={Selecionado(item.id_tipo_parametro)}
                       />
                       <span>{item.nome}</span>
                     </div>
