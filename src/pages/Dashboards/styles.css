@@ -270,3 +270,32 @@ span {
   border-radius: 30px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
 }
+
+.boxFiltro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding-top: 0px; 
+  padding-bottom: 0%;  
+  gap: 10%;
+}
+
+.boxFiltro .ordemasc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.boxFiltro .ordemasc img {
+  cursor: pointer;
+  margin-top:20px ;
+  
+}
+
+.filtroRow{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;   
+}

@@ -4,13 +4,20 @@ import Sidebar from "../../components/sidebar";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import ClearIcon from "@mui/icons-material/Clear";
 import * as Highcharts from 'highcharts';
+import LineChart from '../../components/graficos/lineChart/temperatura'
 
 const Estacoes: React.FC = () => {
   const [showSidebar, setShowSidebar] = useState(true);
+  const [selectedOption, setSelectedOption] = useState('');
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
+
+  function handleChangeOption(event: any) {
+    setSelectedOption(event.target.value);
+    console.log(selectedOption);
+}
 
 
   interface dadosTemperatura {
@@ -193,6 +200,7 @@ const Estacoes: React.FC = () => {
   
 
   }, []);
+
   return (
     <>
       <div className={`flex ${showSidebar ? "shifted" : ""}`}>
@@ -204,9 +212,36 @@ const Estacoes: React.FC = () => {
             </button>
           </div>
 
+          <div className="boxFiltro">
+                    <div className='filtroRow'>
+                        <span>Filtro: </span>
+                        <select value={selectedOption} onChange={(event) => 
+                        {handleChangeOption(event); // Call the regular handleChange function
+                        console.log(selectedOption); }} className='btn btn1'>
+                            <option value="vencer">A vencer</option>
+                            <option value="paga">Pagas</option>
+                            <option value="creditada">Creditadas</option>
+                            <option value="atraso">Em atraso</option>
+                        </select>
+                        
+                    </div>
+                  <div className='filtroRow'>
+                      <span>Filtro: </span>
+                      <select value={selectedOption} onChange={(event) => 
+                      {handleChangeOption(event); // Call the regular handleChange function
+                      console.log(selectedOption); }} className='btn btn1'>
+                          <option value="vencer">A vencer</option>
+                          <option value="paga">Pagas</option>
+                          <option value="creditada">Creditadas</option>
+                          <option value="atraso">Em atraso</option>
+                      </select>
+                      
+                  </div>
+              </div>
+
           <div className="square-container">
 
-            <div className="square" ref={chartContainerRef1}></div>
+            <LineChart/>
 
 
             <div className="square" ref={chartContainerRef2}></div>
