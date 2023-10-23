@@ -5,10 +5,15 @@ import DehazeIcon from "@mui/icons-material/Dehaze";
 import ClearIcon from "@mui/icons-material/Clear";
 import * as Highcharts from 'highcharts';
 import LineChart from '../../components/graficos/lineChart/temperatura'
+import { Padding } from "@mui/icons-material";
+
+
 
 const Estacoes: React.FC = () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const [selectedOption, setSelectedOption] = useState('');
+  const [dataInicio, setDataInicio] = useState("")
+  const [dataFinal, setDataFinal] = useState("")
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
@@ -17,7 +22,7 @@ const Estacoes: React.FC = () => {
   function handleChangeOption(event: any) {
     setSelectedOption(event.target.value);
     console.log(selectedOption);
-}
+  }
 
 
   interface dadosTemperatura {
@@ -79,7 +84,7 @@ const Estacoes: React.FC = () => {
     },
 
   ];
-  
+
 
   const chartContainerRef1 = useRef<HTMLDivElement>(null);
   const chartContainerRef2 = useRef<HTMLDivElement>(null);
@@ -115,7 +120,7 @@ const Estacoes: React.FC = () => {
         },
       });
     }
-  
+
 
     if (chartContainerRef2.current) {
       Highcharts.chart(chartContainerRef2.current, {
@@ -128,7 +133,7 @@ const Estacoes: React.FC = () => {
 
       });
     }
-  
+
 
     if (chartContainerRef3.current) {
 
@@ -136,60 +141,60 @@ const Estacoes: React.FC = () => {
         x: new Date(item.date).getTime(),
         y: item.temperaturaMaxima,
       }));
-  
+
       const dadosGraficoTemperaturaMinima = dadosTemperatura.map((item) => ({
         x: new Date(item.date).getTime(),
         y: item.temperaturaMinima,
       }));
-  
+
       Highcharts.chart(chartContainerRef3.current, {
         chart: {
           type: 'line',
           backgroundColor: '#000',
         },
-        
+
         title: {
           text: 'Temperatura dos últimos 10 dias',
           style: {
-            color: 'white', 
+            color: 'white',
           },
         },
         xAxis: {
-          type: 'datetime', 
+          type: 'datetime',
           gridLineWidth: 1,
           labels: {
             style: {
-              color: 'white', 
+              color: 'white',
             },
           },
-          
+
         },
         yAxis: {
-          gridLineWidth: 1, 
+          gridLineWidth: 1,
           title: {
-            text: 'Temperatura C°', 
+            text: 'Temperatura C°',
           },
           labels: {
             style: {
-              color: 'white', 
+              color: 'white',
             },
           },
         },
         legend: {
           itemStyle: {
-            color: 'white', 
+            color: 'white',
           },
         },
 
         series: [
           {
-            type: 'line', 
+            type: 'line',
             name: 'Temperatura Máxima',
             data: dadosGraficoTemperatura,
             color: '#aa0000',
           },
           {
-            type: 'line', 
+            type: 'line',
             name: 'Temperatura Mínima',
             data: dadosGraficoTemperaturaMinima,
             color: '#4ae',
@@ -197,7 +202,7 @@ const Estacoes: React.FC = () => {
         ],
       });
     }
-  
+
 
   }, []);
 
@@ -212,36 +217,39 @@ const Estacoes: React.FC = () => {
             </button>
           </div>
 
+          <div className="boxDate">
+            <div className='row'>
+              <span className="dateSpan">Data de Início </span>
+              <input type="date" onChange={(e) => setDataInicio(e.target.value)} className="selectStyle" />
+            </div>
+            <div className='row'>
+              <span>Data de Término </span>
+              <input type="date" onChange={(e) => setDataFinal(e.target.value)} className="selectStyle" />
+            </div>
+
+          </div>
+
           <div className="boxFiltro">
-                    <div className='filtroRow'>
-                        <span>Filtro: </span>
-                        <select value={selectedOption} onChange={(event) => 
-                        {handleChangeOption(event); // Call the regular handleChange function
-                        console.log(selectedOption); }} className='btn btn1'>
-                            <option value="vencer">A vencer</option>
-                            <option value="paga">Pagas</option>
-                            <option value="creditada">Creditadas</option>
-                            <option value="atraso">Em atraso</option>
-                        </select>
-                        
-                    </div>
-                  <div className='filtroRow'>
-                      <span>Filtro: </span>
-                      <select value={selectedOption} onChange={(event) => 
-                      {handleChangeOption(event); // Call the regular handleChange function
-                      console.log(selectedOption); }} className='btn btn1'>
-                          <option value="vencer">A vencer</option>
-                          <option value="paga">Pagas</option>
-                          <option value="creditada">Creditadas</option>
-                          <option value="atraso">Em atraso</option>
-                      </select>
-                      
-                  </div>
-              </div>
+            <div className='filtroRow'>
+              <span>Estação </span>
+              <select value={selectedOption} onChange={(event) => {
+                handleChangeOption(event);
+                console.log(selectedOption);
+              }} className='selectStyle'>
+                <option value="vencer">Estação 1</option>
+                <option value="paga">Estação 2</option>
+                <option value="paga">Estação 3</option>
+              </select>
+
+            </div>
+
+          </div>
+
+
 
           <div className="square-container">
 
-            <LineChart/>
+            <LineChart />
 
 
             <div className="square" ref={chartContainerRef2}></div>

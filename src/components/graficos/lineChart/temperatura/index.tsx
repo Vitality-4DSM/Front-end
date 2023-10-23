@@ -5,6 +5,7 @@ import "./style.css";
 
 
 const Modal: React.FC = ({}) => {
+  let teste='aaaaaaaaaa'
     interface dadosTemperatura {
         date: string;
         temperaturaMaxima: number;
@@ -158,6 +159,7 @@ const Modal: React.FC = ({}) => {
     
   return (
     <div className="square1"  ref={chartContainerRef3}></div>
+    
   );
 };
 
