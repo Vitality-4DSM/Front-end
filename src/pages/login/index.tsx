@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../utils/axios.routes";
 import { LoginContext } from "../../contexts/LoginContexts";
 import useLogin from "../../hooks";
+import { sha512 } from "sha512-crypt-ts";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ const Login = () => {
 
     const data = {
       email: email,
-      senha: password,
+      senha: sha512.crypt(password,"password"),
     };
 
     try {
