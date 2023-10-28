@@ -6,22 +6,38 @@ import ClearIcon from "@mui/icons-material/Clear";
 import * as Highcharts from 'highcharts';
 import LineChart from '../../components/graficos/lineChart/temperatura'
 import { Padding } from "@mui/icons-material";
+import ModalT from '../../components/ModalGraficos/Modal'
+import Drops from '../../assets/icons/waterDrpos.svg'
+import Info from '../../assets/icons/Info.svg'
+import Rain from '../../assets/icons/Rain.svg'
+import Thermo from '../../assets/icons/Thermometer.svg'
+import Wind from '../../assets/icons/Wind.svg'
+
 
 
 
 const Estacoes: React.FC = () => {
   const [showSidebar, setShowSidebar] = useState(true);
-  const [selectedOption, setSelectedOption] = useState('');
+  const [estacao, setSelectedEstação] = useState('');
   const [dataInicio, setDataInicio] = useState("")
   const [dataFinal, setDataFinal] = useState("")
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
 
-  function handleChangeOption(event: any) {
-    setSelectedOption(event.target.value);
-    console.log(selectedOption);
+  function handleChangeOptionEstação(event: any) {
+    setSelectedEstação(event.target.value);
   }
 
 
@@ -89,6 +105,55 @@ const Estacoes: React.FC = () => {
   const chartContainerRef1 = useRef<HTMLDivElement>(null);
   const chartContainerRef2 = useRef<HTMLDivElement>(null);
   const chartContainerRef3 = useRef<HTMLDivElement>(null);
+
+  const [showAllText, setShowAllText] = useState(false);
+
+  const toggleAllText = () => {
+    setShowAllText(!showAllText);
+  };
+
+
+
+
+  const GrafSelect = () => {
+    return (
+      <div className="modal-content">
+  
+      <div className="ButtonColumn">
+        <div className="ButtonRow">
+          <div className="clickable-button" onClick={() => console.log('Clicked')}>
+            <img src={Drops} alt="" />
+            {showAllText && <p className="text-under-image">Humidade</p>}
+          </div>
+          <div className="clickable-button" onClick={() => console.log('Clicked')}>
+            <img src={Rain} alt="" />
+            {showAllText && <p className="text-under-image">Chuva</p>}
+          </div>
+          <div className="clickable-button" onClick={() => console.log('Clicked')}>
+            <img src={Wind} alt="" />
+            {showAllText && <p className="text-under-image">Força do Vento</p>}
+          </div>
+        </div>
+      </div>
+  
+      <div className="ButtonColumn">
+        <div className="ButtonRow">
+          <div className="clickable-button" onClick={() => console.log('Clicked')}>
+            <img src={Thermo} alt="" />
+            {showAllText && <p className="text-under-image">Temperatura</p>}
+          </div>
+        </div>
+      </div>
+
+      <div className="info-button" onClick={toggleAllText}>
+        <img src={Info} alt="" />
+      </div>
+
+    </div>
+
+    );
+
+  }
 
 
 
@@ -217,9 +282,9 @@ const Estacoes: React.FC = () => {
             </button>
           </div>
 
-          <div className="boxDate">
+          <div className="boxDate Filtrospan" >
             <div className='row'>
-              <span className="dateSpan">Data de Início </span>
+              <span className="dateSpan ">Data de Início </span>
               <input type="date" onChange={(e) => setDataInicio(e.target.value)} className="selectStyle" />
             </div>
             <div className='row'>
@@ -229,18 +294,16 @@ const Estacoes: React.FC = () => {
 
           </div>
 
-          <div className="boxFiltro">
+          <div className="boxFiltro Filtrospan">
             <div className='filtroRow'>
               <span>Estação </span>
-              <select value={selectedOption} onChange={(event) => {
-                handleChangeOption(event);
-                console.log(selectedOption);
-              }} className='selectStyle'>
-                <option value="vencer">Estação 1</option>
-                <option value="paga">Estação 2</option>
-                <option value="paga">Estação 3</option>
-              </select>
+              <button onClick={openModal} className="Selectbutton">Selecionar</button>
 
+
+            </div>
+            <div className='filtroRow'>
+              <span>Gráficos </span>
+              <button onClick={openModal} className="Selectbutton">Selecionar</button>
             </div>
 
           </div>
@@ -259,6 +322,12 @@ const Estacoes: React.FC = () => {
 
 
           </div>
+
+
+          <ModalT open={isModalOpen} onClose={closeModal}>
+            <GrafSelect />
+          </ModalT>
+
         </div>
       </div>
     </>

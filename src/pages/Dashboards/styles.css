@@ -281,7 +281,7 @@ span {
   gap: 10%;
 }
 
-span {
+.Filtrospan {
   font-size: 25px;
   font-weight: bold;
   text-align: center;
@@ -328,4 +328,145 @@ span {
 .selectStyle{
   padding: 5px;
   border-radius: 10px;
+}
+
+/* styles.css or your preferred CSS file */
+
+/* Overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal */
+.modal {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 80%;
+  position: relative;
+}
+
+/* Close Button */
+.modal-close {
+  position: absolute;
+  top: 1px;
+  right: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #333;
+}
+
+.clickable-button {
+  width: 5vw;
+  height: auto; /* Set height to auto to fit the content */
+  cursor: pointer;
+  padding: 3px;
+  border: 2px solid #000000e0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.2s;
+  text-align: center;
+}
+
+.clickable-button:hover {
+  background-color: #999999a2;
+}
+
+.clickable-button:active {
+  background-color: #ffffff;
+}
+
+.ButtonRow {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.clickable-button img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0px;
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.text-under-image {
+  margin-top: 10px;
+  font-size: 14px;
+  white-space: normal;
+  max-width: 100%;
+}
+
+
+.ButtonColumn {
+  padding-bottom: 1vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.info-button {
+  position: absolute;
+  bottom: 1vh;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.info-button img {
+  width: 20px; 
+  height: 20px; 
+}
+
+.info-button:hover {
+  background-color: #e9e9e9;
+}
+
+
+.Selectbutton {
+  display: inline-block;
+  padding: px 10px; /* Adjust padding as needed */
+  font-size: 16px; /* Adjust font size as needed */
+  background-color: #176B87; /* Button background color */
+  color: #fff; /* Text color */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.Selectbutton:hover {
+  background-color: #0056b3; /* Change background color on hover */
+}
+
+.Selectbutton:active {
+  background-color: #004191; /* Change background color when button is pressed */
 }
