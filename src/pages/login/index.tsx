@@ -16,10 +16,8 @@ const Login = () => {
 
     const data = {
       email: email,
-      // senha: "123"
       senha: sha512.crypt(password,"password"),
     };
-
     try {
       const response = await login(data);
       console.log(response);
