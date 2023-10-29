@@ -16,7 +16,7 @@
     position: relative;
     width: 650px;
     height: 500px;
-    background: url("https://images6.alphacoders.com/326/326993.jpg");
+    background-color: #353535;
     background-size: cover;
     background-position: center;    
     display: flex;
@@ -174,7 +174,7 @@
     height: 45px;
     margin: 10px;
     border: none;
-    background-color: #176B87;
+    background-color: #007A78;
     color: white;
     border-radius: 8px;
     font-size: 20px;

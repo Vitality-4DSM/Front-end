@@ -16,6 +16,7 @@ const Login = () => {
 
     const data = {
       email: email,
+      // senha: "123"
       senha: sha512.crypt(password,"password"),
     };
 
@@ -25,7 +26,7 @@ const Login = () => {
 
       if (response.token) {
         writeToken(response.token);
-        // localStorage.setItem("token", response.token);
+        localStorage.setItem("token", response.token);
         if (token) {
           navigate("/perfil");
         }
