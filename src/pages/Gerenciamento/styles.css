@@ -1,33 +1,58 @@
-.Perfil {
-    background-color: #176B87;
-    width: 800px;
-    height: 160px;
-    border-radius: 30px;
-    color: #FFFF;
-    display: grid;
-    flex-direction: row;
-    align-items: center; /* Adicionado para centralizar verticalmente */
+.perfil-container-gerenciamento{
+  background: #212121; 
+  width: 100%;
+  flex: 6 1;
+  min-height: 100vh;
 }
 
-.Perfil img {
+.Perfil-gerenciamento {
+    background-color: #176B87;
+    width: 800px;
+    height: 120px;
+    border-radius: 30px;
+    color: #FFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.Perfil-gerenciamento .perfil-left{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+}
+
+.Perfil-gerenciamento .perfil-left .perfil-left-text{
+  display: flex;
+  flex-direction: column;
+}
+
+.Perfil-gerenciamento .perfil-left .perfil-left-text span{
+  font-size: 1.1rem;
+}
+
+.Perfil-gerenciamento .perfil-left img {
     width: 80px;
     height: 85px;
 }
 
-.Perfil label {
+.Perfil-gerenciamento .perfil-right label {
     align-items: center;
     justify-content: center;
-    margin-left: 90%;
 }
-
-.whiteline {
-    background-color: black;
-    border-radius: 5px;
-    border: white;
+.perfil-container-gerenciamento .box-container-gerenciamento{
+  display: flex;
+  justify-content: center;
 }
+.perfil-container-gerenciamento .whiteline{
+  border: 1px solid white;
+  padding: 20px 20px 0 20px;
+  border-radius: 20px;
 
-
-
+}
 /* .perfil-container .perfil-title {
     padding: 20px 20px 20px 40px;
 }

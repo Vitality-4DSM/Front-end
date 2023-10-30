@@ -20,29 +20,38 @@ const Gerenciamento: React.FC = () => {
   return (
     <div className={`flex ${showSidebar ? 'shifted' : ''}`}>
       <Sidebar isOpen={showSidebar} />
-      <div className='perfil-container'>
+      <div className='perfil-container-gerenciamento'>
         <div className="perfil-title">
           <button className="toggle-button" onClick={toggleSidebar}>
             {showSidebar ? <ClearIcon /> : <DehazeIcon />}
           </button>
           <span>Gerenciamento de usuários</span>
         </div>
-        <div className="whiteline">
-            <div className='box-container'>
-            <div className='Perfil'>
-                <img src={user} alt="user" />
-                <span>Ryan Alves  </span>
-                <span>RyanzinhaTipsterPro@gmail.com </span>
-                <label className={`switch ${ligado ? 'ligado' : 'desligado'}`} onClick={toggleSwitch}>
-                <div className='slider'></div>
-            </label>
+
+        <div className='box-container-gerenciamento'>
+          <div className="whiteline">
+            <div className='Perfil-gerenciamento'>
+              <div className='perfil-left'>
+                <img src={user} alt="user-gerenciamento" />
+                <div className='perfil-left-text'>
+                  <span>Ryan Alves  </span>
+                  <span>RyanzinhaTipsterPro@gmail.com </span>
                 </div>
 
-            
+              </div>
+              <div className='perfil-right'>
+                <label className={`switch ${ligado ? 'ligado' : 'desligado'}`} onClick={toggleSwitch}>
+                  <div className='slider'></div>
+                </label>
+              </div>
 
             </div>
+      
+
+          </div>
         </div>
       </div>
+
     </div >
   );
 }

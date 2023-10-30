@@ -90,10 +90,10 @@ const SidebarLogado: React.FC<SidebarProps> = ({ isOpen }) => {
             </div>
             <div className="links">
                 <nav>
-                    <li>
+                    <li onClick={()=>{ setOpenModal(true); setModalStyle("Editar-Perfil")}}>
                         <NavLink to='#' >
                             <Person4Icon className='icon'  />
-                            <span onClick={()=>{ setOpenModal(true); setModalStyle("Editar-Perfil")}}>Meu Perfil</span>
+                            <span >Meu Perfil</span>
                         </NavLink>
                     </li>
                     <li>
