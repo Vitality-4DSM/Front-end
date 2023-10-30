@@ -1,0 +1,93 @@
+.Perfil {
+    background-color: #176B87;
+    width: 800px;
+    height: 160px;
+    border-radius: 30px;
+    color: #FFFF;
+    display: grid;
+    flex-direction: row;
+    align-items: center; /* Adicionado para centralizar verticalmente */
+}
+
+.Perfil img {
+    width: 80px;
+    height: 85px;
+}
+
+.Perfil label {
+    align-items: center;
+    justify-content: center;
+    margin-left: 90%;
+}
+
+.whiteline {
+    background-color: black;
+    border-radius: 5px;
+    border: white;
+}
+
+
+
+/* .perfil-container .perfil-title {
+    padding: 20px 20px 20px 40px;
+}
+
+.perfil-container .perfil-title span {
+    font-size: 1.4rem;
+    color: #fff;
+    
+} */
+
+/* .perfil-container .box-container {
+    padding: 0 40px;
+    background: #212121; 
+}
+ */
+
+
+ /* Estilos para o switch */
+.switch {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 25px;
+    background-color: #ccc;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* Estilos para o controle deslizante (slider) */
+  .slider {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: transform 0.3s;
+  }
+  
+  /* Estilos quando o switch está ligado */
+  .switch.ligado {
+    background-color: rgb(122, 38, 38);
+  }
+  
+  .switch.ligado .slider {
+    transform: translateX(30px);
+    align-items: center;
+    margin-top: 4px;
+  }
+  
+  /* Estilos quando o switch está desligado */
+  .switch.desligado {
+    background-color: #0d551d;
+  }
+  
+  .switch.desligado .slider {
+    transform: translateX(3px);
+    align-items: center;
+    margin-top: 4px;
+  }
+
+
+  

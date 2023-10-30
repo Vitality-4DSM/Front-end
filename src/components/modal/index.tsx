@@ -12,7 +12,7 @@ import {
   getParameter,
 } from "../../utils/axios.routes";
 import "./style.css";
-
+import user from '../../assets/user.png'
 interface ModalProps {
   setOpenModal: (value: boolean) => void;
   modalstyle: string;
@@ -40,6 +40,9 @@ const Modal: React.FC<ModalProps> = ({
   const [id_parametro, setId_parametro] = useState("");
   const [valor, setValor] = useState("");
   const [fktipoparameto, setFktipoparametro] = useState("");
+  const [name, setName] = useState("");
+  const [senha, setSenha] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -78,7 +81,17 @@ const Modal: React.FC<ModalProps> = ({
     await postParameter(response);
     window.location.reload();
   };
-
+  const handleformEditarPerfil = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = {
+      id: selectStationId,
+      nomeUsuario: name,
+      email: email,
+      senha: senha,
+    };
+    // await putEstacoes(data);
+    // window.location.reload();
+  };
   const handleFormSubmitEdit = async (e: React.FormEvent) => {
     e.preventDefault();
     const data = {
@@ -348,6 +361,56 @@ const Modal: React.FC<ModalProps> = ({
             </div>
           </>)
           : null}
+        {modalstyle === "Editar-Perfil" ? (
+          <>
+            <div className="title">
+              <h1>Editar Perfil</h1>
+              
+            </div>
+            <div className="body">
+            <div className="container-pai">
+              <img src={user} alt="user" />              
+              <div className="edit-input-container-1">
+                <input
+                  className="input-modal"
+                  onChange={handleInputChange}
+                  name="name"
+                  placeholder="Nome do Usuario"
+                />
+                <input
+                  className="input-modal"
+                  onChange={handleInputChange}
+                  name="email"
+                  placeholder="Email do Usuario"
+                />
+                <input
+                  className="input-modal"
+                  onChange={handleInputChange}
+                  name="senha"
+                  placeholder="Senha do Usuario"
+                />
+              {/* </div>
+              <div className="input-container-1">
+                <input
+                  className="input-modal"
+                  onChange={handleInputChange}
+                  name="email"
+                  placeholder="Email do Usuario"
+                />
+              </div>
+              <div className="input-container-1">
+                <input
+                  className="input-modal"
+                  onChange={handleInputChange}
+                  name="senha"
+                  placeholder="Senha do Usuario"
+                /> */}
+              </div>
+              </div>
+          
+            </div>
+          </>
+        ) : null}
 
         <div className="footer">
           {modalstyle === "editar-estacao" ? (
@@ -378,6 +441,12 @@ const Modal: React.FC<ModalProps> = ({
             <div></div>
             <button onClick={handleFormSubmitAlerta}>Cadastrar</button>
           </>) : null}
+
+          {modalstyle === "Editar-Perfil" ? (
+             <button onClick={handleFormSubmitEdit}>Editar</button>
+            ) : null
+
+          }
         </div>
       </div>
     </div>

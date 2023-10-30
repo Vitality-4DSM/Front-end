@@ -3,6 +3,7 @@ import Estacoes from './pages/Estacoes';
 import Info from './pages/informacoes';
 import Perfil from './pages/Perfil';
 import Alertas from './pages/Alertas';
+import Gerenciamento from './pages/Gerenciamento';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
 import { Provider } from './contexts/LoginContexts';
@@ -32,6 +33,7 @@ function RotaLogado() {
       <Route path="/informacoes" element={<Info />} />
       <Route path="/perfil" element={<Perfil />} />
       <Route path="/alertas" element={<Alertas />} />
+      <Route path="/gerenciamento" element={<Gerenciamento />} />
     </Routes>
   )
 }

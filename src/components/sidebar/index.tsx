@@ -7,11 +7,11 @@ import MemoryIcon from '@mui/icons-material/Memory';
 import AnnouncementIcon from '@mui/icons-material/Announcement';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
-
+import BadgeIcon from '@mui/icons-material/Badge';
+import Modal from "../../components/modal";
 import Stars from '../../assets/Stars.png'
 import './style.css'
 import useLogin from '../../hooks';
-
 
 
 // https://mui.com/material-ui/material-icons/
@@ -62,6 +62,7 @@ const SidebarPublico: React.FC<SidebarProps> = ({ isOpen }) => {
                         </NavLink>
                     </li>
 
+
                 </nav>
             </div>
         </div>
@@ -69,8 +70,19 @@ const SidebarPublico: React.FC<SidebarProps> = ({ isOpen }) => {
 }
 
 const SidebarLogado: React.FC<SidebarProps> = ({ isOpen }) => {
+    const [modalOpen, setOpenModal] = useState(false);
+    const [modalstyle, setModalStyle] = useState("");
+    const [selectStationId, setSelectStationId] = useState("");
     const { logout } = useLogin();
     return (
+        <>
+        {modalOpen ? (
+            <Modal
+              setOpenModal={setOpenModal}
+              modalstyle={modalstyle}
+              selectStationId={selectStationId}
+            />
+          ) : null}
         <div className={`sidebar ${isOpen ? 'open' : ''}`}>
             <div className="logo">
                 <img src={Stars} alt='Stars' className='logo-img' />
@@ -78,47 +90,57 @@ const SidebarLogado: React.FC<SidebarProps> = ({ isOpen }) => {
             </div>
             <div className="links">
                 <nav>
-                    {/* <li>
-                        <NavLink to='/perfil'>
-                            <Person4Icon className='icon' />
-                            <span>Meu Perfil</span>
+                    <li>
+                        <NavLink to='#' >
+                            <Person4Icon className='icon'  />
+                            <span onClick={()=>{ setOpenModal(true); setModalStyle("Editar-Perfil")}}>Meu Perfil</span>
                         </NavLink>
-                    </li> */}
-                    {/* <li>
+                    </li>
+                    <li>
                         <NavLink to='/dashboards'>
                             <PollIcon className='icon' />
                             <span>Dashboards</span>
                         </NavLink>
-                    </li> */}
+                    </li>
                     <li>
                         <NavLink to='/estacoes'>
                             <MemoryIcon className='icon' />
                             <span>Estações</span>
                         </NavLink>
                     </li>
-                    {/* <li>
+                    <li>
                         <NavLink to='/informacoes'>
                             <FeedIcon className='icon' />
                             <span>Guia de Informações</span>
                         </NavLink>
-                    </li> */}
-                    {/* <li>
+                    </li>
+                    <li>
                         <NavLink to='/alertas'>
                             <AnnouncementIcon className='icon' />
                             <span>Alertas</span>
                         </NavLink>
-                    </li> */}
+                    </li>
+
+                    <li>
+                        <NavLink to='/gerenciamento'>
+                            <BadgeIcon className='icon' />
+                                <span style={{ display: 'block' }}>
+                                    Gerenciamento de<br />usuários
+                                </span>
+                        </NavLink>
+                    </li>
+
                     <li>
                         <NavLink to='/estacoes' className="button-like-link" onClick={() => logout()}>
                             <LogoutIcon className='icon' />
                             <span>Logout</span>
                         </NavLink>
-
                     </li>
 
                 </nav>
             </div>
         </div>
+        </>
     )
 }
 

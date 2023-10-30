@@ -11,6 +11,29 @@
 
   }
 
+.body img{
+  width: 180px;
+  height: 185px;
+  display: flex;
+  align-items: flex-start;
+}
+.body .container-pai{
+  display: flex;
+  flex-direction: row;
+  
+}
+.body .edit-input-container-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.input-modal{
+  margin: 5px;
+  width: 100%;
+  /* border-radius: solid 15px #ffffff; */
+  background-color: transparent;
+}
 
   .modalContainer {
     position: relative;
@@ -62,8 +85,6 @@
   .modalContainer .input-container-3 .input-modal{
     background-color: transparent;
   }
-
-
   .HrModal{
     margin: 20px 0;
     width: 100%;
