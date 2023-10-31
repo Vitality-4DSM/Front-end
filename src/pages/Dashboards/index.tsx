@@ -4,7 +4,7 @@ import Sidebar from "../../components/sidebar";
 import DehazeIcon from "@mui/icons-material/Dehaze";
 import ClearIcon from "@mui/icons-material/Clear";
 import * as Highcharts from 'highcharts';
-import LineChart from '../../components/graficos/lineChart/temperatura'
+
 import { Padding } from "@mui/icons-material";
 import ModalT from '../../components/ModalGraficos/Modal'
 import Drops from '../../assets/icons/waterDrpos.svg'
@@ -13,14 +13,16 @@ import Rain from '../../assets/icons/Rain.svg'
 import Thermo from '../../assets/icons/Thermometer.svg'
 import Wind from '../../assets/icons/Wind.svg'
 
-
-
+import Temperatura from '../../components/graficos/lineChart/temperatura'
+import Fvento from '../../components/graficos/lineChart/fVento'
 
 const Estacoes: React.FC = () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const [estacao, setSelectedEstação] = useState('');
   const [dataInicio, setDataInicio] = useState("")
   const [dataFinal, setDataFinal] = useState("")
+  const [temperatura, setTemperatura] = useState(false);
+  const [fVento, setfVento] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -104,7 +106,7 @@ const Estacoes: React.FC = () => {
 
   const chartContainerRef1 = useRef<HTMLDivElement>(null);
   const chartContainerRef2 = useRef<HTMLDivElement>(null);
-  const chartContainerRef3 = useRef<HTMLDivElement>(null);
+
 
   const [showAllText, setShowAllText] = useState(false);
 
@@ -118,38 +120,38 @@ const Estacoes: React.FC = () => {
   const GrafSelect = () => {
     return (
       <div className="modal-content">
-  
-      <div className="ButtonColumn">
-        <div className="ButtonRow">
-          <div className="clickable-button" onClick={() => console.log('Clicked')}>
-            <img src={Drops} alt="" />
-            {showAllText && <p className="text-under-image">Humidade</p>}
-          </div>
-          <div className="clickable-button" onClick={() => console.log('Clicked')}>
-            <img src={Rain} alt="" />
-            {showAllText && <p className="text-under-image">Chuva</p>}
-          </div>
-          <div className="clickable-button" onClick={() => console.log('Clicked')}>
-            <img src={Wind} alt="" />
-            {showAllText && <p className="text-under-image">Força do Vento</p>}
+
+        <div className="ButtonColumn">
+          <div className="ButtonRow">
+            <div className="clickable-button" onClick={() => console.log('Clicked')}>
+              <img src={Drops} alt="" />
+              {showAllText && <p className="text-under-image">Humidade</p>}
+            </div>
+            <div className="clickable-button" onClick={() => console.log('Clicked')}>
+              <img src={Rain} alt="" />
+              {showAllText && <p className="text-under-image">Chuva</p>}
+            </div>
+            <div className="clickable-button" onClick={() => setfVento(!fVento)}>
+              <img src={Wind} alt="" />
+              {showAllText && <p className="text-under-image">Força do Vento</p>}
+            </div>
           </div>
         </div>
-      </div>
-  
-      <div className="ButtonColumn">
-        <div className="ButtonRow">
-          <div className="clickable-button" onClick={() => console.log('Clicked')}>
-            <img src={Thermo} alt="" />
-            {showAllText && <p className="text-under-image">Temperatura</p>}
+
+        <div className="ButtonColumn">
+          <div className="ButtonRow">
+            <div className="clickable-button" onClick={() => console.log(setTemperatura(!temperatura))}>
+              <img src={Thermo} alt="" />
+              {showAllText && <p className="text-under-image">Temperatura</p>}
+            </div>
           </div>
         </div>
-      </div>
 
-      <div className="info-button" onClick={toggleAllText}>
-        <img src={Info} alt="" />
-      </div>
+        <div className="info-button" onClick={toggleAllText}>
+          <img src={Info} alt="" />
+        </div>
 
-    </div>
+      </div>
 
     );
 
@@ -175,101 +177,7 @@ const Estacoes: React.FC = () => {
         ]
       }
     });
-    if (chartContainerRef1.current) {
-      Highcharts.chart(chartContainerRef1.current, {
-        chart: {
-          type: 'column',
-        },
-        title: {
-          text: 'Gráfico 1',
-        },
-      });
-    }
-
-
-    if (chartContainerRef2.current) {
-      Highcharts.chart(chartContainerRef2.current, {
-        chart: {
-          type: 'bar',
-        },
-        title: {
-          text: 'Gráfico 2',
-        },
-
-      });
-    }
-
-
-    if (chartContainerRef3.current) {
-
-      const dadosGraficoTemperatura = dadosTemperatura.map((item) => ({
-        x: new Date(item.date).getTime(),
-        y: item.temperaturaMaxima,
-      }));
-
-      const dadosGraficoTemperaturaMinima = dadosTemperatura.map((item) => ({
-        x: new Date(item.date).getTime(),
-        y: item.temperaturaMinima,
-      }));
-
-      Highcharts.chart(chartContainerRef3.current, {
-        chart: {
-          type: 'line',
-          backgroundColor: '#000',
-        },
-
-        title: {
-          text: 'Temperatura dos últimos 10 dias',
-          style: {
-            color: 'white',
-          },
-        },
-        xAxis: {
-          type: 'datetime',
-          gridLineWidth: 1,
-          labels: {
-            style: {
-              color: 'white',
-            },
-          },
-
-        },
-        yAxis: {
-          gridLineWidth: 1,
-          title: {
-            text: 'Temperatura C°',
-          },
-          labels: {
-            style: {
-              color: 'white',
-            },
-          },
-        },
-        legend: {
-          itemStyle: {
-            color: 'white',
-          },
-        },
-
-        series: [
-          {
-            type: 'line',
-            name: 'Temperatura Máxima',
-            data: dadosGraficoTemperatura,
-            color: '#aa0000',
-          },
-          {
-            type: 'line',
-            name: 'Temperatura Mínima',
-            data: dadosGraficoTemperaturaMinima,
-            color: '#4ae',
-          },
-        ],
-      });
-    }
-
-
-  }, []);
+  })
 
   return (
     <>
@@ -312,17 +220,21 @@ const Estacoes: React.FC = () => {
 
           <div className="square-container">
 
-            <LineChart />
+          {temperatura && (
+              <div className="square">
+                <Temperatura dadosTemperatura={dadosTemperatura} />
+              </div>
+            )}
 
 
-            <div className="square" ref={chartContainerRef2}></div>
-
-
-            <div className="square" ref={chartContainerRef3}></div>
+            {fVento && (
+              <div className="square">
+                <Fvento dadosTemperatura={dadosTemperatura} />
+              </div>
+            )}
 
 
           </div>
-
 
           <ModalT open={isModalOpen} onClose={closeModal}>
             <GrafSelect />
