@@ -25,8 +25,17 @@ const Gerenciamento: React.FC = () => {
           <button className="toggle-button" onClick={toggleSidebar}>
             {showSidebar ? <ClearIcon /> : <DehazeIcon />}
           </button>
-          <span>Gerenciamento de usuários</span>
+          <span id='titulo-gerenciamento'>Gerenciamento de usuários</span>
         </div>
+        <div className="cadastro-botão-gerenciamento">
+          <button
+            type="submit"
+            className="btn-cadastro-gerenciamento"
+          >
+            Cadastrar
+          </button>
+        </div>
+
 
         <div className='box-container-gerenciamento'>
           <div className="whiteline">
@@ -46,7 +55,7 @@ const Gerenciamento: React.FC = () => {
               </div>
 
             </div>
-      
+
 
           </div>
         </div>
