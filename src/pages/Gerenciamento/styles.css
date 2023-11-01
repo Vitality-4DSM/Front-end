@@ -3,6 +3,7 @@
   width: 100%;
   flex: 6 1;
   min-height: 100vh;
+  padding-left: 20px;
 }
 
 .Perfil-gerenciamento {
@@ -124,7 +125,7 @@ font-size:23px;
   
   /* Estilos quando o switch está ligado */
   .switch.ligado {
-    background-color: rgb(122, 38, 38);
+    background-color: #0d551d;
   }
   
   .switch.ligado .slider {
@@ -135,7 +136,7 @@ font-size:23px;
   
   /* Estilos quando o switch está desligado */
   .switch.desligado {
-    background-color: #0d551d;
+    background-color: rgb(122, 38, 38);
   }
   
   .switch.desligado .slider {

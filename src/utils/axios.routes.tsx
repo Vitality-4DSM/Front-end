@@ -110,7 +110,7 @@ export const getAlertas = async () => {
   }
 };
 
-export const getUser = async () => {
+export const GetUsers = async () => {
   try {
     const response = await api.get("/user");
     return response.data;
@@ -118,12 +118,6 @@ export const getUser = async () => {
     return error;
   }
 };
-
-export const GetUsers = async () => {
-  const response = await api.get("/user/");
-  return response.data;
-};
-
 
 // transforme fk_tipo_parametro em inteiro
 export const postParameter = async (data: any) => {
