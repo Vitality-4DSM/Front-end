@@ -110,18 +110,13 @@ export const getAlertas = async () => {
   }
 };
 
-export const getUser = async () => {
+export const GetUsers = async () => {
   try {
     const response = await api.get("/user");
     return response.data;
   } catch (error) {
     return error;
   }
-};
-
-export const GetUsers = async () => {
-  const response = await api.get("/user/");
-  return response.data;
 };
 
 
