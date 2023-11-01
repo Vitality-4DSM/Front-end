@@ -27,7 +27,7 @@ const ChartComponent: React.FC<ChartProps> = ({ dadosTemperatura }) => {
           backgroundColor: "#000",
         },
         title: {
-          text: "Temperatura dos últimos 10 dias",
+          text: "Temperatura",
           style: {
             color: "white",
           },

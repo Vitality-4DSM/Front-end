@@ -27,7 +27,7 @@ const ChartComponent: React.FC<ChartProps> = ({ dadosTemperatura }) => {
           backgroundColor: "#000",
         },
         title: {
-          text: "Força do vento",
+          text: "Humidade",
           style: {
             color: "white",
           },

@@ -1,6 +1,8 @@
 // Inside your ModalT component file
 
 import React from 'react';
+import Close from '../../assets/icons/close.svg'
+import "./style.css"
 
 type ModalProps = {
   open: boolean;
@@ -14,7 +16,7 @@ const ModalT: React.FC<ModalProps> = ({ open, onClose, children }) => {
   return (
     <div className="modal-overlay">
       <div className="modal">
-        <button className="modal-close" onClick={onClose}>X</button>
+        <div className="modal-close" onClick={onClose}><img src={Close} alt=""/> </div>
         {children}
       </div>
     </div>

@@ -15,14 +15,19 @@ import Wind from '../../assets/icons/Wind.svg'
 
 import Temperatura from '../../components/graficos/lineChart/temperatura'
 import Fvento from '../../components/graficos/lineChart/fVento'
+import Chuva from '../../components/graficos/lineChart/chuva'
+import Humidade from '../../components/graficos/lineChart/humidade'
 
 const Estacoes: React.FC = () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const [estacao, setSelectedEstação] = useState('');
   const [dataInicio, setDataInicio] = useState("")
   const [dataFinal, setDataFinal] = useState("")
+
   const [temperatura, setTemperatura] = useState(false);
   const [fVento, setfVento] = useState(false);
+  const [humidade, setHumidade] = useState(false);
+  const [chuva, setChuva] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -121,16 +126,18 @@ const Estacoes: React.FC = () => {
     return (
       <div className="modal-content">
 
-        <div className="ButtonColumn">
+        <div className="ButtonColumn" style={{paddingTop:'25px'}}>
           <div className="ButtonRow">
-            <div className="clickable-button" onClick={() => console.log('Clicked')}>
+            <div className="clickable-button" onClick={() => setHumidade(!humidade)}>
               <img src={Drops} alt="" />
               {showAllText && <p className="text-under-image">Humidade</p>}
             </div>
-            <div className="clickable-button" onClick={() => console.log('Clicked')}>
+
+            <div className="clickable-button" onClick={() => setChuva(!chuva)}>
               <img src={Rain} alt="" />
               {showAllText && <p className="text-under-image">Chuva</p>}
             </div>
+
             <div className="clickable-button" onClick={() => setfVento(!fVento)}>
               <img src={Wind} alt="" />
               {showAllText && <p className="text-under-image">Força do Vento</p>}
@@ -140,7 +147,7 @@ const Estacoes: React.FC = () => {
 
         <div className="ButtonColumn">
           <div className="ButtonRow">
-            <div className="clickable-button" onClick={() => console.log(setTemperatura(!temperatura))}>
+            <div className="clickable-button" onClick={() => setTemperatura(!temperatura)}>
               <img src={Thermo} alt="" />
               {showAllText && <p className="text-under-image">Temperatura</p>}
             </div>
@@ -220,12 +227,17 @@ const Estacoes: React.FC = () => {
 
           <div className="square-container">
 
-          {temperatura && (
+            {humidade && (
               <div className="square">
-                <Temperatura dadosTemperatura={dadosTemperatura} />
+                <Humidade dadosTemperatura={dadosTemperatura} />
               </div>
             )}
 
+            {chuva && (
+              <div className="square">
+                <Chuva dadosTemperatura={dadosTemperatura} />
+              </div>
+            )}
 
             {fVento && (
               <div className="square">
@@ -233,6 +245,11 @@ const Estacoes: React.FC = () => {
               </div>
             )}
 
+            {temperatura && (
+              <div className="square">
+                <Temperatura dadosTemperatura={dadosTemperatura} />
+              </div>
+            )}
 
           </div>
 
