@@ -33,7 +33,7 @@ function RotaLogado() {
       <Route path="/informacoes" element={<Info />} />
       <Route path="/alertas" element={<Alertas />} />
       <Route path="/gerenciamento" element={<Gerenciamento />} />
-      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/dashboards" element={<Dashboard />} />
     </Routes>
   )
 }

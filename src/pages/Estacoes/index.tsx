@@ -32,7 +32,7 @@ const Estacoes: React.FC = () => {
 
   return (
     <>
-    
+
       {modalOpen ? (
         <Modal
           setOpenModal={setOpenModal}
@@ -90,19 +90,19 @@ const Estacoes: React.FC = () => {
                         <span>Longitude: {item.longitude}</span>
                       </p>
                       {token &&
-                      <div className="card-btn-wraper">
-                        <button
-                          type="submit"
-                          className="card-btn"
-                          onClick={() => {
-                            setOpenModal(true);
-                            setModalStyle("editar-estacao");
-                            setSelectStationId(item.id_estacao);
-                          }}
-                        >
-                          Editar Estação
-                        </button>
-                      </div>
+                        <div className="card-btn-wraper">
+                          <button
+                            type="submit"
+                            className="card-btn"
+                            onClick={() => {
+                              setOpenModal(true);
+                              setModalStyle("editar-estacao");
+                              setSelectStationId(item.id_estacao);
+                            }}
+                          >
+                            Editar Estação
+                          </button>
+                        </div>
                       }
                     </div>
                   </div>

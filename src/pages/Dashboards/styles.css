@@ -258,7 +258,7 @@ span {
   flex-wrap: wrap;
   justify-content: space-around;
   margin: 40px;
-  height: 100%; 
+  height: auto; 
 }
 
 
@@ -328,6 +328,7 @@ span {
 .selectStyle{
   padding: 5px;
   border-radius: 10px;
+  color: #212121;
 }
 
 /* styles.css or your preferred CSS file */
@@ -438,4 +439,43 @@ span {
 
 .Selectbutton:active {
   background-color: #004191; /* Change background color when button is pressed */
+}
+
+
+.estacaoSelect {
+  width: 30vw;
+  height: auto;
+  background-color: #36363600;
+  display: flex;
+  flex-direction: column; /* Empilhe os elementos verticalmente */
+  justify-content: space-around; /* Centralize verticalmente */
+  align-items: center; /* Centralize horizontalmente */
+}
+
+.estacoes-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+}
+
+.estacoes-item {
+  flex: 1;
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  flex-basis: calc(33.33% - 20px);
+  cursor: pointer;
+  user-select: none;
+}
+
+.estacoes-item:hover {
+  flex: 1;
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  flex-basis: calc(33.33% - 20px);
+  cursor: pointer;
+  user-select: none;
+  background-color: #21212152;
 }

@@ -16,7 +16,9 @@ import Wind from '../../assets/icons/Wind.svg'
 import Temperatura from '../../components/graficos/lineChart/temperatura'
 import Fvento from '../../components/graficos/lineChart/fVento'
 import Chuva from '../../components/graficos/lineChart/chuva'
-import Humidade from '../../components/graficos/lineChart/humidade'
+import Umidade from '../../components/graficos/lineChart/humidade'
+import { getEstacoes } from "../../utils/axios.routes";
+import useLogin from "../../hooks";
 
 const Estacoes: React.FC = () => {
   const [showSidebar, setShowSidebar] = useState(true);
@@ -26,10 +28,15 @@ const Estacoes: React.FC = () => {
 
   const [temperatura, setTemperatura] = useState(false);
   const [fVento, setfVento] = useState(false);
-  const [humidade, setHumidade] = useState(false);
+  const [umidade, setUmidade] = useState(false);
   const [chuva, setChuva] = useState(false);
+  const [estacoes, setEstacoes] = useState<any[]>([]);
+
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen2, setIsModalOpen2] = useState(false);
+  const { token } = useLogin();
+
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -37,6 +44,16 @@ const Estacoes: React.FC = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+
+  const openModal2 = () => {
+    setIsModalOpen2(true);
+  };
+
+  const closeModal2 = () => {
+    setIsModalOpen2(false);
+    console.log(estacoes);
   };
 
   const toggleSidebar = () => {
@@ -126,11 +143,11 @@ const Estacoes: React.FC = () => {
     return (
       <div className="modal-content">
 
-        <div className="ButtonColumn" style={{paddingTop:'25px'}}>
+        <div className="ButtonColumn" style={{ paddingTop: '25px' }}>
           <div className="ButtonRow">
-            <div className="clickable-button" onClick={() => setHumidade(!humidade)}>
+            <div className="clickable-button" onClick={() => setUmidade(!umidade)}>
               <img src={Drops} alt="" />
-              {showAllText && <p className="text-under-image">Humidade</p>}
+              {showAllText && <p className="text-under-image">Umidade</p>}
             </div>
 
             <div className="clickable-button" onClick={() => setChuva(!chuva)}>
@@ -140,7 +157,7 @@ const Estacoes: React.FC = () => {
 
             <div className="clickable-button" onClick={() => setfVento(!fVento)}>
               <img src={Wind} alt="" />
-              {showAllText && <p className="text-under-image">Força do Vento</p>}
+              {showAllText && <p className="text-under-image">Velocidade do Vento</p>}
             </div>
           </div>
         </div>
@@ -164,7 +181,38 @@ const Estacoes: React.FC = () => {
 
   }
 
-
+  const handleEstacaoClick = () => {
+    console.log("A")
+  };
+  
+  const EstacaoSelect = () => {
+    return (
+    <>
+      <div className="estacaoSelect">
+        <ul className="estacoes-list">
+          {estacoes.map((estacao) => {
+            if (estacao.status === "Ativo") {
+              return (
+                <div
+                  className="estacoes-item"
+                  key={estacao.id_estacao}
+                  onClick={()=>console.log(estacao.id_estacao)}
+                >
+                  <h2>{estacao.identificador}</h2>
+                  <p>Status: {estacao.status}</p>
+                  <p>Latitude: {estacao.latitude}</p>
+                  <p>Longitude: {estacao.longitude}</p>
+                </div>
+              );
+            }
+            return null;
+          })}
+        </ul>
+        
+      </div>
+      </>
+    );
+  }
 
   useEffect(() => {
     Highcharts.setOptions({
@@ -183,8 +231,18 @@ const Estacoes: React.FC = () => {
           "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"
         ]
       }
-    });
+    })
   })
+
+  useEffect(() => {
+    const fetchEstacoes = async () => {
+      try {
+        const response = await getEstacoes();
+        setEstacoes(response);
+      } catch (error) { }
+    };
+    fetchEstacoes();
+  }, []);
 
   return (
     <>
@@ -212,7 +270,7 @@ const Estacoes: React.FC = () => {
           <div className="boxFiltro Filtrospan">
             <div className='filtroRow'>
               <span>Estação </span>
-              <button onClick={openModal} className="Selectbutton">Selecionar</button>
+              <button onClick={openModal2} className="Selectbutton">Selecionar</button>
 
 
             </div>
@@ -220,6 +278,7 @@ const Estacoes: React.FC = () => {
               <span>Gráficos </span>
               <button onClick={openModal} className="Selectbutton">Selecionar</button>
             </div>
+            
 
           </div>
 
@@ -227,9 +286,9 @@ const Estacoes: React.FC = () => {
 
           <div className="square-container">
 
-            {humidade && (
+            {umidade && (
               <div className="square">
-                <Humidade dadosTemperatura={dadosTemperatura} />
+                <Umidade dadosTemperatura={dadosTemperatura} />
               </div>
             )}
 
@@ -255,6 +314,10 @@ const Estacoes: React.FC = () => {
 
           <ModalT open={isModalOpen} onClose={closeModal}>
             <GrafSelect />
+          </ModalT>
+
+          <ModalT open={isModalOpen2} onClose={closeModal2}>
+            <EstacaoSelect />
           </ModalT>
 
         </div>
