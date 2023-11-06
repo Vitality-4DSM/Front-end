@@ -211,6 +211,7 @@ const Estacoes: React.FC = () => {
                         modalestacao(estacao.id_estacao);
                         fetchDados(estacao.id_estacao);
                         fetchNome(estacao.id_estacao);
+                        puxarestacao(estacao.id_estacao);
                       }}
                     >
                       <h2>{estacao.identificador}</h2>
@@ -312,7 +313,18 @@ const Estacoes: React.FC = () => {
 
   // const [dataInicio, setDataInicio] = useState('');
   // const [dataFinal, setDataFinal] = useState('');
-
+  const [estacaoselecionada,setEstacaoSelecionada] = useState<any[]>([]);
+  // useEffect(() => {
+  const puxarestacao = async (estacaoId: any) => {
+    try {
+      const response = await getEstacoesId(estacaoId)
+      setEstacaoSelecionada(response.identificador)
+      console.log(response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  // puxarestacao()
   return (
     <>
       <div className={`flex ${showSidebar ? "shifted" : ""}`}>
@@ -355,6 +367,8 @@ const Estacoes: React.FC = () => {
               <button onClick={openModal} className="Selectbutton">Selecionar</button>
             </div> */}
           </div>
+          
+          {estacaoselecionada && (<div className="EstiloTitulo">Identificador: {estacaoselecionada}</div>)}
           <div className="square-container">
             {fk &&
               fk.map((item, index) => {
@@ -382,7 +396,7 @@ const Estacoes: React.FC = () => {
                 }
                 console.log(arra)
                 return (
-                  arra.length != 0 && (
+                  arra.length !== 0 && (
                     <div className="square" key={index}>
                       <Umidade
                         dados={arra}

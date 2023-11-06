@@ -257,7 +257,8 @@ span {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 40px;
+  margin: 0px 40px 40px 40px;
+  
   height: auto; 
 }
 
@@ -481,4 +482,12 @@ span {
   cursor: pointer;
   user-select: none;
   background-color: #21212152;
+}
+
+.EstiloTitulo{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  color: white;
+  font-size: 26px;
 }
