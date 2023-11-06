@@ -129,8 +129,8 @@
   .modalContainer .body-2 {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* Cria 4 colunas */
-    gap: 1px; /* Espaço entre os elementos */
-    max-height: 59px; /* Altura máxima de 40px */
+    gap: 0.5px; /* Espaço entre os elementos */
+    max-height: 60px; /* Altura máxima de 40px */
     overflow-y: auto; /*Adiciona rolagem vertical se necessário */
   }
   

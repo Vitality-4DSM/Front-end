@@ -3,23 +3,23 @@ import React, { useEffect, useRef } from "react";
 import * as Highcharts from "highcharts";
 
 interface ChartProps {
-  dadosTemperatura: any[]; // Define the appropriate type for your data
+  dados: any[]; // Define the appropriate type for your data
+  nome: string;
 }
 
-const ChartComponent: React.FC<ChartProps> = ({ dadosTemperatura }) => {
+const ChartComponent: React.FC<ChartProps> = ({ dados, nome}) => {
   const chartContainerRef = useRef(null);
-
   useEffect(() => {
     if (chartContainerRef.current) {
-      const dadosGraficoTemperatura = dadosTemperatura.map((item) => ({
+      const dadosGraficoTemperatura = dados.map((item) => ({
         x: new Date(item.date).getTime(),
-        y: item.temperaturaMaxima,
+        y: item.dados,
       }));
 
-      const dadosGraficoTemperaturaMinima = dadosTemperatura.map((item) => ({
-        x: new Date(item.date).getTime(),
-        y: item.temperaturaMinima,
-      }));
+      // const dadosGraficoTemperaturaMinima = dados.map((item) => ({
+      //   x: new Date(item.date).getTime(),
+      //   y: item.valor,
+      // }));
 
       Highcharts.chart(chartContainerRef.current, {
         chart: {
@@ -27,7 +27,7 @@ const ChartComponent: React.FC<ChartProps> = ({ dadosTemperatura }) => {
           backgroundColor: "#000",
         },
         title: {
-          text: "Humidade",
+          text: nome.toUpperCase(),
           style: {
             color: "white",
           },
@@ -44,7 +44,7 @@ const ChartComponent: React.FC<ChartProps> = ({ dadosTemperatura }) => {
         yAxis: {
           gridLineWidth: 1,
           title: {
-            text: "Temperatura C°",
+            text: nome,
           },
           labels: {
             style: {
@@ -60,20 +60,15 @@ const ChartComponent: React.FC<ChartProps> = ({ dadosTemperatura }) => {
         series: [
           {
             type: "line",
-            name: "Temperatura Máxima",
+            name: nome,
             data: dadosGraficoTemperatura,
             color: "#aa0000",
           },
-          {
-            type: "line",
-            name: "Temperatura Mínima",
-            data: dadosGraficoTemperaturaMinima,
-            color: "#4ae",
-          },
         ],
       });
+      
     }
-  }, [dadosTemperatura]);
+  }, [dados, nome]);
 
   return <div ref={chartContainerRef} className="chart-container" />;
 };

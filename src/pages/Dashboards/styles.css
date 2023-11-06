@@ -423,7 +423,7 @@ span {
 
 .Selectbutton {
   display: inline-block;
-  padding: px 10px; /* Adjust padding as needed */
+  padding: 10px; /* Adjust padding as needed */
   font-size: 16px; /* Adjust font size as needed */
   background-color: #176B87; /* Button background color */
   color: #fff; /* Text color */
@@ -443,13 +443,15 @@ span {
 
 
 .estacaoSelect {
-  width: 30vw;
+  width: 40vw;
   height: auto;
   background-color: #36363600;
-  display: flex;
   flex-direction: column; /* Empilhe os elementos verticalmente */
   justify-content: space-around; /* Centralize verticalmente */
   align-items: center; /* Centralize horizontalmente */
+  display: grid;
+  max-height: 500px; /* Altura máxima de 40px */
+  overflow-y: auto; /*Adiciona rolagem vertical se necessário */
 }
 
 .estacoes-list {
@@ -467,6 +469,7 @@ span {
   flex-basis: calc(33.33% - 20px);
   cursor: pointer;
   user-select: none;
+  /* max-width:max-content; */
 }
 
 .estacoes-item:hover {

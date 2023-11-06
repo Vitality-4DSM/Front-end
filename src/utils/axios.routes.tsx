@@ -11,6 +11,15 @@ export const getEstacoes = async () => {
   }
 };
 
+export const getEstacoesId = async (id: any) => {
+  try {
+    const response = await api.get("/station/" + id);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+}
+
 export const postEstacoes = async (data: any) => {
   try {
     const response = await api.post("/station", data);
@@ -60,6 +69,16 @@ export const getTipoParametros = async () => {
     return error;
   }
 };
+
+export const getTipoParametroID = async (id:any) => {
+  try {
+    const response = await api.get("/typeparameter"+ id);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 
 export const putTypeParameter = async (data: any) => {
   try {
@@ -119,6 +138,15 @@ export const GetUsers = async () => {
   }
 };
 
+export const getUserId = async (id: any) => {
+  try {
+    const response = await api.get("/user/" + id);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // transforme fk_tipo_parametro em inteiro
 export const postParameter = async (data: any) => {
   try {
@@ -142,3 +170,32 @@ export const getParameter = async (id: any) => {
     return error;
   }
 };
+
+export const getParameterID = async (id: any) => {
+  try {
+    const response = await api.get("/parameter/"+ id );
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getDashboard = async (id: any) => {
+  try {
+    const response = await api.get("/dashboard/" + id );
+    return response.data;
+  }
+  catch (error) {
+    return error;
+  }
+}
+
+export const getNometabela = async (id: any) => {
+  try {
+    const response = await api.get("/dashboard/nometabela/" + id );
+    return response.data;
+  }
+  catch (error) {
+    return error;
+  }
+}
