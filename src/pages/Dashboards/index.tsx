@@ -368,7 +368,7 @@ const Estacoes: React.FC = () => {
             </div> */}
           </div>
           
-          {estacaoselecionada && (<div className="EstiloTitulo">Identificador: {estacaoselecionada}</div>)}
+          {estacaoselecionada.length > 0 ? (<div className="EstiloTitulo">Identificador: {estacaoselecionada}</div>): null}
           <div className="square-container">
             {fk &&
               fk.map((item, index) => {
