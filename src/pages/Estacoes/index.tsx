@@ -75,7 +75,7 @@ const Estacoes: React.FC = () => {
                 </details>
               </div>
             </div>
-          ) : (estacoes ?
+          ) : (estacoes &&
             (<div className="estacoes-header"> {estacoes.map((item) => (
               <div className="box-container" key={item.id_estacao}>
                 <div className="estacao">
@@ -109,7 +109,7 @@ const Estacoes: React.FC = () => {
                 </div>
               </div>
             ))}
-            </div>) : null)}
+            </div>))}
         </div>
       </div>
     </>

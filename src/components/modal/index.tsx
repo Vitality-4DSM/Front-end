@@ -13,6 +13,7 @@ import {
   getParameter,
   getUserId,
   getParameterID,
+  deleteUsuario,
 } from "../../utils/axios.routes";
 import "./style.css";
 import user from "../../assets/user.png";
@@ -161,6 +162,14 @@ const Modal: React.FC<ModalProps> = ({
     window.location.reload();
     return alert(response);
   };
+
+  const handleFormSubmitDeleteUsuario = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await deleteUsuario(selectStationId);
+    window.location.reload();
+    return alert(response);
+  };
+
   function Selecionado(id: string) {
     const Parametro = async () => {
       try {
@@ -192,19 +201,24 @@ const Modal: React.FC<ModalProps> = ({
           setEstado(response.status);
         } else if (modalstyle === "editar-info") {
           const respons = await getParameterID(selectStationId);
-          console.log(respons.tipo_parametro)
-          const response = respons.tipo_parametro
+          console.log(respons.tipo_parametro);
+          const response = respons.tipo_parametro;
           setNome(response.nome);
           setDescricao(response.descricao);
           setUnidade(response.unidade);
           setFator(response.fator);
           setOffset(response.offset);
           setJson(response.json);
-        } else if (modalstyle === "Editar-Perfil") {
+        } else if (modalstyle === "editar-perfil") {
           const response = await getUserId(getUserId);
           setName(response.nomeUsuario);
           setEmail(response.email);
           setSenha(response.senha);
+        } else if (modalstyle === "editar-usuario"){
+          const response = await getUserId(selectStationId)
+          setName(response.nome);
+          setEmail(response.email);
+          // setSenha(response.senha);
         }
       } catch (error) {}
     };
@@ -224,13 +238,14 @@ const Modal: React.FC<ModalProps> = ({
             x
           </button>
         </div>
-        {modalstyle === "cadastrar-estacao" ||
-        modalstyle === "editar-estacao" ? (
-          // -------------------------------------------------------------------------------------------------------------------------
-
+        {(modalstyle === "cadastrar-estacao" ||
+          modalstyle === "editar-estacao") && (
           <>
             <div className="title">
-              <h1>Cadastro de Estação</h1>
+              {modalstyle === "cadastrar-estacao" && (
+                <h1>Cadastro de Estação</h1>
+              )}
+              {modalstyle === "editar-estacao" && <h1>Editar Estação</h1>}
             </div>
             <div className="body">
               <div className="input-container-1">
@@ -308,12 +323,17 @@ const Modal: React.FC<ModalProps> = ({
               </div>
             </div>
           </>
-        ) : // ------------------------------------------------------------------------------------------------------------------------------
+        )}
 
-        modalstyle === "cadastrar-info" || modalstyle === "editar-info" ? (
+        {(modalstyle === "cadastrar-info" || modalstyle === "editar-info") && (
           <>
             <div className="title">
-              <h1>Cadastro de Tipos de Parametros</h1>
+              {modalstyle === "cadastrar-info" && (
+                <h1>Cadastro de Tipo de Parametro</h1>
+              )}
+              {modalstyle === "editar-info" && (
+                <h1>Editar Tipo de Parametro</h1>
+              )}
             </div>
             <div className="body">
               <div className="input-container-1">
@@ -375,10 +395,13 @@ const Modal: React.FC<ModalProps> = ({
               <hr className="HrModal" />
             </div>
           </>
-        ) : modalstyle === "cadastrar-alerta" ? (
+        )}
+        {modalstyle === "cadastrar-alerta" && (
           <>
             <div className="title">
-              <h1>Cadastro de Alertas</h1>
+              {modalstyle === "cadastrar-alerta" && (
+                <h1>Cadastro de Estação</h1>
+              )}
             </div>
             <div className="body">
               <div className="input-container-1">
@@ -410,8 +433,8 @@ const Modal: React.FC<ModalProps> = ({
               <hr className="HrModal" />
             </div>
           </>
-        ) : null}
-        {modalstyle === "Editar-Perfil" ? (
+        )}
+        {modalstyle === "editar-perfil" && (
           <>
             <div className="title">
               <h1>Editar Perfil</h1>
@@ -445,46 +468,105 @@ const Modal: React.FC<ModalProps> = ({
               </div>
             </div>
           </>
-        ) : null}
+        )}
+
+        {(modalstyle === "cadastrar-usuario" ||
+          modalstyle === "editar-usuario") && (
+          <>
+            <div className="title">
+              <h1>Editar Perfil</h1>
+            </div>
+            <div className="body">
+              <div className="container-pai">
+                <img src={user} alt="user" />
+                <div className="edit-input-container-1">
+                  <input
+                    className="input-modal"
+                    onChange={handleInputChange}
+                    name="name"
+                    placeholder="Nome do Usuario"
+                    value={name}
+                  />
+                  <input
+                    className="input-modal"
+                    onChange={handleInputChange}
+                    name="email"
+                    placeholder="Email do Usuario"
+                    value={email}
+                  />
+                  <input
+                    className="input-modal"
+                    onChange={handleInputChange}
+                    name="senha"
+                    placeholder="Senha do Usuario"
+                    value={senha}
+                  />
+                </div>
+              </div>
+            </div>
+          </>
+        )}
 
         <div className="footer">
-          {modalstyle === "editar-estacao" ? (
+          {modalstyle === "editar-estacao" && (
             <button className="delete" onClick={handleFormSubmitDelete}>
               Deletar
             </button>
-          ) : modalstyle === "editar-info" ? (
+          )}
+          {modalstyle === "editar-info" && (
             <button
               className="delete"
               onClick={handleFormSubmitDeleteParametros}
             >
               Deletar
             </button>
-          ) : null}
+          )}
+          {modalstyle === "editar-usuario" && (
+            <button
+              className="delete"
+              onClick={handleFormSubmitDeleteUsuario}
+            >
+              Deletar
+            </button>
+          )}
 
-          {modalstyle === "cadastrar-estacao" ? (
+          {modalstyle === "cadastrar-estacao" && (
             <>
               <div></div>
               <button onClick={handleFormSubmit}>Cadastrar</button>
             </>
-          ) : modalstyle === "editar-estacao" ? (
-            <button onClick={handleFormSubmitEdit}>Editar</button>
-          ) : modalstyle === "cadastrar-info" ? (
+          )}
+          {modalstyle === "cadastrar-info" && (
             <>
               <div></div>
               <button onClick={pegarformParametros}>Cadastrar</button>
             </>
-          ) : modalstyle === "editar-info" ? (
-            <button onClick={pegarformParametrosEdit}>Editar</button>
-          ) : modalstyle === "cadastrar-alerta" ? (
+          )}
+          {modalstyle === "cadastrar-alerta" && (
             <>
               <div></div>
               <button onClick={handleFormSubmitAlerta}>Cadastrar</button>
             </>
-          ) : null}
+          )}
+          {modalstyle === "cadastrar-usuario" && (
+            <>
+              <div></div>
+              <button onClick={handleFormSubmitAlerta}>Cadastrar</button>
+            </>
+          )}
 
-          {modalstyle === "Editar-Perfil" ? (
+          {modalstyle === "editar-estacao" && (
             <button onClick={handleFormSubmitEdit}>Editar</button>
-          ) : null}
+          )}
+          {modalstyle === "editar-info" && (
+            <button onClick={pegarformParametrosEdit}>Editar</button>
+          )}
+          {modalstyle === "editar-usuario" && (
+            <button onClick={handleFormSubmitEdit}>Editar</button>
+          )}
+          {modalstyle === "editar-perfil" && (
+            <button onClick={handleFormSubmitEdit}>Editar</button>
+          )}
         </div>
       </div>
     </div>
