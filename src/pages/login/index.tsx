@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import "./styles.css";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../utils/axios.routes";
+import { getUsuarioEmail, login } from "../../utils/axios.routes";
 import { LoginContext } from "../../contexts/LoginContexts";
 import useLogin from "../../hooks";
 import { sha512 } from "sha512-crypt-ts";
@@ -32,6 +32,14 @@ const Login = () => {
         alert("Email ou senha incorretos");
       }
     } catch (error) {
+      console.error("Erro ao fazer login:", error);
+    }
+    try{
+      const res = await getUsuarioEmail(email);
+      // console.log(res);
+      localStorage.setItem("@id", res.id_usuario);
+    } 
+    catch(error){
       console.error("Erro ao fazer login:", error);
     }
 

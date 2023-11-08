@@ -73,6 +73,9 @@ const Modal: React.FC<ModalProps> = ({
     else if (name === "id_parametro") setId_parametro(value);
     else if (name === "valor") setValor(value);
     else if (name === "json") setJson(value);
+    else if (name === "name") setName(value);
+    else if (name === "email") setEmail(value);
+    else if (name === "senha") setSenha(value);
     else if (name === "nomeuser") setNomeUser(value);
     else if (name === "emailuser") setEmailUser(value);
     else if (name === "senhauser") setSenhaUser(value);
@@ -211,7 +214,6 @@ const Modal: React.FC<ModalProps> = ({
           setEstado(response.status);
         } else if (modalstyle === "editar-info") {
           const respons = await getParameterID(selectStationId);
-          console.log(respons.tipo_parametro);
           const response = respons.tipo_parametro;
           setNome(response.nome);
           setDescricao(response.descricao);
@@ -220,10 +222,10 @@ const Modal: React.FC<ModalProps> = ({
           setOffset(response.offset);
           setJson(response.json);
         } else if (modalstyle === "editar-perfil") {
-          const response = await getUserId(getUserId);
-          setName(response.nomeUsuario);
+          const response = await getUserId(selectStationId);
+          setName(response.nome);
           setEmail(response.email);
-          setSenha(response.senha);
+          // setSenha(response.senha);
         } else if (modalstyle === "editar-usuario") {
           const response = await getUserId(selectStationId);
           setNomeUser(response.nome);
@@ -261,10 +263,24 @@ const Modal: React.FC<ModalProps> = ({
       // cargo: "admin",
       // cadastro: dataFormatada
     };   
-    await updateUsuario(data);
+    await updateUsuario(data);      
     window.location.reload();
   }
 
+  const editarPerfil = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = {
+      id: selectStationId,
+      nome: name,
+      email: email,
+      senha: senha,
+    };
+    console.log(data);
+    
+    const respe = await updateUsuario(data);
+    console.log(respe);
+    // window.location.reload();
+  }
 
   return (
     <div className="modalBackground">
@@ -567,11 +583,11 @@ const Modal: React.FC<ModalProps> = ({
               Deletar
             </button>
           )}
-          {modalstyle === "editar-usuario" && (
+          {/* {modalstyle === "editar-usuario" && (
             <button className="delete" onClick={handleFormSubmitDeleteUsuario}>
               Deletar
             </button>
-          )}
+          )} */}
 
           {modalstyle === "cadastrar-estacao" && (
             <>
@@ -605,12 +621,15 @@ const Modal: React.FC<ModalProps> = ({
             <button onClick={pegarformParametrosEdit}>Editar</button>
           )}
           {modalstyle === "editar-usuario" && (
+            <>
+            <div></div>
             <button onClick={editarUsuario}>Editar</button>
+            </>
           )}
           {modalstyle === "editar-perfil" && (
             <>
               <div></div>
-              <button onClick={handleFormSubmitEdit}>Editar</button>
+              <button onClick={editarPerfil}>Editar</button>
             </>
           )}
         </div>

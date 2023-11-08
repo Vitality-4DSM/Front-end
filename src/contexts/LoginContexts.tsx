@@ -28,6 +28,8 @@ export function Provider({ children }: any) { // Cria o provedor de login
     const logout = () => { // Função para fazer logout
         localStorage.removeItem("@token"); // Remove o token do armazenamento local do navegador
         setToken(""); // Seta o token para vazio
+        localStorage.removeItem("@id");
+        localStorage.removeItem("token");
         api.defaults.headers.Authorization = "";
     }
     return (

@@ -81,9 +81,9 @@ const Gerenciamento: React.FC = () => {
                   </div>
                 </div>
                 <div className='perfil-right'>
-                  <label className={`switch ${ligado ? 'ligado' : 'desligado'}`} onClick={toggleSwitch}>
+                  {item.id_usuario != 1 && (<label className={`switch ${ligado ? 'ligado' : 'desligado'}`} onClick={toggleSwitch}>
                     <div className='slider'></div>
-                  </label>
+                  </label>)}
                 </div>
               </div>
             ))}

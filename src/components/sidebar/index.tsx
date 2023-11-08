@@ -73,6 +73,8 @@ const SidebarLogado: React.FC<SidebarProps> = ({ isOpen }) => {
     const [modalOpen, setOpenModal] = useState(false);
     const [modalstyle, setModalStyle] = useState("");
     const [selectStationId, setSelectStationId] = useState("");
+    const [iduser, setIdUser] = useState(localStorage.getItem("@id") ?? '');
+
     const { logout } = useLogin();
     return (
         <>
@@ -80,7 +82,7 @@ const SidebarLogado: React.FC<SidebarProps> = ({ isOpen }) => {
             <Modal
               setOpenModal={setOpenModal}
               modalstyle={modalstyle}
-              selectStationId={selectStationId}
+              selectStationId={iduser}
             />
           ) : null}
         <div className={`sidebar ${isOpen ? 'open' : ''}`}>

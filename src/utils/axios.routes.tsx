@@ -129,6 +129,15 @@ export const updateUsuario = async (data:any) =>{
   }
 }
 
+export const getUsuarioEmail = async (email:any) =>{
+  try{
+    const response = await api.get("/user/email/" + email );
+    return response.data;
+  } catch(error){
+    return error;
+  }
+}
+
 
 /////////////////////////////////////////////////////////////
 
