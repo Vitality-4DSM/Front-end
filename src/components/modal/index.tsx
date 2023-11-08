@@ -19,6 +19,7 @@ import {
 } from "../../utils/axios.routes";
 import "./style.css";
 import user from "../../assets/user.png";
+import { sha512 } from "sha512-crypt-ts";
 interface ModalProps {
   setOpenModal: (value: boolean) => void;
   modalstyle: string;
@@ -245,7 +246,7 @@ const Modal: React.FC<ModalProps> = ({
     const data = {
       nome: nomeUser,
       email: emailUser,
-      senha: senhaUser,
+      senha: sha512.crypt(senhaUser,"password"),
       cargo: "admin",
       cadastro: dataFormatada
     };
@@ -259,7 +260,7 @@ const Modal: React.FC<ModalProps> = ({
       id: selectStationId,
       nome: nomeUser,
       email: emailUser,
-      senha: senhaUser,
+      senha: sha512.crypt(senhaUser,"password"),
       // cargo: "admin",
       // cadastro: dataFormatada
     };   
@@ -273,7 +274,7 @@ const Modal: React.FC<ModalProps> = ({
       id: selectStationId,
       nome: name,
       email: email,
-      senha: senha,
+      senha: sha512.crypt(senha,"password"),
     };
     console.log(data);
     
