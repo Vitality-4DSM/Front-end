@@ -3,7 +3,7 @@ import Sidebar from '../../components/sidebar';
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import ClearIcon from '@mui/icons-material/Clear';
 import user from '../../assets/user.png';
-import { GetUsers } from "../../utils/axios.routes"
+import { GetUsers, updateUsuario } from "../../utils/axios.routes"
 import './styles.css';
 import Modal from '../../components/modal';
 
@@ -19,8 +19,18 @@ const Gerenciamento: React.FC = () => {
     setShowSidebar(!showSidebar);
   };
 
-  const toggleSwitch = () => {
-    setLigado(!ligado); // Função para alternar o estado ligado
+  const toggleSwitch = async(usuario: any) => {
+    const updatedUser = { ...usuario, status: !usuario.status}
+    const data = usuario
+    data.status = !usuario.status
+    data.id= data.id_usuario
+    // console.log(data);
+    
+    const res = await updateUsuario(data)
+    console.log(res);
+    window.location.reload();
+    
+
   };
 
   useEffect(() => {
@@ -81,7 +91,7 @@ const Gerenciamento: React.FC = () => {
                   </div>
                 </div>
                 <div className='perfil-right'>
-                  {item.id_usuario != 1 && (<label className={`switch ${ligado ? 'ligado' : 'desligado'}`} onClick={toggleSwitch}>
+                  {item.id_usuario != 1 && (<label className={`switch ${item.status ? 'ligado' : 'desligado'}`} onClick={() => toggleSwitch(item)}>
                     <div className='slider'></div>
                   </label>)}
                 </div>
