@@ -101,11 +101,29 @@ export const deleteTypeParameter = async (id: any) => {
 
 /////////////////////////////////////////////////////////////
 
+export const postUsuario = async (data:any) => {
+  try{
+    const response = await api.post("/user", data);
+    return response.data;
+  } catch(error){
+    return error;
+  }
+}
+
 
 export const deleteUsuario = async (id:any) =>{
   try{
     const response = await api.delete("/user/" + id );
     return response;
+  } catch(error){
+    return error;
+  }
+}
+
+export const updateUsuario = async (data:any) =>{
+  try{
+    const response = await api.put("/user", data);
+    return response.data;
   } catch(error){
     return error;
   }

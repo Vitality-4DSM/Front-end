@@ -14,6 +14,8 @@ import {
   getUserId,
   getParameterID,
   deleteUsuario,
+  postUsuario,
+  updateUsuario,
 } from "../../utils/axios.routes";
 import "./style.css";
 import user from "../../assets/user.png";
@@ -48,6 +50,9 @@ const Modal: React.FC<ModalProps> = ({
   const [senha, setSenha] = useState("");
   const [email, setEmail] = useState("");
   const [json, setJson] = useState("");
+  const [nomeUser, setNomeUser] = useState("");
+  const [emailUser, setEmailUser] = useState("");
+  const [senhaUser, setSenhaUser] = useState("");
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -58,7 +63,8 @@ const Modal: React.FC<ModalProps> = ({
     else if (name === "estado") setEstado(value);
     else if (name === "tipoParametros") {
       setFk_estacao([...fk_estacao, value]);
-    } else if (name === "nome") setNome(value);
+    }
+    else if (name === "nome") setNome(value);
     else if (name === "descricao") setDescricao(value);
     else if (name === "unidade") setUnidade(value);
     else if (name === "fator") setFator(value);
@@ -67,6 +73,9 @@ const Modal: React.FC<ModalProps> = ({
     else if (name === "id_parametro") setId_parametro(value);
     else if (name === "valor") setValor(value);
     else if (name === "json") setJson(value);
+    else if (name === "nomeuser") setNomeUser(value);
+    else if (name === "emailuser") setEmailUser(value);
+    else if (name === "senhauser") setSenhaUser(value);
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -154,20 +163,21 @@ const Modal: React.FC<ModalProps> = ({
     e.preventDefault();
     await deleteEstacoes(selectStationId);
     window.location.reload();
+    return alert("Estação deletada com sucesso");
   };
 
   const handleFormSubmitDeleteParametros = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await deleteTypeParameter(selectStationId);
+    await deleteTypeParameter(selectStationId);
     window.location.reload();
-    return alert(response);
+    return alert("Parametro deletado com sucesso");
   };
 
   const handleFormSubmitDeleteUsuario = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await deleteUsuario(selectStationId);
+    await deleteUsuario(selectStationId);
     window.location.reload();
-    return alert(response);
+    return alert("Usuario deletado com sucesso");
   };
 
   function Selecionado(id: string) {
@@ -175,7 +185,7 @@ const Modal: React.FC<ModalProps> = ({
       try {
         const response = await getParameter(id);
         setFktipoparametro(response);
-      } catch (error) {}
+      } catch (error) { }
       console.log(fktipoparameto);
     };
     Parametro();
@@ -214,16 +224,47 @@ const Modal: React.FC<ModalProps> = ({
           setName(response.nomeUsuario);
           setEmail(response.email);
           setSenha(response.senha);
-        } else if (modalstyle === "editar-usuario"){
-          const response = await getUserId(selectStationId)
-          setName(response.nome);
-          setEmail(response.email);
+        } else if (modalstyle === "editar-usuario") {
+          const response = await getUserId(selectStationId);
+          setNomeUser(response.nome);
+          setEmailUser(response.email);
           // setSenha(response.senha);
         }
-      } catch (error) {}
+      } catch (error) { }
     };
     fetchEstacoes();
   }, []);
+
+  const cadastrarUsuario = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const dataAtual = new Date();
+    // Formate a data como "YYYY-MM-DD HH:MM:SS" (você pode personalizar o formato conforme necessário)
+    const dataFormatada = dataAtual.toISOString().slice(0, 19).replace('T', ' ');
+    const data = {
+      nome: nomeUser,
+      email: emailUser,
+      senha: senhaUser,
+      cargo: "admin",
+      cadastro: dataFormatada
+    };
+    await postUsuario(data);
+    window.location.reload();
+  };
+
+  const editarUsuario = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = {
+      id: selectStationId,
+      nome: nomeUser,
+      email: emailUser,
+      senha: senhaUser,
+      // cargo: "admin",
+      // cadastro: dataFormatada
+    };   
+    await updateUsuario(data);
+    window.location.reload();
+  }
+
 
   return (
     <div className="modalBackground">
@@ -240,90 +281,90 @@ const Modal: React.FC<ModalProps> = ({
         </div>
         {(modalstyle === "cadastrar-estacao" ||
           modalstyle === "editar-estacao") && (
-          <>
-            <div className="title">
-              {modalstyle === "cadastrar-estacao" && (
-                <h1>Cadastro de Estação</h1>
-              )}
-              {modalstyle === "editar-estacao" && <h1>Editar Estação</h1>}
-            </div>
-            <div className="body">
-              <div className="input-container-1">
-                <input
-                  className="input-modal"
-                  onChange={handleInputChange}
-                  name="stationName"
-                  placeholder="Nome da Estação"
-                  value={stationName}
-                />
-              </div>
-              <div className="flex-input">
-                <div className="input-container-2">
-                  <input
-                    className="input-modal"
-                    onChange={handleInputChange}
-                    name="latitude"
-                    placeholder="Latitude"
-                    value={latitude}
-                  />
-                </div>
-                <div className="input-container-3">
-                  <input
-                    className="input-modal"
-                    onChange={handleInputChange}
-                    name="longitude"
-                    placeholder="Longitude"
-                    value={longitude}
-                  />
-                </div>
-              </div>
-              <div className="flex-input">
-                <div className="input-container-2">
-                  <input
-                    className="input-modal"
-                    onChange={handleInputChange}
-                    name="instalacao"
-                    placeholder="Data de Instalação"
-                    value={instalacao}
-                  />
-                </div>
-                <div className="input-container-3">
-                  <input
-                    className="input-modal"
-                    onChange={handleInputChange}
-                    name="estado"
-                    placeholder="Estado de Atividade"
-                    value={estado}
-                  />
-                </div>
-              </div>
-              <hr className="HrModal" />
+            <>
               <div className="title">
-                <h1>Parâmetro de Estação</h1>
+                {modalstyle === "cadastrar-estacao" && (
+                  <h1>Cadastro de Estação</h1>
+                )}
+                {modalstyle === "editar-estacao" && <h1>Editar Estação</h1>}
               </div>
-              <div className="body-2">
-                {tipoParametros.map((item) => (
-                  <>
-                    <div
-                      className="input-container-4"
-                      key={item.id_tipo_parametro}
-                    >
-                      <input
-                        className="checkbox-modal"
-                        placeholder="Parametro"
-                        value={item.id_tipo_parametro}
-                        onChange={handleInputChange}
-                        name="tipoParametros"
-                        type="checkbox"
-                      />
-                      <span>{item.nome}</span>
-                    </div>
-                  </>
-                ))}
+              <div className="body">
+                <div className="input-container-1">
+                  <input
+                    className="input-modal"
+                    onChange={handleInputChange}
+                    name="stationName"
+                    placeholder="Nome da Estação"
+                    value={stationName}
+                  />
+                </div>
+                <div className="flex-input">
+                  <div className="input-container-2">
+                    <input
+                      className="input-modal"
+                      onChange={handleInputChange}
+                      name="latitude"
+                      placeholder="Latitude"
+                      value={latitude}
+                    />
+                  </div>
+                  <div className="input-container-3">
+                    <input
+                      className="input-modal"
+                      onChange={handleInputChange}
+                      name="longitude"
+                      placeholder="Longitude"
+                      value={longitude}
+                    />
+                  </div>
+                </div>
+                <div className="flex-input">
+                  <div className="input-container-2">
+                    <input
+                      className="input-modal"
+                      onChange={handleInputChange}
+                      name="instalacao"
+                      placeholder="Data de Instalação"
+                      value={instalacao}
+                    />
+                  </div>
+                  <div className="input-container-3">
+                    <input
+                      className="input-modal"
+                      onChange={handleInputChange}
+                      name="estado"
+                      placeholder="Estado de Atividade"
+                      value={estado}
+                    />
+                  </div>
+                </div>
+                <hr className="HrModal" />
+                <div className="title">
+                  <h1>Parâmetro de Estação</h1>
+                </div>
+                <div className="body-2">
+                  {tipoParametros.map((item) => (
+                    <>
+                      <div
+                        className="input-container-4"
+                        key={item.id_tipo_parametro}
+                      >
+                        <input
+                          className="checkbox-modal"
+                          placeholder="Parametro"
+                          value={item.id_tipo_parametro}
+                          onChange={handleInputChange}
+                          name="tipoParametros"
+                          type="checkbox"
+                        />
+                        <span>{item.nome}</span>
+                      </div>
+                    </>
+                  ))}
+                </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
 
         {(modalstyle === "cadastrar-info" || modalstyle === "editar-info") && (
           <>
@@ -472,40 +513,45 @@ const Modal: React.FC<ModalProps> = ({
 
         {(modalstyle === "cadastrar-usuario" ||
           modalstyle === "editar-usuario") && (
-          <>
-            <div className="title">
-              <h1>Editar Perfil</h1>
-            </div>
-            <div className="body">
-              <div className="container-pai">
-                <img src={user} alt="user" />
-                <div className="edit-input-container-1">
-                  <input
-                    className="input-modal"
-                    onChange={handleInputChange}
-                    name="name"
-                    placeholder="Nome do Usuario"
-                    value={name}
-                  />
-                  <input
-                    className="input-modal"
-                    onChange={handleInputChange}
-                    name="email"
-                    placeholder="Email do Usuario"
-                    value={email}
-                  />
-                  <input
-                    className="input-modal"
-                    onChange={handleInputChange}
-                    name="senha"
-                    placeholder="Senha do Usuario"
-                    value={senha}
-                  />
+            <>
+              <div className="title">
+                {modalstyle === "cadastrar-usuario" && (
+                  <h1>Cadastro de Usuário</h1>
+                )}
+                {modalstyle === "editar-usuario" && (
+                  <h1>Editar de Usuário</h1>
+                )}
+              </div>
+              <div className="body">
+                <div className="container-pai">
+                  {/* <img src={user} alt="user" /> */}
+                  <div className="edit-input-container-1">
+                    <input
+                      className="input-modal"
+                      onChange={handleInputChange}
+                      name="nomeuser"
+                      placeholder="Nome do Usuario"
+                      value={nomeUser}
+                    />
+                    <input
+                      className="input-modal"
+                      onChange={handleInputChange}
+                      name="emailuser"
+                      placeholder="Email do Usuario"
+                      value={emailUser}
+                    />
+                    <input
+                      className="input-modal"
+                      onChange={handleInputChange}
+                      name="senhauser"
+                      placeholder="Senha do Usuario"
+                      value={senhaUser}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
 
         <div className="footer">
           {modalstyle === "editar-estacao" && (
@@ -522,10 +568,7 @@ const Modal: React.FC<ModalProps> = ({
             </button>
           )}
           {modalstyle === "editar-usuario" && (
-            <button
-              className="delete"
-              onClick={handleFormSubmitDeleteUsuario}
-            >
+            <button className="delete" onClick={handleFormSubmitDeleteUsuario}>
               Deletar
             </button>
           )}
@@ -551,7 +594,7 @@ const Modal: React.FC<ModalProps> = ({
           {modalstyle === "cadastrar-usuario" && (
             <>
               <div></div>
-              <button onClick={handleFormSubmitAlerta}>Cadastrar</button>
+              <button onClick={cadastrarUsuario}>Cadastrar</button>
             </>
           )}
 
@@ -562,10 +605,13 @@ const Modal: React.FC<ModalProps> = ({
             <button onClick={pegarformParametrosEdit}>Editar</button>
           )}
           {modalstyle === "editar-usuario" && (
-            <button onClick={handleFormSubmitEdit}>Editar</button>
+            <button onClick={editarUsuario}>Editar</button>
           )}
           {modalstyle === "editar-perfil" && (
-            <button onClick={handleFormSubmitEdit}>Editar</button>
+            <>
+              <div></div>
+              <button onClick={handleFormSubmitEdit}>Editar</button>
+            </>
           )}
         </div>
       </div>
