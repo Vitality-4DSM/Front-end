@@ -384,8 +384,12 @@ const Estacoes: React.FC = () => {
                     let mes = date.getMonth() + 1;
                     let ano = date.getFullYear();
 
+                    let hora = date.getHours();
+                    let minuto = date.getMinutes();
+                    let segundo = date.getSeconds();
+
                     // Formatando a data no formato desejado (no exemplo, dd/mm/yyyy)
-                    dataFormatada = `${ano}-${mes}-${dia}`;
+                    dataFormatada = `${ano}-${mes}-${dia} ${hora}:${minuto}:${segundo}`;
                     if (
                       (!dataInicio || dataFormatada >= dataInicio) &&
                       (!dataFinal || dataFormatada <= dataFinal)
