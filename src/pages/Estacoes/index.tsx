@@ -6,6 +6,9 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { getEstacoes } from "../../utils/axios.routes";
 import Modal from "../../components/modal";
 import useLogin from "../../hooks";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Estacoes: React.FC = () => {
   const [modalOpen, setOpenModal] = useState(false);

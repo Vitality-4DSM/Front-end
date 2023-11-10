@@ -12,6 +12,8 @@ import Modal from "../../components/modal";
 import Stars from '../../assets/Stars.png'
 import './style.css'
 import useLogin from '../../hooks';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 // https://mui.com/material-ui/material-icons/
@@ -131,8 +133,8 @@ const SidebarLogado: React.FC<SidebarProps> = ({ isOpen }) => {
                                 </span>
                         </NavLink>
                     </li>
-
-                    <li>
+                
+                    <li id='logout-bottom'>
                         <NavLink to='/estacoes' className="button-like-link" onClick={() => logout()}>
                             <LogoutIcon className='icon' />
                             <span>Logout</span>
