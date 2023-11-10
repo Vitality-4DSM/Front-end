@@ -20,7 +20,6 @@ const Gerenciamento: React.FC = () => {
   };
 
   const toggleSwitch = async(usuario: any) => {
-    const updatedUser = { ...usuario, status: !usuario.status}
     const data = usuario
     data.status = !usuario.status
     data.id= data.id_usuario

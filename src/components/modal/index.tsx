@@ -56,6 +56,7 @@ const Modal: React.FC<ModalProps> = ({
   const [nomeUser, setNomeUser] = useState("");
   const [emailUser, setEmailUser] = useState("");
   const [senhaUser, setSenhaUser] = useState("");
+  const [tipoParametroEstacao, setTipoParametroEstacao] = useState<any>([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -64,9 +65,7 @@ const Modal: React.FC<ModalProps> = ({
     else if (name === "longitude") setLongitude(value);
     else if (name === "instalacao") setInstalacao(value);
     else if (name === "estado") setEstado(value);
-    else if (name === "tipoParametros") {
-      setFk_estacao([...fk_estacao, value]);
-    } else if (name === "nome") setNome(value);
+    else if (name === "nome") setNome(value);
     else if (name === "descricao") setDescricao(value);
     else if (name === "unidade") setUnidade(value);
     else if (name === "fator") setFator(value);
@@ -83,6 +82,16 @@ const Modal: React.FC<ModalProps> = ({
     else if (name === "senhauser") setSenhaUser(value);
   };
 
+  const handleCheckboxChange = (checked: any) => {
+    setTipoParametroEstacao((prevCheckedItems: any) => {
+      if(prevCheckedItems.includes(checked)) {
+        return prevCheckedItems.filter((check: any) => check !== checked);
+      } else {
+        return [...prevCheckedItems, checked]
+      }
+    });
+  };
+
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const data = {
@@ -91,6 +100,7 @@ const Modal: React.FC<ModalProps> = ({
       longitude: longitude,
       instalacao: instalacao,
       status: estado,
+      parametros: tipoParametroEstacao,
     };
     const estacao = await postEstacoes(data);
     const response = {
@@ -123,6 +133,7 @@ const Modal: React.FC<ModalProps> = ({
       longitude: longitude,
       instalacao: instalacao,
       status: estado,
+      parametros: tipoParametroEstacao,
     };
     await putEstacoes(data);
     toast.success(`Editado com sucesso!`, {
@@ -236,6 +247,7 @@ const Modal: React.FC<ModalProps> = ({
           setLongitude(response.longitude);
           setInstalacao(response.instalacao);
           setEstado(response.status);
+          setTipoParametroEstacao(response.parametros)
         } else if (modalstyle === "editar-info") {
           const respons = await getParameterID(selectStationId);
           const response = respons.tipo_parametro;
@@ -405,9 +417,10 @@ const Modal: React.FC<ModalProps> = ({
                         className="checkbox-modal"
                         placeholder="Parametro"
                         value={item.id_tipo_parametro}
-                        onChange={handleInputChange}
+                        onChange={() => handleCheckboxChange(item.nome)}
                         name="tipoParametros"
                         type="checkbox"
+                        checked = {tipoParametroEstacao.includes(item.nome)}
                       />
                       <span>{item.nome}</span>
                     </div>
