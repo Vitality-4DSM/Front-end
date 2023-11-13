@@ -1,6 +1,8 @@
 import api from "../services/axios.config";
 import { Response, Request } from "express"; // Assuming you are using Express.js
 
+// tirar o D se houver no começo do arquivo e colocar no outro arquivo axios.routes, pra usar o backend localmente
+
 // estacoes
 export const getEstacoes = async () => {
   try {

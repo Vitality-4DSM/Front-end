@@ -274,7 +274,7 @@ const Modal: React.FC<ModalProps> = ({
       id: selectStationId,
       nome: name,
       email: email,
-      //senha: senha,
+      senha: sha512.crypt(senha,"password"),
     };
     console.log(data);
     
@@ -515,13 +515,13 @@ const Modal: React.FC<ModalProps> = ({
                     placeholder="Email do Usuario"
                     value={email}
                   />
-                  {/* <input
+                  <input
                     className="input-modal"
                     onChange={handleInputChange}
                     name="senha"
                     placeholder="Senha do Usuario"
                     value={senha}
-                  /> */}
+                  />
                 </div>
               </div>
             </div>
@@ -557,13 +557,13 @@ const Modal: React.FC<ModalProps> = ({
                       placeholder="Email do Usuario"
                       value={emailUser}
                     />
-                    {/* <input
+                    <input
                       className="input-modal"
                       onChange={handleInputChange}
                       name="senhauser"
                       placeholder="Senha do Usuario"
                       value={senhaUser}
-                    /> */}
+                    />
                   </div>
                 </div>
               </div>
