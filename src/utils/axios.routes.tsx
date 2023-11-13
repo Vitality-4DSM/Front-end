@@ -1,10 +1,17 @@
 import api from "../services/axios.config";
 import { Response, Request } from "express"; // Assuming you are using Express.js
 
+// tirar o D se houver no começo do arquivo e colocar no outro arquivo axios.routes, pra usar o backend no servidor online, o qual deve estar em execução
+
 // estacoes
 export const getEstacoes = async () => {
   try {
-    const response = await api.get("/station");
+    const response = await api.get("http://34.193.65.107:3000/station", {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response.data;
   } catch (error) {
     return error;
@@ -13,7 +20,12 @@ export const getEstacoes = async () => {
 
 export const getEstacoesId = async (id: any) => {
   try {
-    const response = await api.get("/station/" + id);
+    const response = await api.get("http://34.193.65.107:3000/station/" + id, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response.data;
   } catch (error) {
     return error;
@@ -22,7 +34,12 @@ export const getEstacoesId = async (id: any) => {
 
 export const postEstacoes = async (data: any) => {
   try {
-    const response = await api.post("/station", data);
+    const response = await api.post("http://34.193.65.107:3000/station", data, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response.data;
   } catch (error) {
     return error;
@@ -31,7 +48,12 @@ export const postEstacoes = async (data: any) => {
 
 export const putEstacoes = async (data: any) => {
   try {
-    const response = await api.put("/station", data);
+    const response = await api.put("http://34.193.65.107:3000/station", data, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response.data;
   } catch (error) {
     return error;
@@ -40,7 +62,12 @@ export const putEstacoes = async (data: any) => {
 
 export const deleteEstacoes = async (id: any) => {
   try {
-    const response = await api.delete("/station/" + id);
+    const response = await api.delete("http://34.193.65.107:3000/station/" + id, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response;
   } catch (error) {
     return error;
@@ -53,7 +80,12 @@ export const deleteEstacoes = async (id: any) => {
 // parametros
 export const postTypeParameter = async (data: any) => {
   try {
-    const response = await api.post("/typeparameter", data);
+    const response = await api.post("http://34.193.65.107:3000/typeparameter", data, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response.data;
   }
   catch (error) {
@@ -63,7 +95,12 @@ export const postTypeParameter = async (data: any) => {
 
 export const getTipoParametros = async () => {
   try {
-    const response = await api.get("/typeparameter");
+    const response = await api.get("http://34.193.65.107:3000/typeparameter", {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response.data;
   } catch (error) {
     return error;
@@ -72,7 +109,12 @@ export const getTipoParametros = async () => {
 
 export const getTipoParametroID = async (id:any) => {
   try {
-    const response = await api.get("/typeparameter"+ id);
+    const response = await api.get("http://34.193.65.107:3000/typeparameter"+ id, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response.data;
   } catch (error) {
     return error;
@@ -82,7 +124,12 @@ export const getTipoParametroID = async (id:any) => {
 
 export const putTypeParameter = async (data: any) => {
   try {
-    const response = await api.put("/typeparameter", data);
+    const response = await api.put("http://34.193.65.107:3000/typeparameter", data, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response.data;
   }
   catch (error) {
@@ -92,7 +139,12 @@ export const putTypeParameter = async (data: any) => {
 
 export const deleteTypeParameter = async (id: any) => {
   try {
-    const response = await api.delete("/typeparameter/" + id);
+    const response = await api.delete("http://34.193.65.107:3000/typeparameter/" + id, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response;
   } catch (error) {
     return error;
@@ -101,9 +153,74 @@ export const deleteTypeParameter = async (id: any) => {
 
 /////////////////////////////////////////////////////////////
 
+export const postUsuario = async (data:any) => {
+  try{
+    const response = await api.post("http://34.193.65.107:3000/user", data, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
+    return response.data;
+  } catch(error){
+    return error;
+  }
+}
+
+
+export const deleteUsuario = async (id:any) =>{
+  try{
+    const response = await api.delete("http://34.193.65.107:3000/user/" + id, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
+    return response;
+  } catch(error){
+    return error;
+  }
+}
+
+export const updateUsuario = async (data:any) =>{
+  try{
+    const response = await api.put("http://34.193.65.107:3000/user", data, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
+    return response.data;
+  } catch(error){
+    return error;
+  }
+}
+
+export const getUsuarioEmail = async (email:any) =>{
+  try{
+    const response = await api.get("http://34.193.65.107:3000/user/email/" + email, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
+    return response.data;
+  } catch(error){
+    return error;
+  }
+}
+
+
+/////////////////////////////////////////////////////////////
+
 export const login = async (data:any) => {
   try {
-    const response = await api.post("/login",data);
+    const response = await api.post("http://34.193.65.107:3000/login",data, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response.data;
   } catch (error) {
     return error;
@@ -113,7 +230,12 @@ export const login = async (data:any) => {
 
 export const postAlertas = async (data: any) => {
   try {
-    const response = await api.post("/alert", data);
+    const response = await api.post("http://34.193.65.107:3000/alert", data, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response.data;
   } catch (error) {
     return error;
@@ -122,7 +244,12 @@ export const postAlertas = async (data: any) => {
 
 export const getAlertas = async () => {
   try {
-    const response = await api.get("/alert");
+    const response = await api.get("http://34.193.65.107:3000/alert", {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response.data;
   } catch (error) {
     return error;
@@ -131,7 +258,12 @@ export const getAlertas = async () => {
 
 export const GetUsers = async () => {
   try {
-    const response = await api.get("/user");
+    const response = await api.get("http://34.193.65.107:3000/user", {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response.data;
   } catch (error) {
     return error;
@@ -140,7 +272,12 @@ export const GetUsers = async () => {
 
 export const getUserId = async (id: any) => {
   try {
-    const response = await api.get("/user/" + id);
+    const response = await api.get("http://34.193.65.107:3000/user/" + id, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response.data;
   } catch (error) {
     return error;
@@ -152,8 +289,13 @@ export const postParameter = async (data: any) => {
   try {
     const { fk_tipo_parametro , fk_estacao } = data;
     for (let i = 0; i < fk_tipo_parametro.length; i++) {
-      await api.post("/parameter", { fk_estacao: parseInt(fk_estacao),
+      await api.post("http://34.193.65.107:3000/parameter", { fk_estacao: parseInt(fk_estacao),
         fk_tipo_parametro: parseInt(fk_tipo_parametro[i]),
+      }, {
+        headers: {
+          "x-api-key": "4554545sdsdsd5454",
+        },
+      
       });
     }
     return data;
@@ -164,7 +306,12 @@ export const postParameter = async (data: any) => {
 
 export const getParameter = async (id: any) => {
   try {
-    const response = await api.get("/parameter/fkparameter", id );
+    const response = await api.get("http://34.193.65.107:3000/parameter/fkparameter",{
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    }  );
     return response.data;
   } catch (error) {
     return error;
@@ -173,7 +320,12 @@ export const getParameter = async (id: any) => {
 
 export const getParameterID = async (id: any) => {
   try {
-    const response = await api.get("/parameter/"+ id );
+    const response = await api.get("http://34.193.65.107:3000/parameter/"+ id, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    });
     return response.data;
   } catch (error) {
     return error;
@@ -182,7 +334,12 @@ export const getParameterID = async (id: any) => {
 
 export const getDashboard = async (id: any) => {
   try {
-    const response = await api.get("/dashboard/" + id );
+    const response = await api.get("http://34.193.65.107:3000/dashboard/" + id, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    } );
     return response.data;
   }
   catch (error) {
@@ -192,7 +349,12 @@ export const getDashboard = async (id: any) => {
 
 export const getNometabela = async (id: any) => {
   try {
-    const response = await api.get("/dashboard/nometabela/" + id );
+    const response = await api.get("http://34.193.65.107:3000/dashboard/nometabela/" + id, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+      },
+    
+    } );
     return response.data;
   }
   catch (error) {
