@@ -1,6 +1,6 @@
 import api from "../services/axios.config";
 import { Response, Request } from "express"; // Assuming you are using Express.js
-
+const token = localStorage.getItem("@token");
 // tirar o D se houver no começo do arquivo e colocar no outro arquivo axios.routes, pra usar o backend localmente
 
 // estacoes
@@ -9,6 +9,7 @@ export const getEstacoes = async () => {
     const response = await api.get("/station", {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -23,6 +24,7 @@ export const getEstacoesId = async (id: any) => {
     const response = await api.get("/station/" + id, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -37,6 +39,7 @@ export const postEstacoes = async (data: any) => {
     const response = await api.post("/station", data, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -51,6 +54,7 @@ export const putEstacoes = async (data: any) => {
     const response = await api.put("/station", data, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -65,6 +69,7 @@ export const deleteEstacoes = async (id: any) => {
     const response = await api.delete("/station/" + id, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -83,6 +88,7 @@ export const postTypeParameter = async (data: any) => {
     const response = await api.post("/typeparameter", data, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -98,6 +104,7 @@ export const getTipoParametros = async () => {
     const response = await api.get("/typeparameter", {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -112,6 +119,7 @@ export const getTipoParametroID = async (id:any) => {
     const response = await api.get("/typeparameter"+ id, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -127,6 +135,7 @@ export const putTypeParameter = async (data: any) => {
     const response = await api.put("/typeparameter", data, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -142,6 +151,7 @@ export const deleteTypeParameter = async (id: any) => {
     const response = await api.delete("/typeparameter/" + id, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -158,6 +168,7 @@ export const postUsuario = async (data:any) => {
     const response = await api.post("/user", data, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -173,6 +184,7 @@ export const deleteUsuario = async (id:any) =>{
     const response = await api.delete("/user/" + id, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -187,6 +199,7 @@ export const updateUsuario = async (data:any) =>{
     const response = await api.put("/user", data, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -201,6 +214,7 @@ export const getUsuarioEmail = async (email:any) =>{
     const response = await api.get("/user/email/" + email, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -218,6 +232,7 @@ export const login = async (data:any) => {
     const response = await api.post("/login",data, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -233,6 +248,7 @@ export const postAlertas = async (data: any) => {
     const response = await api.post("/alert", data, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -247,6 +263,7 @@ export const getAlertas = async () => {
     const response = await api.get("/alert", {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -261,6 +278,7 @@ export const GetUsers = async () => {
     const response = await api.get("/user", {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -275,6 +293,7 @@ export const getUserId = async (id: any) => {
     const response = await api.get("/user/" + id, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -294,6 +313,7 @@ export const postParameter = async (data: any) => {
       }, {
         headers: {
           "x-api-key": "4554545sdsdsd5454",
+          'Authorization': `Bearer ${token}`,
         },
       
       });
@@ -309,6 +329,7 @@ export const getParameter = async (id: any) => {
     const response = await api.get("/parameter/fkparameter",{
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     }  );
@@ -323,6 +344,7 @@ export const getParameterID = async (id: any) => {
     const response = await api.get("/parameter/"+ id, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     });
@@ -337,6 +359,7 @@ export const getDashboard = async (id: any) => {
     const response = await api.get("/dashboard/" + id, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     } );
@@ -352,6 +375,7 @@ export const getNometabela = async (id: any) => {
     const response = await api.get("/dashboard/nometabela/" + id, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
       },
     
     } );

@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { LoginParams } from "../types";
-import api from "../services/Daxios.config";
+import api from "../services/axios.config";
 
 
 export const LoginContext = createContext({} as LoginParams); // Cria o contexto de login

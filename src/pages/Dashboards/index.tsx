@@ -384,7 +384,6 @@ const Estacoes: React.FC = () => {
                     let mes = date.getMonth() + 1;
                     let ano = date.getFullYear();
 
-                    // Formatando a data no formato desejado (no exemplo, dd/mm/yyyy)
                     let hora = date.getHours();
                     let minuto = date.getMinutes();
                     let segundo = date.getSeconds();
