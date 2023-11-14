@@ -116,7 +116,7 @@ export const getTipoParametros = async () => {
 
 export const getTipoParametroID = async (id:any) => {
   try {
-    const response = await api.get("/typeparameter"+ id, {
+    const response = await api.get(`http://localhost:3001/typeparameter/${id}`, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
