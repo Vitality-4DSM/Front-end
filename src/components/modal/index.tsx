@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   getEstacoesId,
   deleteEstacoes,
@@ -13,9 +15,13 @@ import {
   getParameter,
   getUserId,
   getParameterID,
+  deleteUsuario,
+  postUsuario,
+  updateUsuario,
 } from "../../utils/axios.routes";
 import "./style.css";
 import user from "../../assets/user.png";
+import { sha512 } from "sha512-crypt-ts";
 interface ModalProps {
   setOpenModal: (value: boolean) => void;
   modalstyle: string;
@@ -47,6 +53,10 @@ const Modal: React.FC<ModalProps> = ({
   const [senha, setSenha] = useState("");
   const [email, setEmail] = useState("");
   const [json, setJson] = useState("");
+  const [nomeUser, setNomeUser] = useState("");
+  const [emailUser, setEmailUser] = useState("");
+  const [senhaUser, setSenhaUser] = useState("");
+  const [tipoParametroEstacao, setTipoParametroEstacao] = useState<any>([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -55,9 +65,7 @@ const Modal: React.FC<ModalProps> = ({
     else if (name === "longitude") setLongitude(value);
     else if (name === "instalacao") setInstalacao(value);
     else if (name === "estado") setEstado(value);
-    else if (name === "tipoParametros") {
-      setFk_estacao([...fk_estacao, value]);
-    } else if (name === "nome") setNome(value);
+    else if (name === "nome") setNome(value);
     else if (name === "descricao") setDescricao(value);
     else if (name === "unidade") setUnidade(value);
     else if (name === "fator") setFator(value);
@@ -66,6 +74,22 @@ const Modal: React.FC<ModalProps> = ({
     else if (name === "id_parametro") setId_parametro(value);
     else if (name === "valor") setValor(value);
     else if (name === "json") setJson(value);
+    else if (name === "name") setName(value);
+    else if (name === "email") setEmail(value);
+    else if (name === "senha") setSenha(value);
+    else if (name === "nomeuser") setNomeUser(value);
+    else if (name === "emailuser") setEmailUser(value);
+    else if (name === "senhauser") setSenhaUser(value);
+  };
+
+  const handleCheckboxChange = (checked: any) => {
+    setTipoParametroEstacao((prevCheckedItems: any) => {
+      if(prevCheckedItems.includes(checked)) {
+        return prevCheckedItems.filter((check: any) => check !== checked);
+      } else {
+        return [...prevCheckedItems, checked]
+      }
+    });
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -76,6 +100,7 @@ const Modal: React.FC<ModalProps> = ({
       longitude: longitude,
       instalacao: instalacao,
       status: estado,
+      parametros: tipoParametroEstacao,
     };
     const estacao = await postEstacoes(data);
     const response = {
@@ -83,6 +108,9 @@ const Modal: React.FC<ModalProps> = ({
       fk_tipo_parametro: fk_estacao,
     };
     await postParameter(response);
+    toast.success(`Estação cadastrada com sucesso!`, {
+    position: "top-right",
+    });
     window.location.reload();
   };
   const handleformEditarPerfil = async (e: React.FormEvent) => {
@@ -105,8 +133,12 @@ const Modal: React.FC<ModalProps> = ({
       longitude: longitude,
       instalacao: instalacao,
       status: estado,
+      parametros: tipoParametroEstacao,
     };
     await putEstacoes(data);
+    toast.success(`Editado com sucesso!`, {
+      position: "top-right",
+      });
     window.location.reload();
   };
   const pegarformParametros = async (e: React.FormEvent) => {
@@ -122,7 +154,10 @@ const Modal: React.FC<ModalProps> = ({
     };
     await postTypeParameter(data);
     window.location.reload();
-  };
+    toast.success(`Informação cadastrada com sucesso!`, {
+      position: "top-right",
+    });
+  }
 
   const pegarformParametrosEdit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -135,6 +170,9 @@ const Modal: React.FC<ModalProps> = ({
       offset: offset,
     };
     await putTypeParameter(data);
+    toast.success(`Editado com sucesso!`, {
+      position: "top-right",
+      });
     // window.location.reload();
   };
 
@@ -146,21 +184,40 @@ const Modal: React.FC<ModalProps> = ({
       fk_parametro: id_parametro,
     };
     await postAlertas(data);
+    toast.success(`Alerta cadastrado com sucesso!`, {
+      position: "top-right",
+      });
     window.location.reload();
   };
 
+//
   const handleFormSubmitDelete = async (e: React.FormEvent) => {
     e.preventDefault();
-    await deleteEstacoes(selectStationId);
+    await deleteEstacoes(selectStationId); 
     window.location.reload();
+    toast.success(`Estação excluida com sucesso!`, {
+      position: "top-right",
+      });
   };
 
   const handleFormSubmitDeleteParametros = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await deleteTypeParameter(selectStationId);
+    await deleteTypeParameter(selectStationId);
     window.location.reload();
-    return alert(response);
+    toast.success(`Parametro excluido com sucesso!`, {
+      position: "top-right",
+      });
   };
+
+  const handleFormSubmitDeleteUsuario = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await deleteUsuario(selectStationId);
+    window.location.reload();
+    toast.success(`Usuário excluido com sucesso!`, {
+      position: "top-right",
+      });
+  };
+
   function Selecionado(id: string) {
     const Parametro = async () => {
       try {
@@ -190,26 +247,88 @@ const Modal: React.FC<ModalProps> = ({
           setLongitude(response.longitude);
           setInstalacao(response.instalacao);
           setEstado(response.status);
+          setTipoParametroEstacao(response.parametros)
         } else if (modalstyle === "editar-info") {
           const respons = await getParameterID(selectStationId);
-          console.log(respons.tipo_parametro)
-          const response = respons.tipo_parametro
+          const response = respons.tipo_parametro;
           setNome(response.nome);
           setDescricao(response.descricao);
           setUnidade(response.unidade);
           setFator(response.fator);
           setOffset(response.offset);
           setJson(response.json);
-        } else if (modalstyle === "Editar-Perfil") {
-          const response = await getUserId(getUserId);
-          setName(response.nomeUsuario);
+        } else if (modalstyle === "editar-perfil") {
+          const response = await getUserId(selectStationId);
+          setName(response.nome);
           setEmail(response.email);
-          setSenha(response.senha);
+          // setSenha(response.senha);
+        } else if (modalstyle === "editar-usuario") {
+          const response = await getUserId(selectStationId);
+          setNomeUser(response.nome);
+          setEmailUser(response.email);
+          // setSenha(response.senha);
         }
       } catch (error) {}
     };
     fetchEstacoes();
   }, []);
+
+  const cadastrarUsuario = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const dataAtual = new Date();
+    // Formate a data como "YYYY-MM-DD HH:MM:SS" (você pode personalizar o formato conforme necessário)
+    const dataFormatada = dataAtual
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+    const data = {
+      nome: nomeUser,
+      email: emailUser,
+      senha: sha512.crypt(senhaUser, "password"),
+      cargo: "admin",
+      cadastro: dataFormatada,
+    };
+    await postUsuario(data);
+    toast.success(`Usuário cadastrado com sucesso!`, {
+      position: "top-right",
+      });
+    window.location.reload();
+  };
+
+  const editarUsuario = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = {
+      id: selectStationId,
+      nome: nomeUser,
+      email: emailUser,
+      senha: sha512.crypt(senhaUser, "password"),
+      // cargo: "admin",
+      // cadastro: dataFormatada
+    };
+    await updateUsuario(data);
+    toast.success(`Usuário editado com sucesso!`, {
+      position: "top-right",
+      });
+    window.location.reload();
+  };
+
+  const editarPerfil = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const data = {
+      id: selectStationId,
+      nome: name,
+      email: email,
+      senha: sha512.crypt(senha, "password"),
+    };
+    console.log(data);
+
+    const respe = await updateUsuario(data);
+    console.log(respe);
+    toast.success(`Estação cadastrada com sucesso!`, {
+      position: "top-right",
+      });
+    // window.location.reload();
+  };
 
   return (
     <div className="modalBackground">
@@ -224,13 +343,14 @@ const Modal: React.FC<ModalProps> = ({
             x
           </button>
         </div>
-        {modalstyle === "cadastrar-estacao" ||
-        modalstyle === "editar-estacao" ? (
-          // -------------------------------------------------------------------------------------------------------------------------
-
+        {(modalstyle === "cadastrar-estacao" ||
+          modalstyle === "editar-estacao") && (
           <>
             <div className="title">
-              <h1>Cadastro de Estação</h1>
+              {modalstyle === "cadastrar-estacao" && (
+                <h1>Cadastro de Estação</h1>
+              )}
+              {modalstyle === "editar-estacao" && <h1>Editar Estação</h1>}
             </div>
             <div className="body">
               <div className="input-container-1">
@@ -297,7 +417,7 @@ const Modal: React.FC<ModalProps> = ({
                         className="checkbox-modal"
                         placeholder="Parametro"
                         value={item.id_tipo_parametro}
-                        onChange={handleInputChange}
+                        onChange={() => handleCheckboxChange(item.nome)}
                         name="tipoParametros"
                         type="checkbox"
                         // checked={Selecionado(item.id_tipo_parametro)}
@@ -309,12 +429,17 @@ const Modal: React.FC<ModalProps> = ({
               </div>
             </div>
           </>
-        ) : // ------------------------------------------------------------------------------------------------------------------------------
+        )}
 
-        modalstyle === "cadastrar-info" || modalstyle === "editar-info" ? (
+        {(modalstyle === "cadastrar-info" || modalstyle === "editar-info") && (
           <>
             <div className="title">
-              <h1>Cadastro de Tipos de Parametros</h1>
+              {modalstyle === "cadastrar-info" && (
+                <h1>Cadastro de Tipo de Parametro</h1>
+              )}
+              {modalstyle === "editar-info" && (
+                <h1>Editar Tipo de Parametro</h1>
+              )}
             </div>
             <div className="body">
               <div className="input-container-1">
@@ -376,10 +501,13 @@ const Modal: React.FC<ModalProps> = ({
               <hr className="HrModal" />
             </div>
           </>
-        ) : modalstyle === "cadastrar-alerta" ? (
+        )}
+        {modalstyle === "cadastrar-alerta" && (
           <>
             <div className="title">
-              <h1>Cadastro de Alertas</h1>
+              {modalstyle === "cadastrar-alerta" && (
+                <h1>Cadastro de Estação</h1>
+              )}
             </div>
             <div className="body">
               <div className="input-container-1">
@@ -411,8 +539,8 @@ const Modal: React.FC<ModalProps> = ({
               <hr className="HrModal" />
             </div>
           </>
-        ) : null}
-        {modalstyle === "Editar-Perfil" ? (
+        )}
+        {modalstyle === "editar-perfil" && (
           <>
             <div className="title">
               <h1>Editar Perfil</h1>
@@ -446,46 +574,112 @@ const Modal: React.FC<ModalProps> = ({
               </div>
             </div>
           </>
-        ) : null}
+        )}
+
+        {(modalstyle === "cadastrar-usuario" ||
+          modalstyle === "editar-usuario") && (
+          <>
+            <div className="title">
+              {modalstyle === "cadastrar-usuario" && (
+                <h1>Cadastro de Usuário</h1>
+              )}
+              {modalstyle === "editar-usuario" && <h1>Editar de Usuário</h1>}
+            </div>
+            <div className="body">
+              <div className="container-pai">
+                {/* <img src={user} alt="user" /> */}
+                <div className="edit-input-container-1">
+                  <input
+                    className="input-modal"
+                    onChange={handleInputChange}
+                    name="nomeuser"
+                    placeholder="Nome do Usuario"
+                    value={nomeUser}
+                  />
+                  <input
+                    className="input-modal"
+                    onChange={handleInputChange}
+                    name="emailuser"
+                    placeholder="Email do Usuario"
+                    value={emailUser}
+                  />
+                  <input
+                    className="input-modal"
+                    onChange={handleInputChange}
+                    name="senhauser"
+                    placeholder="Senha do Usuario"
+                    value={senhaUser}
+                  />
+                </div>
+              </div>
+            </div>
+          </>
+        )}
 
         <div className="footer">
-          {modalstyle === "editar-estacao" ? (
+          {modalstyle === "editar-estacao" && (
             <button className="delete" onClick={handleFormSubmitDelete}>
               Deletar
             </button>
-          ) : modalstyle === "editar-info" ? (
+          )}
+          {modalstyle === "editar-info" && (
             <button
               className="delete"
               onClick={handleFormSubmitDeleteParametros}
             >
               Deletar
             </button>
-          ) : null}
+          )}
+          {/* {modalstyle === "editar-usuario" && (
+            <button className="delete" onClick={handleFormSubmitDeleteUsuario}>
+              Deletar
+            </button>
+          )} */}
 
-          {modalstyle === "cadastrar-estacao" ? (
+          {modalstyle === "cadastrar-estacao" && (
             <>
               <div></div>
-              <button onClick={handleFormSubmit}>Cadastrar</button>
+              <button onClick={handleFormSubmit}
+              >Cadastrar</button>
             </>
-          ) : modalstyle === "editar-estacao" ? (
-            <button onClick={handleFormSubmitEdit}>Editar</button>
-          ) : modalstyle === "cadastrar-info" ? (
+          )}
+          {modalstyle === "cadastrar-info" && (
             <>
               <div></div>
               <button onClick={pegarformParametros}>Cadastrar</button>
             </>
-          ) : modalstyle === "editar-info" ? (
-            <button onClick={pegarformParametrosEdit}>Editar</button>
-          ) : modalstyle === "cadastrar-alerta" ? (
+          )}
+          {modalstyle === "cadastrar-alerta" && (
             <>
               <div></div>
               <button onClick={handleFormSubmitAlerta}>Cadastrar</button>
             </>
-          ) : null}
+          )}
+          {modalstyle === "cadastrar-usuario" && (
+            <>
+              <div></div>
+              <button onClick={cadastrarUsuario}>Cadastrar</button>
+            </>
+          )}
 
-          {modalstyle === "Editar-Perfil" ? (
+          {modalstyle === "editar-estacao" && (
             <button onClick={handleFormSubmitEdit}>Editar</button>
-          ) : null}
+          )}
+          {modalstyle === "editar-info" && (
+            <button onClick={pegarformParametrosEdit}>Editar</button>
+          )}
+          {modalstyle === "editar-usuario" && (
+            <>
+              <div></div>
+              <button onClick={editarUsuario}>Editar</button>
+            </>
+          )}
+          {modalstyle === "editar-perfil" && (
+            <>
+              <div></div>
+              <button onClick={editarPerfil}>Editar</button>
+            </>
+          )}
         </div>
       </div>
     </div>

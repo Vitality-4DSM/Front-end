@@ -12,6 +12,8 @@ import Modal from "../../components/modal";
 import Stars from '../../assets/Stars.png'
 import './style.css'
 import useLogin from '../../hooks';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 // https://mui.com/material-ui/material-icons/
@@ -73,6 +75,8 @@ const SidebarLogado: React.FC<SidebarProps> = ({ isOpen }) => {
     const [modalOpen, setOpenModal] = useState(false);
     const [modalstyle, setModalStyle] = useState("");
     const [selectStationId, setSelectStationId] = useState("");
+    const [iduser, setIdUser] = useState(localStorage.getItem("@id") ?? '');
+
     const { logout } = useLogin();
     return (
         <>
@@ -80,7 +84,7 @@ const SidebarLogado: React.FC<SidebarProps> = ({ isOpen }) => {
             <Modal
               setOpenModal={setOpenModal}
               modalstyle={modalstyle}
-              selectStationId={selectStationId}
+              selectStationId={iduser}
             />
           ) : null}
         <div className={`sidebar ${isOpen ? 'open' : ''}`}>
@@ -90,7 +94,7 @@ const SidebarLogado: React.FC<SidebarProps> = ({ isOpen }) => {
             </div>
             <div className="links">
                 <nav>
-                    <li onClick={()=>{ setOpenModal(true); setModalStyle("Editar-Perfil")}}>
+                    <li onClick={()=>{ setOpenModal(true); setModalStyle("editar-perfil")}}>
                         <NavLink to='#' >
                             <Person4Icon className='icon'  />
                             <span >Meu Perfil</span>
@@ -129,8 +133,8 @@ const SidebarLogado: React.FC<SidebarProps> = ({ isOpen }) => {
                                 </span>
                         </NavLink>
                     </li>
-
-                    <li>
+                
+                    <li id='logout-bottom'>
                         <NavLink to='/estacoes' className="button-like-link" onClick={() => logout()}>
                             <LogoutIcon className='icon' />
                             <span>Logout</span>

@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import "./styles.css";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../../utils/axios.routes";
+import { getUsuarioEmail, login } from "../../utils/axios.routes";
 import { LoginContext } from "../../contexts/LoginContexts";
 import useLogin from "../../hooks";
 import { sha512 } from "sha512-crypt-ts";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,7 +18,7 @@ const Login = () => {
 
     const data = {
       email: email,
-      senha: sha512.crypt(password,"password"),
+      senha: sha512.crypt(password, "password"),
     };
     try {
       const response = await login(data);
@@ -24,27 +26,50 @@ const Login = () => {
 
       if (response.token) {
         writeToken(response.token);
-        localStorage.setItem("token", response.token);
+        // localStorage.setItem("token", response.token);
         if (token) {
           navigate("/perfil");
+          toast.success(`Bem vindo, ${email}!`, {
+            position: "top-right",
+          });
         }
       } else {
-        alert("Email ou senha incorretos");
+        // alert("Email ou senha incorretos");
+        toast.error("Email ou senha incorretos!", {
+          position: "top-right",
+        });
       }
     } catch (error) {
       console.error("Erro ao fazer login:", error);
+      toast.error("Erro ao realizar login", {
+        position: "top-right",
+      });
     }
-
-
+    try {
+      const res = await getUsuarioEmail(email);
+      // console.log(res);
+      localStorage.setItem("@id", res.id_usuario);
+    } catch (error) {
+      console.error("Erro ao fazer login:", error);
+      toast.error(`Erro ao fazer login`, {
+        position: "top-right",
+      });
+    }
   };
   const handlePublic = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       navigate("/estacoes");
+      toast.success(`Bem vindo, ${email}!`, {
+        position: "top-right",
+      });
     } catch (error) {
-      console.error("Erro ao entrar no perfil publico", error);
+      // console.error("Erro ao entrar no perfil publico", error);
+      toast.error(`Erro ao entrar no perfil publico`, {
+        position: "top-right",
+      });
     }
-  }
+  };
 
   return (
     <div className="login">

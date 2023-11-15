@@ -6,6 +6,9 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { getEstacoes } from "../../utils/axios.routes";
 import Modal from "../../components/modal";
 import useLogin from "../../hooks";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Estacoes: React.FC = () => {
   const [modalOpen, setOpenModal] = useState(false);
@@ -75,7 +78,7 @@ const Estacoes: React.FC = () => {
                 </details>
               </div>
             </div>
-          ) : (estacoes ?
+          ) : (estacoes &&
             (<div className="estacoes-header"> {estacoes.map((item) => (
               <div className="box-container" key={item.id_estacao}>
                 <div className="estacao">
@@ -109,7 +112,7 @@ const Estacoes: React.FC = () => {
                 </div>
               </div>
             ))}
-            </div>) : null)}
+            </div>))}
         </div>
       </div>
     </>
