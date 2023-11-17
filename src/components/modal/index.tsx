@@ -18,10 +18,12 @@ import {
   deleteUsuario,
   postUsuario,
   updateUsuario,
+  getEstacoes,
 } from "../../utils/axios.routes";
 import "./style.css";
 import user from "../../assets/user.png";
 import { sha512 } from "sha512-crypt-ts";
+import Estacoes from "../../pages/Estacoes";
 interface ModalProps {
   setOpenModal: (value: boolean) => void;
   modalstyle: string;
@@ -57,6 +59,7 @@ const Modal: React.FC<ModalProps> = ({
   const [emailUser, setEmailUser] = useState("");
   const [senhaUser, setSenhaUser] = useState("");
   const [tipoParametroEstacao, setTipoParametroEstacao] = useState<any>([]);
+  const [estacoes, setEstacoes] = useState<any[]>([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -84,13 +87,23 @@ const Modal: React.FC<ModalProps> = ({
 
   const handleCheckboxChange = (checked: any) => {
     setTipoParametroEstacao((prevCheckedItems: any) => {
-      if(prevCheckedItems.includes(checked)) {
+      if (prevCheckedItems.includes(checked)) {
         return prevCheckedItems.filter((check: any) => check !== checked);
       } else {
-        return [...prevCheckedItems, checked]
+        return [...prevCheckedItems, checked];
       }
     });
   };
+
+  useEffect(() => {
+    const fetchEstacoes = async () => {
+      try {
+        const response = await getEstacoes();
+        setEstacoes(response);
+      } catch (error) {}
+    };
+    fetchEstacoes();
+  }, []);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -105,11 +118,12 @@ const Modal: React.FC<ModalProps> = ({
     const estacao = await postEstacoes(data);
     const response = {
       fk_estacao: estacao.id_estacao,
-      fk_tipo_parametro: fk_estacao,
+      fk_tipo_parametro: tipoParametroEstacao,
     };
+    // console.log(response);
     await postParameter(response);
     toast.success(`Estação cadastrada com sucesso!`, {
-    position: "top-right",
+      position: "top-right",
     });
     window.location.reload();
   };
@@ -138,7 +152,7 @@ const Modal: React.FC<ModalProps> = ({
     await putEstacoes(data);
     toast.success(`Editado com sucesso!`, {
       position: "top-right",
-      });
+    });
     window.location.reload();
   };
   const pegarformParametros = async (e: React.FormEvent) => {
@@ -157,7 +171,7 @@ const Modal: React.FC<ModalProps> = ({
     toast.success(`Informação cadastrada com sucesso!`, {
       position: "top-right",
     });
-  }
+  };
 
   const pegarformParametrosEdit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -172,7 +186,7 @@ const Modal: React.FC<ModalProps> = ({
     await putTypeParameter(data);
     toast.success(`Editado com sucesso!`, {
       position: "top-right",
-      });
+    });
     // window.location.reload();
   };
 
@@ -186,18 +200,18 @@ const Modal: React.FC<ModalProps> = ({
     await postAlertas(data);
     toast.success(`Alerta cadastrado com sucesso!`, {
       position: "top-right",
-      });
+    });
     window.location.reload();
   };
 
-//
+  //
   const handleFormSubmitDelete = async (e: React.FormEvent) => {
     e.preventDefault();
-    await deleteEstacoes(selectStationId); 
+    await deleteEstacoes(selectStationId);
     window.location.reload();
     toast.success(`Estação excluida com sucesso!`, {
       position: "top-right",
-      });
+    });
   };
 
   const handleFormSubmitDeleteParametros = async (e: React.FormEvent) => {
@@ -206,7 +220,7 @@ const Modal: React.FC<ModalProps> = ({
     window.location.reload();
     toast.success(`Parametro excluido com sucesso!`, {
       position: "top-right",
-      });
+    });
   };
 
   const handleFormSubmitDeleteUsuario = async (e: React.FormEvent) => {
@@ -215,7 +229,7 @@ const Modal: React.FC<ModalProps> = ({
     window.location.reload();
     toast.success(`Usuário excluido com sucesso!`, {
       position: "top-right",
-      });
+    });
   };
 
   function Selecionado(id: string) {
@@ -227,7 +241,7 @@ const Modal: React.FC<ModalProps> = ({
       console.log(fktipoparameto);
     };
     Parametro();
-    if (fktipoparameto) {
+    if (fktipoparameto != "null") {
       return true;
     } else {
       return false;
@@ -247,7 +261,7 @@ const Modal: React.FC<ModalProps> = ({
           setLongitude(response.longitude);
           setInstalacao(response.instalacao);
           setEstado(response.status);
-          setTipoParametroEstacao(response.parametros)
+          setTipoParametroEstacao(response.parametros);
         } else if (modalstyle === "editar-info") {
           const respons = await getParameterID(selectStationId);
           const response = respons.tipo_parametro;
@@ -291,7 +305,7 @@ const Modal: React.FC<ModalProps> = ({
     await postUsuario(data);
     toast.success(`Usuário cadastrado com sucesso!`, {
       position: "top-right",
-      });
+    });
     window.location.reload();
   };
 
@@ -308,7 +322,7 @@ const Modal: React.FC<ModalProps> = ({
     await updateUsuario(data);
     toast.success(`Usuário editado com sucesso!`, {
       position: "top-right",
-      });
+    });
     window.location.reload();
   };
 
@@ -326,8 +340,31 @@ const Modal: React.FC<ModalProps> = ({
     console.log(respe);
     toast.success(`Estação cadastrada com sucesso!`, {
       position: "top-right",
-      });
+    });
     // window.location.reload();
+  };
+
+  // Dropdown
+
+  const [selectedEstacaoOpt, setSelectedEstacaoOpt] = useState("");
+  const handleEstacaoOptChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setSelectedEstacaoOpt(event.target.value);
+  };
+
+  const [selectedParametroOpt, setSelectedParametroOpt] = useState("");
+  const handleParametroOptChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setSelectedParametroOpt(event.target.value);
+  };
+
+  const [selectedTipoAlertaOpt, setSelectedTipoAlertaOpt] = useState("");
+  const handleTipoAlertaOptChange = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
+    setSelectedTipoAlertaOpt(event.target.value);
   };
 
   return (
@@ -420,7 +457,12 @@ const Modal: React.FC<ModalProps> = ({
                         onChange={() => handleCheckboxChange(item.nome)}
                         name="tipoParametros"
                         type="checkbox"
-                        // checked={Selecionado(item.id_tipo_parametro)}
+                        // checked={undefined}
+                        checked={
+                          modalstyle === "editar-estacao"
+                            ? Selecionado(item.id_tipo_parametro)
+                            : undefined
+                        }
                       />
                       <span>{item.nome}</span>
                     </div>
@@ -502,15 +544,81 @@ const Modal: React.FC<ModalProps> = ({
             </div>
           </>
         )}
+
+        {/* ------------- ALERTAS ------------- */}
         {modalstyle === "cadastrar-alerta" && (
           <>
             <div className="title">
               {modalstyle === "cadastrar-alerta" && (
-                <h1>Cadastro de Estação</h1>
+                <h1>Cadastro de Alertas</h1>
               )}
             </div>
             <div className="body">
-              <div className="input-container-1">
+              <div className="estacao-option-dropdown">
+                <label htmlFor="estacao-option">Selecione uma estação</label>
+                <select
+                  className="estacao-option"
+                  name="estacao-option"
+                  onChange={handleEstacaoOptChange}
+                  value={selectedEstacaoOpt}
+                >
+                  <option value=""> Estações cadastradas </option>
+                  {estacoes &&
+                    estacoes.map((estacao) => (
+                      <option
+                        key={estacao.id_estacao}
+                        value={estacao.id_estacao}
+                      >
+                        {estacao.identificador}
+                      </option>
+                    ))}
+                </select>
+
+                <div className="parametro-option-dropdown">
+                  <label htmlFor="parametro-option">
+                    Selecione um parametro
+                  </label>
+                  <select
+                    className="parametro-option"
+                    name="parametro-option"
+                    onChange={handleParametroOptChange}
+                    value={selectedParametroOpt}
+                  >
+                    <option value="">Parametros cadastrados </option>
+                    {estacoes &&
+                      estacoes.map((estacao) => (
+                        <option
+                          key={estacao.id_estacao}
+                          value={estacao.id_estacao}
+                        >
+                          {estacao.identificador}
+                        </option>
+                      ))}
+                  </select>
+                </div>
+
+                <div className="alerta-option-dropdown">
+                  <label htmlFor="alerta-option">
+                    Selecione um alerta
+                  </label>
+                  <select
+                    className="alerta-option"
+                    name="alerta-option"
+                    onChange={handleTipoAlertaOptChange}
+                    value={selectedTipoAlertaOpt}
+                  >
+                    <option value="">Alertas cadastrados </option>
+                    {estacoes &&
+                      estacoes.map((estacao) => (
+                        <option
+                          key={estacao.id_estacao}
+                          value={estacao.id_estacao}
+                        >
+                          {estacao.identificador}
+                        </option>
+                      ))}
+                  </select>
+                </div>
                 <input
                   className="input-modal"
                   onChange={handleInputChange}
@@ -639,8 +747,7 @@ const Modal: React.FC<ModalProps> = ({
           {modalstyle === "cadastrar-estacao" && (
             <>
               <div></div>
-              <button onClick={handleFormSubmit}
-              >Cadastrar</button>
+              <button onClick={handleFormSubmit}>Cadastrar</button>
             </>
           )}
           {modalstyle === "cadastrar-info" && (

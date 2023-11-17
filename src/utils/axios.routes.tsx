@@ -313,7 +313,7 @@ export const postParameter = async (data: any) => {
       }, {
         headers: {
           "x-api-key": "4554545sdsdsd5454",
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`
         },
       
       });
