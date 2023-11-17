@@ -19,11 +19,14 @@ import {
   postUsuario,
   updateUsuario,
   getEstacoes,
+  deleteParameter,
 } from "../../utils/axios.routes";
 import "./style.css";
 import user from "../../assets/user.png";
 import { sha512 } from "sha512-crypt-ts";
 import Estacoes from "../../pages/Estacoes";
+import { log } from "util";
+import ConfirmationModal from "./ConfirmationModal";
 interface ModalProps {
   setOpenModal: (value: boolean) => void;
   modalstyle: string;
@@ -60,6 +63,7 @@ const Modal: React.FC<ModalProps> = ({
   const [senhaUser, setSenhaUser] = useState("");
   const [tipoParametroEstacao, setTipoParametroEstacao] = useState<any>([]);
   const [estacoes, setEstacoes] = useState<any[]>([]);
+  const [confirmDeleteModalOpen, setConfirmDeleteModalOpen] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -83,6 +87,18 @@ const Modal: React.FC<ModalProps> = ({
     else if (name === "nomeuser") setNomeUser(value);
     else if (name === "emailuser") setEmailUser(value);
     else if (name === "senhauser") setSenhaUser(value);
+  };
+  const handleDeleteClick = () => {
+    setConfirmDeleteModalOpen(true);
+  };
+  const handleFormSubmitDeleteModal = async () => {
+    await deleteEstacoes(selectStationId);
+    window.location.reload();
+    toast.success(`Estação excluida com sucesso!`, {
+      position: "top-right",
+    });
+
+    setConfirmDeleteModalOpen(false);
   };
 
   const handleCheckboxChange = (checked: any) => {
@@ -138,23 +154,28 @@ const Modal: React.FC<ModalProps> = ({
     // await putEstacoes(data);
     // window.location.reload();
   };
+
   const handleFormSubmitEdit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const data = {
-      id: selectStationId,
-      identificador: stationName,
-      latitude: latitude,
-      longitude: longitude,
-      instalacao: instalacao,
-      status: estado,
-      parametros: tipoParametroEstacao,
-    };
-    await putEstacoes(data);
+    // await deleteParameter(selectStationId);
+    await deleteParameter({ tipoParametroEstacao, selectStationId });
+    // const data = {
+    //   id: selectStationId,
+    //   identificador: stationName,
+    //   latitude: latitude,
+    //   longitude: longitude,
+    //   instalacao: instalacao,
+    //   status: estado,
+    //   parametros: tipoParametroEstacao,
+    // };
+
+    // await putEstacoes(data);
     toast.success(`Editado com sucesso!`, {
       position: "top-right",
     });
-    window.location.reload();
+    // window.location.reload();
   };
+
   const pegarformParametros = async (e: React.FormEvent) => {
     e.preventDefault();
     const data = {
@@ -370,7 +391,7 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <div className="modalBackground">
       <div className="modalContainer">
-        <div className="titleCloseBtn">
+      <div className="titleCloseBtn">
           <button
             className="x"
             onClick={() => {
@@ -380,6 +401,18 @@ const Modal: React.FC<ModalProps> = ({
             x
           </button>
         </div>
+        {(modalstyle === "editar-estacao" || modalstyle === "editar-info") && (
+          <>
+            {/* <button className="delete" onClick={handleDeleteClick}>
+              Deletar
+            </button> */}
+            <ConfirmationModal
+              isOpen={confirmDeleteModalOpen}
+              onClose={() => setConfirmDeleteModalOpen(false)}
+              onConfirm={handleFormSubmitDeleteModal}
+            />
+          </>
+        )}
         {(modalstyle === "cadastrar-estacao" ||
           modalstyle === "editar-estacao") && (
           <>
@@ -458,11 +491,11 @@ const Modal: React.FC<ModalProps> = ({
                         name="tipoParametros"
                         type="checkbox"
                         // checked={undefined}
-                        checked={
-                          modalstyle === "editar-estacao"
-                            ? Selecionado(item.id_tipo_parametro)
-                            : undefined
-                        }
+                        // checked={
+                        //   modalstyle === "editar-estacao"
+                        //     ? Selecionado(item.id_tipo_parametro)
+                        //     : undefined
+                        // }
                       />
                       <span>{item.nome}</span>
                     </div>
@@ -554,29 +587,33 @@ const Modal: React.FC<ModalProps> = ({
               )}
             </div>
             <div className="body">
-              <div className="estacao-option-dropdown">
-                <label htmlFor="estacao-option">Selecione uma estação</label>
-                <select
-                  className="estacao-option"
-                  name="estacao-option"
-                  onChange={handleEstacaoOptChange}
-                  value={selectedEstacaoOpt}
-                >
-                  <option value=""> Estações cadastradas </option>
-                  {estacoes &&
-                    estacoes.map((estacao) => (
-                      <option
-                        key={estacao.id_estacao}
-                        value={estacao.id_estacao}
-                      >
-                        {estacao.identificador}
-                      </option>
-                    ))}
-                </select>
+              <div className="dropdown-container">
+                <div className="estacao-option-dropdown">
+                  <label htmlFor="estacao-option">
+                    <p>Selecione uma estação</p>
+                  </label>
+                  <select
+                    className="estacao-option"
+                    name="estacao-option"
+                    onChange={handleEstacaoOptChange}
+                    value={selectedEstacaoOpt}
+                  >
+                    <option value=""> Estações cadastradas </option>
+                    {estacoes &&
+                      estacoes.map((estacao) => (
+                        <option
+                          key={estacao.id_estacao}
+                          value={estacao.id_estacao}
+                        >
+                          {estacao.identificador}
+                        </option>
+                      ))}
+                  </select>
+                </div>
 
                 <div className="parametro-option-dropdown">
                   <label htmlFor="parametro-option">
-                    Selecione um parametro
+                    <p>Selecione um tipo de parametro</p>
                   </label>
                   <select
                     className="parametro-option"
@@ -599,7 +636,7 @@ const Modal: React.FC<ModalProps> = ({
 
                 <div className="alerta-option-dropdown">
                   <label htmlFor="alerta-option">
-                    Selecione um alerta
+                    <p>Selecione a condição do alerta</p>
                   </label>
                   <select
                     className="alerta-option"
@@ -608,41 +645,19 @@ const Modal: React.FC<ModalProps> = ({
                     value={selectedTipoAlertaOpt}
                   >
                     <option value="">Alertas cadastrados </option>
-                    {estacoes &&
-                      estacoes.map((estacao) => (
-                        <option
-                          key={estacao.id_estacao}
-                          value={estacao.id_estacao}
-                        >
-                          {estacao.identificador}
-                        </option>
-                      ))}
+                    <option value=""> Maior </option>
+                    <option value=""> Menor </option>
+                    <option value=""> igual </option>
                   </select>
                 </div>
+
                 <input
                   className="input-modal"
                   onChange={handleInputChange}
                   name="valor"
                   placeholder="Valor do Alerta"
                 />
-              </div>
-              <div className="flex-input">
-                <div className="input-container-2">
-                  <input
-                    className="input-modal"
-                    onChange={handleInputChange}
-                    name="sinal"
-                    placeholder="Sinal do Alerta"
-                  />
-                </div>
-                <div className="input-container-3">
-                  <input
-                    className="input-modal"
-                    onChange={handleInputChange}
-                    name="id_parametro"
-                    placeholder="ID do Parametro"
-                  />
-                </div>
+
               </div>
               <hr className="HrModal" />
             </div>
@@ -726,7 +741,7 @@ const Modal: React.FC<ModalProps> = ({
 
         <div className="footer">
           {modalstyle === "editar-estacao" && (
-            <button className="delete" onClick={handleFormSubmitDelete}>
+            <button className="delete" onClick={handleDeleteClick}>
               Deletar
             </button>
           )}
