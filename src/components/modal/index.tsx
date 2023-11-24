@@ -430,6 +430,8 @@ const Modal: React.FC<ModalProps> = ({
                   name="stationName"
                   placeholder="Nome da Estação"
                   value={stationName}
+                  required
+                  maxLength={25}
                 />
               </div>
               <div className="flex-input">
@@ -440,6 +442,8 @@ const Modal: React.FC<ModalProps> = ({
                     name="latitude"
                     placeholder="Latitude"
                     value={latitude}
+                    required
+                    maxLength={15}
                   />
                 </div>
                 <div className="input-container-3">
@@ -449,6 +453,8 @@ const Modal: React.FC<ModalProps> = ({
                     name="longitude"
                     placeholder="Longitude"
                     value={longitude}
+                    required
+                    maxLength={15}
                   />
                 </div>
               </div>
@@ -460,6 +466,9 @@ const Modal: React.FC<ModalProps> = ({
                     name="instalacao"
                     placeholder="Data de Instalação"
                     value={instalacao}
+                    type='date'
+                    //VALDERI ANALISARRRRRRRRRRRRRRRRRRRR
+                    
                   />
                 </div>
                 <div className="input-container-3">
@@ -469,6 +478,8 @@ const Modal: React.FC<ModalProps> = ({
                     name="estado"
                     placeholder="Estado de Atividade"
                     value={estado}
+                    required
+                    maxLength={15}
                   />
                 </div>
               </div>
@@ -524,6 +535,8 @@ const Modal: React.FC<ModalProps> = ({
                   name="nome"
                   placeholder="Nome do Parametro"
                   value={nome}
+                  required
+                  maxLength={25}
                 />
               </div>
               <div className="input-container-1">
@@ -533,6 +546,8 @@ const Modal: React.FC<ModalProps> = ({
                   name="descricao"
                   placeholder="Descrição do Parametro"
                   value={descricao}
+                  required
+                  
                 />
               </div>
               <div className="flex-input">
@@ -543,6 +558,8 @@ const Modal: React.FC<ModalProps> = ({
                     name="unidade"
                     placeholder="Unidade"
                     value={unidade}
+                    required
+                    maxLength={15}
                   />
                 </div>
                 <div className="input-container-3">
@@ -552,6 +569,8 @@ const Modal: React.FC<ModalProps> = ({
                     name="fator"
                     placeholder="Fator de conversão"
                     value={fator}
+                    required
+                    maxLength={25}
                   />
                 </div>
                 <div className="input-container-2">
@@ -561,6 +580,9 @@ const Modal: React.FC<ModalProps> = ({
                     name="offset"
                     placeholder="Offset de conversão"
                     value={offset}
+                    required
+                    maxLength={25}
+                    
                   />
                 </div>
                 <div className="input-container-2">
@@ -570,6 +592,7 @@ const Modal: React.FC<ModalProps> = ({
                     name="json"
                     placeholder="Padrão Json"
                     value={json}
+                    required
                   />
                 </div>
               </div>
@@ -655,7 +678,9 @@ const Modal: React.FC<ModalProps> = ({
                   className="input-modal"
                   onChange={handleInputChange}
                   name="valor"
-                  placeholder="Valor do Alerta"
+                  placeholder="Valor para que o alerta seja ativo (ex: 50)" //treshold
+                  required
+                  maxLength={15}
                 />
 
               </div>
@@ -678,6 +703,8 @@ const Modal: React.FC<ModalProps> = ({
                     name="name"
                     placeholder="Nome do Usuario"
                     value={name}
+                    required
+                    maxLength={25}
                   />
                   <input
                     className="input-modal"
@@ -685,6 +712,8 @@ const Modal: React.FC<ModalProps> = ({
                     name="email"
                     placeholder="Email do Usuario"
                     value={email}
+                    required
+                    maxLength={50}
                   />
                   <input
                     className="input-modal"
@@ -692,6 +721,8 @@ const Modal: React.FC<ModalProps> = ({
                     name="senha"
                     placeholder="Senha do Usuario"
                     value={senha}
+                    required
+                    maxLength={30}
                   />
                 </div>
               </div>
@@ -718,6 +749,8 @@ const Modal: React.FC<ModalProps> = ({
                     name="nomeuser"
                     placeholder="Nome do Usuario"
                     value={nomeUser}
+                    required
+                    maxLength={25}
                   />
                   <input
                     className="input-modal"
@@ -725,6 +758,8 @@ const Modal: React.FC<ModalProps> = ({
                     name="emailuser"
                     placeholder="Email do Usuario"
                     value={emailUser}
+                    required
+                    maxLength={50}
                   />
                   <input
                     className="input-modal"
@@ -732,6 +767,8 @@ const Modal: React.FC<ModalProps> = ({
                     name="senhauser"
                     placeholder="Senha do Usuario"
                     value={senhaUser}
+                    required
+                    maxLength={30}
                   />
                 </div>
               </div>

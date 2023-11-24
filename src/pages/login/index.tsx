@@ -71,6 +71,8 @@ const Login = () => {
     }
   };
 
+
+
   return (
     <div className="login">
       <form action="">
@@ -82,15 +84,19 @@ const Login = () => {
             <hr />
             <input
               type="email"
+              required
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              maxLength={50}
             />
             <input
               type="password"
+              required
               placeholder="Senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              maxLength={30}
             />
             <button onClick={handleLogin} className="botaoLogin">
               <p>Entrar</p>
