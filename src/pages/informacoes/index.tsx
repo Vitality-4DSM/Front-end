@@ -38,12 +38,25 @@ const Info: React.FC = () => {
     getparametros();
   }, []);
 
+  const atualizaParametros = () =>{
+    const getparametros = async () => {
+      try {
+        const response = await getTipoParametros();
+        setTipoParametros(response);
+      } catch (error) {
+        console.error('Erro ao obter tipos de parâmetros:', error);
+      }
+    };
+    getparametros();
+  }
+
   const openModal = () => {
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+    atualizaParametros(); //quando vc fecha o modal agora atualiza a lista dos parâmetros
   };
 
   const ParametroSelect = () => {
@@ -115,6 +128,7 @@ const Info: React.FC = () => {
       unidade: unidade,
       fator: fator,
       offset: offset,
+      json: json,
     };
     await putTypeParameter(data);
     return alert("Parâmetro Editado");
@@ -170,7 +184,7 @@ const Info: React.FC = () => {
                 <div className="Modal-footer">
                 {(tipomodal =='Edit')?<>
                   <button className="Modal-delete" onClick={() => { handleFormSubmitDeleteParametros() }}>Deletar</button>
-                  <button className="Modal-salvar" onClick={() => { pegarformParametrosEdit(id) }}>Salvar</button>
+                  <button className="Modal-salvar" onClick={() => { pegarformParametrosEdit(id); closeModal() }}>Salvar</button>
                   </>
                   :<button className="Modal-salvar" onClick={() => { pegarformParametros(id) }}>Cadastrar</button>
                 }
