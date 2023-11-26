@@ -29,6 +29,8 @@ const Alertas: React.FC = () => {
     };
     fetchEstacoes();
   }, []);
+
+  
   return (
     <>
       {modalOpen ? (

@@ -23,7 +23,6 @@ const Gerenciamento: React.FC = () => {
     const data = usuario
     data.status = !usuario.status
     data.id= data.id_usuario
-    // console.log(data);
     
     const res = await updateUsuario(data)
     console.log(res);

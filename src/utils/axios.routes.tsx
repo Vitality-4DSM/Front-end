@@ -11,7 +11,7 @@ export const getEstacoes = async () => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
   } catch (error) {
@@ -26,7 +26,7 @@ export const getEstacoesId = async (id: any) => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
   } catch (error) {
@@ -41,7 +41,7 @@ export const postEstacoes = async (data: any) => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
   } catch (error) {
@@ -56,7 +56,7 @@ export const putEstacoes = async (data: any) => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
   } catch (error) {
@@ -71,7 +71,7 @@ export const deleteEstacoes = async (id: any) => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response;
   } catch (error) {
@@ -82,7 +82,7 @@ export const deleteEstacoes = async (id: any) => {
 
 /////////////////////////////////////////////////////////////
 
-// parametros
+// tipo parametro parametros
 export const postTypeParameter = async (data: any) => {
   try {
     const response = await api.post("/typeparameter", data, {
@@ -90,7 +90,7 @@ export const postTypeParameter = async (data: any) => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
   }
@@ -106,7 +106,7 @@ export const getTipoParametros = async () => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
   } catch (error) {
@@ -114,14 +114,14 @@ export const getTipoParametros = async () => {
   }
 };
 
-export const getTipoParametroID = async (id:any) => {
+export const getTipoParametroID = async (id: any) => {
   try {
     const response = await api.get(`http://localhost:3001/typeparameter/${id}`, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
   } catch (error) {
@@ -137,7 +137,7 @@ export const putTypeParameter = async (data: any) => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
   }
@@ -153,7 +153,7 @@ export const deleteTypeParameter = async (id: any) => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response;
   } catch (error) {
@@ -163,63 +163,63 @@ export const deleteTypeParameter = async (id: any) => {
 
 /////////////////////////////////////////////////////////////
 
-export const postUsuario = async (data:any) => {
-  try{
+export const postUsuario = async (data: any) => {
+  try {
     const response = await api.post("/user", data, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
-  } catch(error){
+  } catch (error) {
     return error;
   }
 }
 
 
-export const deleteUsuario = async (id:any) =>{
-  try{
+export const deleteUsuario = async (id: any) => {
+  try {
     const response = await api.delete("/user/" + id, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response;
-  } catch(error){
+  } catch (error) {
     return error;
   }
 }
 
-export const updateUsuario = async (data:any) =>{
-  try{
+export const updateUsuario = async (data: any) => {
+  try {
     const response = await api.put("/user", data, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
-  } catch(error){
+  } catch (error) {
     return error;
   }
 }
 
-export const getUsuarioEmail = async (email:any) =>{
-  try{
+export const getUsuarioEmail = async (email: any) => {
+  try {
     const response = await api.get("/user/email/" + email, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
-  } catch(error){
+  } catch (error) {
     return error;
   }
 }
@@ -227,14 +227,14 @@ export const getUsuarioEmail = async (email:any) =>{
 
 /////////////////////////////////////////////////////////////
 
-export const login = async (data:any) => {
+export const login = async (data: any) => {
   try {
-    const response = await api.post("/login",data, {
+    const response = await api.post("/login", data, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
   } catch (error) {
@@ -250,7 +250,7 @@ export const postAlertas = async (data: any) => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
   } catch (error) {
@@ -265,7 +265,7 @@ export const getAlertas = async () => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
   } catch (error) {
@@ -280,7 +280,7 @@ export const GetUsers = async () => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
   } catch (error) {
@@ -295,27 +295,28 @@ export const getUserId = async (id: any) => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
   } catch (error) {
     return error;
   }
 };
-
-// transforme fk_tipo_parametro em inteiro
+///////////////////////////////////////////////////////////////////////////////////
+// parametros
 export const postParameter = async (data: any) => {
   try {
-    const { fk_tipo_parametro , fk_estacao } = data;
+    const { fk_tipo_parametro, fk_estacao } = data;
     for (let i = 0; i < fk_tipo_parametro.length; i++) {
-      await api.post("/parameter", { fk_estacao: parseInt(fk_estacao),
+      await api.post("/parameter", {
+        fk_estacao: parseInt(fk_estacao),
         fk_tipo_parametro: parseInt(fk_tipo_parametro[i]),
       }, {
         headers: {
           "x-api-key": "4554545sdsdsd5454",
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `Bearer ${token}`
         },
-      
+
       });
     }
     return data;
@@ -324,15 +325,17 @@ export const postParameter = async (data: any) => {
   }
 }
 
+
+
 export const getParameter = async (id: any) => {
   try {
-    const response = await api.get("/parameter/fkparameter",{
+    const response = await api.get("/parameter/fkparameter", {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
-    }  );
+
+    });
     return response.data;
   } catch (error) {
     return error;
@@ -341,18 +344,52 @@ export const getParameter = async (id: any) => {
 
 export const getParameterID = async (id: any) => {
   try {
-    const response = await api.get("/parameter/"+ id, {
+    const response = await api.get("/parameter/" + id, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
+
     });
     return response.data;
   } catch (error) {
     return error;
   }
 };
+
+export const deleteParameter = async (data: any) => {
+  try {
+    const {tipoParametroEstacao, selectStationId}= data;
+    // const response = await api.get("/station/" + id, {
+    //   headers: {
+    //     "x-api-key": "4554545sdsdsd5454",
+    //     'Authorization': `Bearer ${token}`,
+    //   },
+    // })
+    // const { parametros } = response.data;
+    // console.log(parametros);
+    
+    // for (let i = 0; i < parametros.length; i++) {
+    //   const pon = await api.delete("/parameter/" + parametros[i], {
+    //     headers: {
+    //       "x-api-key": "4554545sdsdsd5454",
+    //       'Authorization': `Bearer ${token}`,
+    //     },
+    //   });
+    //   console.log(pon);
+    // }
+
+  } catch (error) {
+    return error;
+  }
+};
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 export const getDashboard = async (id: any) => {
   try {
@@ -361,8 +398,8 @@ export const getDashboard = async (id: any) => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
-    } );
+
+    });
     return response.data;
   }
   catch (error) {
@@ -377,8 +414,8 @@ export const getNometabela = async (id: any) => {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
       },
-    
-    } );
+
+    });
     return response.data;
   }
   catch (error) {
