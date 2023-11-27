@@ -20,12 +20,13 @@ import {
   updateUsuario,
   getEstacoes,
   deleteParameter,
+  gethistoric,
+  getParameters
+  ,
 } from "../../utils/axios.routes";
 import "./style.css";
 import user from "../../assets/user.png";
 import { sha512 } from "sha512-crypt-ts";
-import Estacoes from "../../pages/Estacoes";
-import { log } from "util";
 import ConfirmationModal from "./ConfirmationModal";
 interface ModalProps {
   setOpenModal: (value: boolean) => void;
@@ -44,7 +45,6 @@ const Modal: React.FC<ModalProps> = ({
   const [instalacao, setInstalacao] = useState("");
   const [estado, setEstado] = useState("");
   const [tipoParametros, setTipoParametros] = useState<any[]>([]);
-  const [fk_estacao, setFk_estacao] = useState<string[]>([]);
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
   const [unidade, setUnidade] = useState("");
@@ -53,7 +53,6 @@ const Modal: React.FC<ModalProps> = ({
   const [sinal, setSinal] = useState("");
   const [id_parametro, setId_parametro] = useState("");
   const [valor, setValor] = useState("");
-  const [fktipoparameto, setFktipoparametro] = useState("");
   const [name, setName] = useState("");
   const [senha, setSenha] = useState("");
   const [email, setEmail] = useState("");
@@ -88,9 +87,11 @@ const Modal: React.FC<ModalProps> = ({
     else if (name === "emailuser") setEmailUser(value);
     else if (name === "senhauser") setSenhaUser(value);
   };
+
   const handleDeleteClick = () => {
     setConfirmDeleteModalOpen(true);
   };
+
   const handleFormSubmitDeleteModal = async () => {
     await deleteEstacoes(selectStationId);
     window.location.reload();
@@ -123,61 +124,63 @@ const Modal: React.FC<ModalProps> = ({
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!stationName || !latitude || !longitude || !instalacao || !estado) {
+      toast.error(`Por favor, preencha todos os campos antes de cadastrar.`, {
+        position: "top-right",
+      });
+      return;
+    }
+
     const data = {
       identificador: stationName,
       latitude: latitude,
       longitude: longitude,
       instalacao: instalacao,
       status: estado,
-      parametros: tipoParametroEstacao,
     };
     const estacao = await postEstacoes(data);
+
     const response = {
       fk_estacao: estacao.id_estacao,
       fk_tipo_parametro: tipoParametroEstacao,
     };
-    // console.log(response);
     await postParameter(response);
+
     toast.success(`Estação cadastrada com sucesso!`, {
       position: "top-right",
     });
     window.location.reload();
   };
-  const handleformEditarPerfil = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const data = {
-      id: selectStationId,
-      nomeUsuario: name,
-      email: email,
-      senha: senha,
-    };
-    // await putEstacoes(data);
-    // window.location.reload();
-  };
 
   const handleFormSubmitEdit = async (e: React.FormEvent) => {
     e.preventDefault();
     // await deleteParameter(selectStationId);
-    await deleteParameter({ tipoParametroEstacao, selectStationId });
-    // const data = {
-    //   id: selectStationId,
-    //   identificador: stationName,
-    //   latitude: latitude,
-    //   longitude: longitude,
-    //   instalacao: instalacao,
-    //   status: estado,
-    //   parametros: tipoParametroEstacao,
-    // };
+    // await deleteParameter({ tipoParametroEstacao, selectStationId });
+    const data = {
+      id: selectStationId,
+      identificador: stationName,
+      latitude: latitude,
+      longitude: longitude,
+      instalacao: instalacao,
+      status: estado,
+    };
 
-    // await putEstacoes(data);
+    await putEstacoes(data);
     toast.success(`Editado com sucesso!`, {
       position: "top-right",
     });
-    // window.location.reload();
+    window.location.reload();
   };
 
   const pegarformParametros = async (e: React.FormEvent) => {
     e.preventDefault();
+    const dataAtual = new Date();
+
+    const dataFormatada = dataAtual
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
     const data = {
       nome: nome,
       descricao: descricao,
@@ -185,7 +188,7 @@ const Modal: React.FC<ModalProps> = ({
       fator: parseInt(fator),
       offset: parseInt(offset),
       json: json,
-      cadastro: "2021-06-01",
+      cadastro: dataFormatada,
     };
     await postTypeParameter(data);
     window.location.reload();
@@ -213,27 +216,38 @@ const Modal: React.FC<ModalProps> = ({
 
   const handleFormSubmitAlerta = async (e: React.FormEvent) => {
     e.preventDefault();
-    const data = {
+    const dataAtual = new Date();
+
+    const dataFormatada = dataAtual
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+    const date = {
       valor: valor,
-      sinal: sinal,
-      fk_parametro: id_parametro,
+      TipoDeAlerta: sinal,
+      data: dataFormatada,
+      fk_parametro: parametro,
     };
-    await postAlertas(data);
+    // console.log(valor, sinal, parametro);
+    
+    const res = await postAlertas(date);
+    console.log(res);
     toast.success(`Alerta cadastrado com sucesso!`, {
       position: "top-right",
     });
     window.location.reload();
   };
 
-  //
-  const handleFormSubmitDelete = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await deleteEstacoes(selectStationId);
-    window.location.reload();
-    toast.success(`Estação excluida com sucesso!`, {
-      position: "top-right",
-    });
-  };
+  const [parametros, setParametros] = useState<any[]>([]);
+  useEffect(() => {
+    const fetchParametro = async () => {
+      try {
+        const response = await getParameters();
+        setParametros(response);
+      } catch (error) {}
+    };
+    fetchParametro();
+  } , []);
 
   const handleFormSubmitDeleteParametros = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -253,22 +267,6 @@ const Modal: React.FC<ModalProps> = ({
     });
   };
 
-  function Selecionado(id: string) {
-    const Parametro = async () => {
-      try {
-        const response = await getParameter(id);
-        setFktipoparametro(response);
-      } catch (error) {}
-      console.log(fktipoparameto);
-    };
-    Parametro();
-    if (fktipoparameto != "null") {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   useEffect(() => {
     const fetchEstacoes = async () => {
       try {
@@ -280,7 +278,7 @@ const Modal: React.FC<ModalProps> = ({
           setStationName(response.identificador);
           setLatitude(response.latitude);
           setLongitude(response.longitude);
-          setInstalacao(response.instalacao);
+          setInstalacao(response.instalacao.split("T")[0]);
           setEstado(response.status);
           setTipoParametroEstacao(response.parametros);
         } else if (modalstyle === "editar-info") {
@@ -310,21 +308,31 @@ const Modal: React.FC<ModalProps> = ({
 
   const cadastrarUsuario = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!nomeUser || !emailUser || !senhaUser) {
+      toast.error(`Por favor, preencha todos os campos antes de cadastrar.`, {
+        position: "top-right",
+      });
+      return;
+    }
+
     const dataAtual = new Date();
-    // Formate a data como "YYYY-MM-DD HH:MM:SS" (você pode personalizar o formato conforme necessário)
+
     const dataFormatada = dataAtual
       .toISOString()
       .slice(0, 19)
       .replace("T", " ");
+
     const data = {
       nome: nomeUser,
       email: emailUser,
       senha: sha512.crypt(senhaUser, "password"),
-      cargo: "admin",
+      cargo: "user",
       cadastro: dataFormatada,
     };
+
     await postUsuario(data);
-    toast.success(`Usuário cadastrado com sucesso!`, {
+    toast.success("Usuário cadastrado com sucesso!", {
       position: "top-right",
     });
     window.location.reload();
@@ -362,16 +370,16 @@ const Modal: React.FC<ModalProps> = ({
     toast.success(`Estação cadastrada com sucesso!`, {
       position: "top-right",
     });
-    // window.location.reload();
+    window.location.reload();
   };
 
   // Dropdown
 
-  const [selectedEstacaoOpt, setSelectedEstacaoOpt] = useState("");
+  const [parametro, setParametro] = useState("");
   const handleEstacaoOptChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    setSelectedEstacaoOpt(event.target.value);
+    setParametro(event.target.value);
   };
 
   const [selectedParametroOpt, setSelectedParametroOpt] = useState("");
@@ -381,17 +389,17 @@ const Modal: React.FC<ModalProps> = ({
     setSelectedParametroOpt(event.target.value);
   };
 
-  const [selectedTipoAlertaOpt, setSelectedTipoAlertaOpt] = useState("");
+  // const [sinal, setSinal] = useState("");
   const handleTipoAlertaOptChange = (event: {
     target: { value: React.SetStateAction<string> };
   }) => {
-    setSelectedTipoAlertaOpt(event.target.value);
+    setSinal(event.target.value);
   };
 
   return (
     <div className="modalBackground">
       <div className="modalContainer">
-      <div className="titleCloseBtn">
+        <div className="titleCloseBtn">
           <button
             className="x"
             onClick={() => {
@@ -403,9 +411,6 @@ const Modal: React.FC<ModalProps> = ({
         </div>
         {(modalstyle === "editar-estacao" || modalstyle === "editar-info") && (
           <>
-            {/* <button className="delete" onClick={handleDeleteClick}>
-              Deletar
-            </button> */}
             <ConfirmationModal
               isOpen={confirmDeleteModalOpen}
               onClose={() => setConfirmDeleteModalOpen(false)}
@@ -466,9 +471,8 @@ const Modal: React.FC<ModalProps> = ({
                     name="instalacao"
                     placeholder="Data de Instalação"
                     value={instalacao}
-                    type='date'
+                    type="date"
                     //VALDERI ANALISARRRRRRRRRRRRRRRRRRRR
-                    
                   />
                 </div>
                 <div className="input-container-3">
@@ -483,6 +487,8 @@ const Modal: React.FC<ModalProps> = ({
                   />
                 </div>
               </div>
+              {modalstyle === "cadastrar-estacao" && (
+                <>
               <hr className="HrModal" />
               <div className="title">
                 <h1>Parâmetro de Estação</h1>
@@ -498,21 +504,20 @@ const Modal: React.FC<ModalProps> = ({
                         className="checkbox-modal"
                         placeholder="Parametro"
                         value={item.id_tipo_parametro}
-                        onChange={() => handleCheckboxChange(item.nome)}
+                        onChange={() =>
+                          handleCheckboxChange(item.id_tipo_parametro)
+                        }
                         name="tipoParametros"
                         type="checkbox"
-                        // checked={undefined}
-                        // checked={
-                        //   modalstyle === "editar-estacao"
-                        //     ? Selecionado(item.id_tipo_parametro)
-                        //     : undefined
-                        // }
+                        checked={undefined}
                       />
                       <span>{item.nome}</span>
                     </div>
                   </>
                 ))}
               </div>
+              </>
+              )}
             </div>
           </>
         )}
@@ -547,7 +552,6 @@ const Modal: React.FC<ModalProps> = ({
                   placeholder="Descrição do Parametro"
                   value={descricao}
                   required
-                  
                 />
               </div>
               <div className="flex-input">
@@ -582,7 +586,6 @@ const Modal: React.FC<ModalProps> = ({
                     value={offset}
                     required
                     maxLength={25}
-                    
                   />
                 </div>
                 <div className="input-container-2">
@@ -613,45 +616,23 @@ const Modal: React.FC<ModalProps> = ({
               <div className="dropdown-container">
                 <div className="estacao-option-dropdown">
                   <label htmlFor="estacao-option">
-                    <p>Selecione uma estação</p>
+                    <p>Selecione um parametro</p>
                   </label>
                   <select
                     className="estacao-option"
-                    name="estacao-option"
+                    name="parametro"
                     onChange={handleEstacaoOptChange}
-                    value={selectedEstacaoOpt}
+                    value={parametro}
                   >
-                    <option value=""> Estações cadastradas </option>
-                    {estacoes &&
-                      estacoes.map((estacao) => (
+                    <option value=""> Parametros cadastrados </option>
+                    {parametros &&
+                      parametros.map((estacao) => (
                         <option
-                          key={estacao.id_estacao}
-                          value={estacao.id_estacao}
+                          key={estacao.id_parametro}
+                          value={estacao.id_parametro}
                         >
-                          {estacao.identificador}
-                        </option>
-                      ))}
-                  </select>
-                </div>
-
-                <div className="parametro-option-dropdown">
-                  <label htmlFor="parametro-option">
-                    <p>Selecione um tipo de parametro</p>
-                  </label>
-                  <select
-                    className="parametro-option"
-                    name="parametro-option"
-                    onChange={handleParametroOptChange}
-                    value={selectedParametroOpt}
-                  >
-                    <option value="">Parametros cadastrados </option>
-                    {estacoes &&
-                      estacoes.map((estacao) => (
-                        <option
-                          key={estacao.id_estacao}
-                          value={estacao.id_estacao}
-                        >
-                          {estacao.identificador}
+                          estação: {estacao.estacao.identificador} -
+                          tipo parametro: {estacao.tipo_parametro.nome}
                         </option>
                       ))}
                   </select>
@@ -663,14 +644,16 @@ const Modal: React.FC<ModalProps> = ({
                   </label>
                   <select
                     className="alerta-option"
-                    name="alerta-option"
+                    name="alerta"
                     onChange={handleTipoAlertaOptChange}
-                    value={selectedTipoAlertaOpt}
+                    value={sinal}
                   >
                     <option value="">Alertas cadastrados </option>
-                    <option value=""> Maior </option>
-                    <option value=""> Menor </option>
-                    <option value=""> igual </option>
+                    <option value=">"> Maior </option>
+                    <option value="<"> Menor </option>
+                    <option value="=="> Igual </option>
+                    <option value=">="> Maior igual </option>
+                    <option value="<="> Menor igual </option>
                   </select>
                 </div>
 
@@ -678,11 +661,10 @@ const Modal: React.FC<ModalProps> = ({
                   className="input-modal"
                   onChange={handleInputChange}
                   name="valor"
-                  placeholder="Valor para que o alerta seja ativo (ex: 50)" //treshold
+                  placeholder="Valor do gatilho alerta(ex: 50)" //treshold
                   required
                   maxLength={15}
                 />
-
               </div>
               <hr className="HrModal" />
             </div>
@@ -741,7 +723,6 @@ const Modal: React.FC<ModalProps> = ({
             </div>
             <div className="body">
               <div className="container-pai">
-                {/* <img src={user} alt="user" /> */}
                 <div className="edit-input-container-1">
                   <input
                     className="input-modal"
@@ -749,7 +730,6 @@ const Modal: React.FC<ModalProps> = ({
                     name="nomeuser"
                     placeholder="Nome do Usuario"
                     value={nomeUser}
-                    required
                     maxLength={25}
                   />
                   <input
@@ -758,7 +738,6 @@ const Modal: React.FC<ModalProps> = ({
                     name="emailuser"
                     placeholder="Email do Usuario"
                     value={emailUser}
-                    required
                     maxLength={50}
                   />
                   <input
@@ -767,7 +746,6 @@ const Modal: React.FC<ModalProps> = ({
                     name="senhauser"
                     placeholder="Senha do Usuario"
                     value={senhaUser}
-                    required
                     maxLength={30}
                   />
                 </div>

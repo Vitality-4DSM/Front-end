@@ -308,6 +308,7 @@ export const postParameter = async (data: any) => {
   try {
     const { fk_tipo_parametro, fk_estacao } = data;
     for (let i = 0; i < fk_tipo_parametro.length; i++) {
+      console.log(fk_tipo_parametro[i])
       await api.post("/parameter", {
         fk_estacao: parseInt(fk_estacao),
         fk_tipo_parametro: parseInt(fk_tipo_parametro[i]),
@@ -326,10 +327,25 @@ export const postParameter = async (data: any) => {
 }
 
 
-
-export const getParameter = async (id: any) => {
+export const getParameters = async () => {
   try {
-    const response = await api.get("/parameter/fkparameter", {
+    const response = await api.get("/parameter/", {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
+      },
+
+    });
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+
+export const getParameter = async (id: any,selecionado: any) => {
+  try {
+    const response = await api.get("/parameter/fkparameter/" + id + selecionado, {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,
@@ -410,6 +426,23 @@ export const getDashboard = async (id: any) => {
 export const getNometabela = async (id: any) => {
   try {
     const response = await api.get("/dashboard/nometabela/" + id, {
+      headers: {
+        "x-api-key": "4554545sdsdsd5454",
+        'Authorization': `Bearer ${token}`,
+      },
+
+    });
+    return response.data;
+  }
+  catch (error) {
+    return error;
+  }
+}
+
+
+export const gethistoric = async () => {
+  try {
+    const response = await api.get("/historicalert", {
       headers: {
         "x-api-key": "4554545sdsdsd5454",
         'Authorization': `Bearer ${token}`,

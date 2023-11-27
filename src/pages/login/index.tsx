@@ -26,7 +26,6 @@ const Login = () => {
 
       if (response.token) {
         writeToken(response.token);
-        // localStorage.setItem("token", response.token);
         if (token) {
           navigate("/perfil");
           toast.success(`Bem vindo, ${email}!`, {
@@ -34,7 +33,6 @@ const Login = () => {
           });
         }
       } else {
-        // alert("Email ou senha incorretos");
         toast.error("Email ou senha incorretos!", {
           position: "top-right",
         });

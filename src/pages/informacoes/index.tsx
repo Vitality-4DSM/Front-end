@@ -6,7 +6,7 @@ import "./styles.css";
 import { getTipoParametros, getTipoParametroID, putTypeParameter, deleteTypeParameter, postTypeParameter } from "../../utils/axios.routes";
 import useLogin from "../../hooks";
 import Close from "../../assets/icons/close.svg"
-
+import { toast } from "react-toastify";
 const Info: React.FC = () => {
   const [tipoparametros, setTipoParametros] = useState<any[]>([]);
   const [showSidebar, setShowSidebar] = useState(true);
@@ -38,6 +38,15 @@ const Info: React.FC = () => {
     getparametros();
   }, []);
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    atualizaParametros(); //quando vc fecha o modal agora atualiza a lista dos parâmetros
+  };
+
   const atualizaParametros = () =>{
     const getparametros = async () => {
       try {
@@ -49,46 +58,6 @@ const Info: React.FC = () => {
     };
     getparametros();
   }
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    atualizaParametros(); //quando vc fecha o modal agora atualiza a lista dos parâmetros
-  };
-
-  const ParametroSelect = () => {
-    return (
-      <div className="modalGera">
-        <div className="modal-close" onClick={closeModal}> <img src={Close} alt="" /> </div>
-        <div className="Modal">
-          <h1 className="Modal-titulo">Editar Tipo do Parâmetro</h1>
-
-          <div className="ModalContainer">
-            <div className="Modal-input-content">
-              <input type="text" name="nome" value={nome} onChange={(e) => setNome(e.target.value)} className="Modal-input" placeholder="Nome" />
-            </div>
-            <div className="Modal-input-content">
-              <input type="text" name="descricao" value={descricao} onChange={(e) => setDescricao(e.target.value)} className="Modal-input" placeholder="Descrição" />
-            </div>
-            <div className="Modal-input-content">
-              <input type="text" name="unidade" value={unidade} onChange={(e) => setUnidade(e.target.value)} className="Modal-input" placeholder="Unidade" />
-              <input type="text" name="fator" value={fator} onChange={(e) => setFator(e.target.value)} className="Modal-input" placeholder="Fator de conversão" />
-              <input type="text" name="offset" value={offset} onChange={(e) => setOffset(e.target.value)} className="Modal-input" placeholder="Offset" />
-              <input type="text" name="json" value={json} onChange={(e) => setJson(e.target.value)} className="Modal-input" placeholder="Padrão Json" />
-            </div>
-
-            <div className="Modal-footer">
-              <button className="Modal-delete">Deletar</button>
-              <button className="Modal-salvar">Salvar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
 
   const PegarDados = async (id: any) => {
     const fetchData = async () => {
@@ -121,6 +90,12 @@ const Info: React.FC = () => {
   }
 
   const pegarformParametrosEdit = async (e: String) => {
+    if (!nome || !descricao || !unidade || !fator || !offset || !json) {
+      toast.error(`Por favor, preencha todos os campos antes de cadastrar.`, {
+        position: "top-right",
+      });
+      return;
+    }
     const data = {
       id: id,
       nome: nome,
@@ -136,12 +111,24 @@ const Info: React.FC = () => {
   };
 
   const handleFormSubmitDeleteParametros = async () => {
+    if (!id) {
+      toast.error(`Por favor, preencha todos os campos antes de cadastrar.`, {
+        position: "top-right",
+      });
+      return;
+    }
+
     await deleteTypeParameter(id);
     window.location.reload();
-    return alert("Parametro deletado com sucesso");
   };
 
   const pegarformParametros = async (e: String) => {
+    if (!nome || !descricao || !unidade || !fator || !offset || !json) {
+      toast.error(`Por favor, preencha todos os campos antes de cadastrar.`, {
+        position: "top-right",
+      });
+      return;
+    }
     const data = {
       nome: nome,
       descricao: descricao,
@@ -153,7 +140,7 @@ const Info: React.FC = () => {
     };
     await postTypeParameter(data);
     window.location.reload();
-    return alert("Parâmetro cadastrado com sucesso");
+
   };
 
 
