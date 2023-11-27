@@ -8,7 +8,7 @@ const api: AxiosInstance = axios.create({
 });
 
 // const api: AxiosInstance = axios.create({
-//   baseURL: 'http://34.193.65.107:3001/',
+//   baseURL: 'http://40.76.110.239:3002/',
 //   headers: {
 //     'Content-Type': 'application/json'
 //     }
