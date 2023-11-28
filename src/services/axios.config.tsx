@@ -1,18 +1,18 @@
 import axios, { AxiosInstance } from 'axios';
 
-const api: AxiosInstance = axios.create({
-  baseURL: 'http://localhost:3001',
-  headers: {
-    'Content-Type': 'application/json'
-    }
-});
-
 // const api: AxiosInstance = axios.create({
-//   baseURL: 'http://34.193.65.107:3001/',
+//   baseURL: 'http://localhost:3001',
 //   headers: {
 //     'Content-Type': 'application/json'
 //     }
 // });
+
+const api: AxiosInstance = axios.create({
+  baseURL: 'http://40.76.110.239:3001/',
+  headers: {
+    'Content-Type': 'application/json'
+    }
+});
 
 export const addAuthToken = (token: string) => {
   if (token) {

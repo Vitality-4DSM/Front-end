@@ -132,25 +132,42 @@ const Modal: React.FC<ModalProps> = ({
       return;
     }
 
-    const data = {
-      identificador: stationName,
-      latitude: latitude,
-      longitude: longitude,
-      instalacao: instalacao,
-      status: estado,
-    };
-    const estacao = await postEstacoes(data);
+    let estacaoJaCadastrada = false;
 
-    const response = {
-      fk_estacao: estacao.id_estacao,
-      fk_tipo_parametro: tipoParametroEstacao,
-    };
-    await postParameter(response);
+    for (const item of estacoes) {
+        if (item.identificador === stationName) {
+            estacaoJaCadastrada = true;
+            break;
+        }
+    }
 
-    toast.success(`Estação cadastrada com sucesso!`, {
-      position: "top-right",
-    });
-    window.location.reload();
+    if (estacaoJaCadastrada) {
+      toast.error(`Estação já está cadastrada!`, {
+          position: "top-right",
+      });
+    } else {
+      const data = {
+          identificador: stationName,
+          latitude: latitude,
+          longitude: longitude,
+          instalacao: instalacao,
+          status: estado,
+          parametros: {}
+      };
+  
+      const estacao = await postEstacoes(data);
+
+      const response = {
+        fk_estacao: estacao.id_estacao,
+        fk_tipo_parametro: tipoParametroEstacao,
+      };
+      await postParameter(response);
+
+      toast.success(`Estação cadastrado com sucesso!`, {
+        position: "top-right",
+      });
+      window.location.reload();
+    }
   };
 
   const handleFormSubmitEdit = async (e: React.FormEvent) => {

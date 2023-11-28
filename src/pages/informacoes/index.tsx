@@ -106,7 +106,9 @@ const Info: React.FC = () => {
       json: json,
     };
     await putTypeParameter(data);
-    return alert("Parâmetro Editado");
+    toast.success(`Parametro Editado com sucesso!`, {
+      position: "top-right",
+    });
     
   };
 
