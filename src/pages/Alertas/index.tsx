@@ -19,59 +19,17 @@ const Alertas: React.FC = () => {
   const [Pesquisa, setPesquisa] = useState("");
   const [page, setPage] = useState(0);
   const [maxPages, setmaxPages] = useState(0);
+  const [historic, setHistoric] = useState<any[]>([]);
 
   const [page2, setPage2] = useState(0);
   const [maxPages2, setmaxPages2] = useState(0);
 
-  const [showSidebar, setShowSidebar] =
-    useState(true); /* seta o estado da sidebar */
-
+  const [showSidebar, setShowSidebar] = useState(true);
   const { token } = useLogin();
 
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar); /* logica do botão abrir e fechar a sidebar */
   };
-
-  useEffect(() => {
-    const fetchEstacoes = async () => {
-      try {
-        const response = await getAlertas();
-        setAlerta(response);
-      } catch (error) {}
-    };
-
-    fetchEstacoes();
-
-    const maxPage =
-      listaDeObjetos.length <= itemsPerPage
-        ? 1
-        : Math.ceil(listaDeObjetos.length / itemsPerPage);
-
-    setmaxPages(maxPage);
-
-    const maxPage2 =
-      alerta.length <= itemsPerPage2
-        ? 1
-        : Math.ceil(alerta.length / itemsPerPage2);
-
-    setmaxPages2(maxPage2);
-  }, []);
-
-  var ITEMS_PER_PAGE = 4;
-
-  const listaDeObjetos = [
-    { nome: "Objeto1", data: "2023-11-26" },
-    { nome: "Objeto2", data: "2023-11-27" },
-    { nome: "Objeto3", data: "2023-11-28" },
-    { nome: "Objeto4", data: "2023-11-28" },
-    { nome: "Objeto5", data: "2023-11-28" },
-    { nome: "Objeto6", data: "2023-11-28" },
-    { nome: "Objeto7", data: "2023-11-28" },
-    { nome: "Objeto8", data: "2023-11-28" },
-    { nome: "Objeto9", data: "2023-11-28" },
-    { nome: "Objeto10", data: "2023-11-28" },
-  ];
-
   const itemsPerPage = 6;
   const itemsPerPage2 = 16;
 
@@ -125,18 +83,40 @@ const Alertas: React.FC = () => {
     }
   };
 
-  const [historic, setHistoric] = useState<any[]>([]);
   useEffect(() => {
-    const fetchAlertas = async () => {      
-        try {
-          const response = await gethistoric();
-          setHistoric(response);
-        } catch (error) {
-          console.log(error);
-        }
-      };
-      fetchAlertas();
-  }, []);
+    const fetchAlertas = async () => {
+      try {
+        const response = await gethistoric();
+        setHistoric(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const fetchEstacoes = async () => {
+      try {
+        const response = await getAlertas();
+        setAlerta(response);
+      } catch (error) {
+        console.log(error)
+      }
+    };
+
+    fetchAlertas();
+    fetchEstacoes();
+
+    const maxPage =
+      historic.length <= itemsPerPage
+        ? 1
+        : Math.ceil(historic.length / itemsPerPage);
+    setmaxPages(maxPage);
+
+    const maxPage2 =
+      alerta.length <= itemsPerPage2
+        ? 1
+        : Math.ceil(alerta.length / itemsPerPage2);
+    setmaxPages2(maxPage2);
+  }, [alerta]);
 
   return (
     <>
@@ -224,37 +204,25 @@ const Alertas: React.FC = () => {
             </>
           )}
 
-          {/* 
-            // alerta.slice(startIndex, endIndex).map((item) => (
-            //   <div className="Alertas-container" key={item.id_alerta}>
-            //     <details className="details">
-            //       <summary className="summary">{item.id_alerta}</summary>
-            //       <p>
-            //         {item.valor}, {item.sinal}
-            //       </p>
-            //     </details>
-            //   </div>
-            // )) */}
-
           <div className="Alertas-container">
             <details className="details">
               <summary className="summary">Histórico de Alertas</summary>
             </details>
-            {historic.length > 0  && (
-            <div className="centraliza">
-              <div className="boxSelect">
-                <input
-                  className="pesquisaInput"
-                  type="text"
-                  placeholder="⌕ Pesquisar: "
-                  onChange={(e) => {
-                    {
-                      setPesquisa(e.target.value);
-                      resetPage();
-                    }
-                  }}
-                />
-                
+            {historic.length > 0 && (
+              <div className="centraliza">
+                <div className="boxSelect">
+                  <input
+                    className="pesquisaInput"
+                    type="text"
+                    placeholder="⌕ Pesquisar: "
+                    onChange={(e) => {
+                      {
+                        setPesquisa(e.target.value);
+                        resetPage();
+                      }
+                    }}
+                  />
+
                   <tbody>
                     <thead>
                       <tr>
@@ -307,11 +275,10 @@ const Alertas: React.FC = () => {
                       </div>
                     </div>
                   </tbody>
+                </div>
               </div>
-            </div>
             )}
           </div>
-          
         </div>
       </div>
     </>

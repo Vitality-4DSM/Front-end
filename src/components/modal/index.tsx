@@ -652,8 +652,6 @@ const Modal: React.FC<ModalProps> = ({
                     <option value=">"> Maior </option>
                     <option value="<"> Menor </option>
                     <option value="=="> Igual </option>
-                    <option value=">="> Maior igual </option>
-                    <option value="<="> Menor igual </option>
                   </select>
                 </div>
 
