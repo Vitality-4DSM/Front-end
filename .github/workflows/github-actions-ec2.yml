@@ -1,0 +1,27 @@
+name: Executar testes
+
+on:
+  
+  pull_request:
+    types:
+      - closed
+  push:
+  workflow_dispatch:
+
+jobs:
+  teste:
+    name: Executar Testes 
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout do código
+      uses: actions/checkout@v2
+
+    - name: Instalar dependências
+      run: npm install
+      
+    - name: Executar testes
+      run: |
+        cd test
+        npm test

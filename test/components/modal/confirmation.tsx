@@ -5,6 +5,5 @@ import ConfirmationModal from '../../../src/components/modal/ConfirmationModal';
 
 describe('TESTE UNITÁRIO - Inicialização do modal ConfirmationModal', () => {
     it('Deve iniciar o modal ConfirmationModal corretamente', () => {
-        // expect(ConfirmationModal);
     });
 });

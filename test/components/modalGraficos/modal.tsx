@@ -5,7 +5,5 @@ import ModalT from '../../../src/components/ModalGraficos/Modal';
 
 describe('TESTE UNITÁRIO - Inicialização do componente de ModalT', () => {
     it('Deve iniciar o modal ModalT corretamente', () => {
-        // expect(ModalT);
-        // expect(ModalT.prototype instanceof React.Component);
     });
 });
